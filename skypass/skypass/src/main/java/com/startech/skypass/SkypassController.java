@@ -107,6 +107,42 @@ public class SkypassController {
         System.out.println("Aeronave Deletada com SUCESSO!");
         return aircrafts.remove(id);
     }
-    //-----------------------------------------------------------------------------------------------------
+    
+    //--------------------------------------|FLIGHT|------------------------------------------------------
+   
+    public HashMap<String, Flight> flights = new HashMap<String, Flight>();
+
+    @PostMapping("/flights")
+    public Flight adicionarFlight (@RequestBody Flight ft){
+        flights.put(ft.getId(), ft);
+        String tamanhoLista = String.valueOf(flights.size());
+        System.out.println("Voo Cadastrado com SUCESSO!"+ " - Quantidade de Voos: " + tamanhoLista);
+        System.out.println(ft.toString());
+        return ft;
+    }
+
+    @GetMapping("/flights")
+    public Collection<Flight> getAllFlightS(){
+        return flights.values();
+    }
+
+    //@GetMapping ("/clients/{id}/compras{idCompra}")
+    @GetMapping ("/flights/{id}")
+    public Flight getFlightById(@PathVariable("id") String id){
+        return flights.get(id);
+    }
+
+    @PutMapping ("/flights/{id}")
+    public Flight atualizaFlight(@PathVariable("id") String id, @RequestBody Flight ft){
+        System.out.println("Voo Alterado com SUCESSO! "+ ft.getId() + " " + ft.getLocation());
+        return flights.put(id, ft);
+    }
+    @DeleteMapping ("/flights/{id}")
+    public Flight deletarFlightById(@PathVariable("id") String id){
+        System.out.println("Voo Deletado com SUCESSO!");
+        return flights.remove(id);
+    }
+    
+    //---------------------------------------------------------------------------------------------------------
 
 }
