@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class Aircraft {
     private String id;
+
+    private String idAirline;//(fk_Airline_Aircraft)
     private String model;
     private String numSerie;
     private String infoSystem;
@@ -22,6 +24,15 @@ public class Aircraft {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getIdAirline() {
+        return idAirline;
+    }
+
+    public void setIdAirline(String idAirline) {
+        this.idAirline = idAirline;
+    }
+
     public String getModel() {
         return model;
     }
@@ -83,6 +94,7 @@ public class Aircraft {
 
     @Builder
     public Aircraft(String id,
+                    String idAirline,
                     String model,
                     String numSerie,
                     String infoSystem,
@@ -93,6 +105,7 @@ public class Aircraft {
                     double velocity,
                     double fuel) {
         this.id = id;
+        this.idAirline = idAirline;
         this.model = model;
         this.numSerie = numSerie;
         this.infoSystem = infoSystem;
@@ -113,7 +126,8 @@ public class Aircraft {
     @Override
     public String toString() {
         return "Aircraft{" + '\'' +
-                "id='" + getId() + '\'' +
+                "id=" + getId() + '\'' +
+                "idAirline=" + getIdAirline() + '\'' +
                 "model='" + getModel() + '\'' +
                 "numSerie='" + getNumSerie() + '\'' +
                 "infoSystem='" + getInfoSystem() + '\'' +

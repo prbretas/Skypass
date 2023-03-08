@@ -6,6 +6,9 @@ import java.util.Date;
 public class Flight {
 
     private String id;
+    private String idAircraft ;//(fk_Aeronave_flight)
+    private String idAirline ; //(fk_Airline_Flight)
+
     private String location;
     private String departureTime;
     private String arrivalTime;
