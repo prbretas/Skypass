@@ -76,15 +76,37 @@ public class SkypassController {
         return adresses.remove(id);
     }
     //------------------------------------------------|AIRCRAFT|-------------------------------------------
+    public HashMap<String, Aircraft> aircrafts = new HashMap<String,Aircraft>();
 
+    @PostMapping("/aircrafts")
+    public Aircraft adicionarAircraft (@RequestBody Aircraft at){
+        aircrafts.put(at.getId(), at);
+        String tamanhoLista = String.valueOf(aircrafts.size());
+        System.out.println("Aeronave Cadastrada com SUCESSO!"+ " - Quantidade de Aeronaves: " + tamanhoLista);
+        System.out.println(at.toString());
+        return at;
+    }
 
+    @GetMapping("/aircrafts")
+    public Collection<Aircraft> getAllAircrafts(){
+        return aircrafts.values();
+    }
 
+    @GetMapping ("/aircrafts/{id}")
+    public Aircraft getAircraftById(@PathVariable("id") String id){
+        return aircrafts.get(id);
+    }
 
-
-
-
-
-
-
+    @PutMapping ("/aircrafts/{id}")
+    public Aircraft atualizaAircraft(@PathVariable("id") String id, @RequestBody Aircraft at){
+        System.out.println("Aeronave Alterada com SUCESSO! "+ at.getId() + " " + at.getModel());
+        return aircrafts.put(id,at);
+    }
+    @DeleteMapping ("/aircrafts/{id}")
+    public Aircraft deletarAircraftById(@PathVariable("id") String id){
+        System.out.println("Aeronave Deletada com SUCESSO!");
+        return aircrafts.remove(id);
+    }
+    //-----------------------------------------------------------------------------------------------------
 
 }
