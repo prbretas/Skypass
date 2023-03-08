@@ -122,7 +122,7 @@ public class SkypassController {
     }
 
     @GetMapping("/flights")
-    public Collection<Flight> getAllFlightS(){
+    public Collection<Flight> getAllFlight(){
         return flights.values();
     }
 
