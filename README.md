@@ -1,6 +1,5 @@
 # Skypass 
 Projeto Final START&lt;tech&gt;
-
 <br>
 | JAVA | MSSQLSERVER | SPRING BOOT | API |
 <br>
