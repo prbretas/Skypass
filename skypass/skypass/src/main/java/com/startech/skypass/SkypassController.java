@@ -9,7 +9,7 @@ import java.util.HashMap;
 @RestController
 public class SkypassController {
 
-    //--------------------------------------------------------------------------------------------
+    //--------------------------------------|CLIENT|------------------------------------------------------
     public HashMap<String, Client> clients = new HashMap<String,Client>();
 
     @PostMapping("/clients")
@@ -42,8 +42,7 @@ public class SkypassController {
         System.out.println("Cliente Deletado com SUCESSO!");
         return clients.remove(id);
     }
-    //--------------------------------------------------------------------------------------------
-
+    //--------------------------------------- |ADRESS| -----------------------------------------------------
     public HashMap<String, Adress> adresses = new HashMap<String,Adress>();
 
     @PostMapping("/adresses")
@@ -67,7 +66,7 @@ public class SkypassController {
 
     @PutMapping ("/adresses/{id}")
     public Adress atualizaAdress(@PathVariable("id") String id, @RequestBody Adress a){
-        System.out.println("Endereço Alterado com SUCESSO! "+ a.getId() + " " + a.getAdress());
+        System.out.println("Endereço Alterado com SUCESSO! "+ a.getId() + " " + a.getStreet());
         return adresses.put(id,a);
     }
 

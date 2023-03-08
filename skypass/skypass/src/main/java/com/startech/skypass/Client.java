@@ -1,5 +1,7 @@
 package com.startech.skypass;
 
+import lombok.Builder;
+
 import java.util.Date;
 
 public class Client {
@@ -13,9 +15,7 @@ public class Client {
     private String email;
     private String adress ; //fk_ADRESS_CLIENT
     private String birthday;
-
     private boolean ativo;
-
     public String getId() {
         return id;
     }
@@ -88,15 +88,11 @@ public class Client {
         this.birthday = birthday;
     }
 
-
     public boolean getAtivo() {
         return ativo;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
+    @Builder
     public Client(String id, String userName, String name, String lastName, String numReg, String phone, String email, String adress, String birthday) {
         this.id = id;
         this.userName = userName;
@@ -110,23 +106,33 @@ public class Client {
         this.ativo = true;
     }
 
+    @Builder
     public Client(){
 
     }
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id='" + getId() + '\'' +
-                ", userName='" + getUserName() + '\'' +
-                ", name='" + getName() + '\'' +
-                ", lastName='" + getLastName() + '\'' +
-                ", numReg='" + getNumReg() + '\'' +
-                ", phone='" + getPhone() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", adress='" + getAdress() + '\'' +
-                ", birthday=" + getBirthday() +
-                ", ativo=" + getAtivo() +
+        return "Client{" + '\'' +
+                "id=" + getId() + '\'' +
+                "userName=" + getUserName() + '\'' +
+                "name=" + getName() + '\'' +
+                "lastName=" + getLastName() + '\'' +
+                "numReg=" + getNumReg() + '\'' +
+                "phone=" + getPhone() + '\'' +
+                "email=" + getEmail() + '\'' +
+                "adress=" + getAdress() + '\'' +
+                "birthday=" + getBirthday() + '\''+
+                "ativo=" + getAtivo() +
                 '}';
     }
+
+    public boolean ativar(){
+        return this.ativo = true;
+    }
+
+    public boolean inativar(){
+        return this.ativo = false;
+    }
+
 }

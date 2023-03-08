@@ -1,8 +1,10 @@
 package com.startech.skypass;
 
+import lombok.Builder;
+
 public class Adress {
-    private String id;
-    private String adress;
+     private String id;
+    private String street;
     private int number;
     private String city;
     private String state;
@@ -18,12 +20,12 @@ public class Adress {
         this.id = id;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public int getNumber() {
@@ -70,9 +72,16 @@ public class Adress {
         return ativo;
     }
 
-    public Adress(String id, String adress, int number, String city, String state, String stateCode, String country) {
+
+    public String getFullAdress(){
+        String fullAdress = getStreet() + " " + getNumber() + " " + getCity() + " " +  getState()+ " " + getStateCode() + " " + getCountry();
+        return fullAdress;
+    }
+
+    @Builder
+    public Adress(String id, String street, int number, String city, String state, String stateCode, String country) {
         this.id = id;
-        this.adress = adress;
+        this.street = street;
         this.number = number;
         this.city = city;
         this.state = state;
@@ -80,6 +89,7 @@ public class Adress {
         this.country = country;
         this.ativo = true;
     }
+    @Builder
     public Adress() {
 
     }
@@ -88,7 +98,7 @@ public class Adress {
     public String toString() {
         return "Adress{" +'\'' +
                 "id=" + getId() + '\'' +
-                "adress=" + getAdress() + '\'' +
+                "adress=" + getStreet() + '\'' +
                 "number=" + getNumber() +
                 "city=" + getCity() + '\'' +
                 "state=" + getState() + '\'' +
