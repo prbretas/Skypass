@@ -42,14 +42,9 @@ public class Flight {
     public void setVolumePassengers(int volumePassengers) {
         this.volumePassengers = volumePassengers;
     }
-    public boolean isAtivo() {
-        return ativo;
-    }
+
     public boolean getAtivo() {
         return ativo;
-    }
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
     }
 
     @Builder
@@ -69,12 +64,12 @@ public class Flight {
 
     @Override
     public String toString() {
-        return "Flight{" +
-                "id='" + id + '\'' +
-                ", location='" + location + '\'' +
-                ", departureTime='" + departureTime + '\'' +
-                ", arrivalTime='" + arrivalTime + '\'' +
-                ", volumePassengers=" + volumePassengers +
+        return "Flight{" +'\'' +
+                "id=" + getId() + '\'' +
+                "location=" + getLocation() + '\'' +
+                "departureTime=" + getDepartureTime() + '\'' +
+                "arrivalTime=" + getArrivalTime() + '\'' +
+                "volumePassengers=" + getVolumePassengers() +
                 '}';
     }
 

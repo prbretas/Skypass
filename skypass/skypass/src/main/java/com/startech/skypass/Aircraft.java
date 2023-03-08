@@ -76,14 +76,9 @@ public class Aircraft {
     public void setFuel(double fuel) {
         this.fuel = fuel;
     }
-    public boolean isAtivo() {
-        return ativo;
-    }
+
     public boolean getAtivo() {
         return ativo;
-    }
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
     }
 
     @Builder
@@ -117,18 +112,18 @@ public class Aircraft {
 
     @Override
     public String toString() {
-        return "Aircraft{" +
-                "id='" + id + '\'' +
-                ", model='" + model + '\'' +
-                ", numSerie='" + numSerie + '\'' +
-                ", infoSystem='" + infoSystem + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
-                ", altitude=" + altitude +
-                ", cargoWeight=" + cargoWeight +
-                ", velocity=" + velocity +
-                ", fuel=" + fuel +
-                ", ativo=" + ativo +
+        return "Aircraft{" + '\'' +
+                "id='" + getId() + '\'' +
+                "model='" + getModel() + '\'' +
+                "numSerie='" + getNumSerie() + '\'' +
+                "infoSystem='" + getInfoSystem() + '\'' +
+                "latitude='" + getLatitude() + '\'' +
+                "longitude='" + getLongitude() + '\'' +
+                "altitude=" + getAltitude() +
+                "cargoWeight=" + getCargoWeight() +
+                "velocity=" + getVelocity() +
+                "fuel=" + getFuel() +
+                "ativo=" + getAtivo() +
                 '}';
     }
 
