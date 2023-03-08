@@ -142,7 +142,72 @@ public class SkypassController {
         System.out.println("Voo Deletado com SUCESSO!");
         return flights.remove(id);
     }
-    
-    //---------------------------------------------------------------------------------------------------------
 
+        //--------------------------------------|AIRLINE|------------------------------------------------------
+    public HashMap<String, Airline> airlines = new HashMap<String,Airline>();
+
+    @PostMapping("/airlines")
+    public Airline adicionarCiaAerea (@RequestBody Airline al ){
+        Airline.put(al.getId(),al);
+        String tamanhoLista = String.valueOf(Airline.size());
+        System.out.println("Cia Aérea Cadastrada com SUCESSO!" + tamanhoLista);
+        System.out.println( al.toString());
+        return al;
+    }
+
+    @GetMapping("/airlines")
+    public Collection<Airline> getCiaAerea(){
+        HashMap<Object, Object> Airline;
+        return List.of(java.Airline.values());
+    }
+
+    @GetMapping ("/airlines/{id}")
+    public Airline getCiaAerea(@PathVariable("id") String id){
+        return Airline.get(id);
+    }
+
+    @PutMapping ("/airlines/{id}")
+    public Airline Airline (@PathVariable("id") String id, @RequestBody Airline al){
+        System.out.println("Cia aérea Alterada com SUCESSO! "+ al.getId() + " " + al.getCompanyName());
+        return airlines.put(id,al);
+    }
+    @DeleteMapping ("/airlines/{id}")
+    public Airline deletarAirlineById(@PathVariable("id") String id){
+        System.out.println("Cia aérea Deletada com SUCESSO!");
+        return airlines.remove(id);
+    }
+
+    //--------------------------------------- |ADRESS| -----------------------------------------------------
+    public HashMap<String, Airport> airports = new HashMap<String,Airport>();
+
+    @PostMapping("/airports")
+    public Airport adicionarAirport (@RequestBody Airport ap){
+        airports.put(ap.getId(),ap);
+        String tamanhoLista = String.valueOf(airports.size());
+        System.out.println("Aeroporto Cadastrado com SUCESSO!"+ " - Quantidade de Aeroportos: " + tamanhoLista);
+        System.out.println( ap.toString());
+        return ap;
+    }
+
+    @GetMapping("/airports")
+    public Collection<Airport> getAllAirports(){
+        return airports.values();
+    }
+
+    @GetMapping ("/airports/{id}")
+    public Airport getAirportById(@PathVariable("id") String id){
+        return airports.get(id);
+    }
+
+    @PutMapping ("/airports/{id}")
+    public Airport atualizaAirport(@PathVariable("id") String id, @RequestBody Airport ap){
+        System.out.println("Aeroporto alterado com SUCESSO! "+ ap.getId() + " " + ap.getStreet());
+        return airports.put(id,ap);
+    }
+
+    @DeleteMapping ("/airports/{id}")
+    public Airport deletarAirportById(@PathVariable("id") String id){
+        System.out.println("Aeroporto deletado com SUCESSO!");
+        return airports.remove(id);
+    }
 }
