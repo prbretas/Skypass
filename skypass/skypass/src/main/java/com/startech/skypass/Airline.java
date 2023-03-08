@@ -1,4 +1,4 @@
-import javax.print.DocFlavor;
+package com.startech.skypass;
 
 public class Airline {
     private String id;
@@ -10,6 +10,13 @@ public class Airline {
 
     private boolean ativo;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getIdAdress() {
         return idAdress;
     }
@@ -18,15 +25,7 @@ public class Airline {
         this.idAdress = idAdress;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCompanyName() {
+       public String getCompanyName() {
         return companyName;
     }
 
@@ -62,14 +61,15 @@ public class Airline {
         return ativo;
     }
 
-    public Airline(String id, String idAdress, String companyName, String numReg, String phone, String email, boolean ativo) {
+    public Airline(String id, String idAdress, String companyName, String numReg, String phone,
+                   String email) {
         this.id = id;
         this.idAdress = idAdress;
         this.companyName = companyName;
         this.numReg = numReg;
         this.phone = phone;
         this.email = email;
-        this.ativo = ativo;
+        this.ativo = true;
     }
 
     public Airline() {
@@ -79,13 +79,13 @@ public class Airline {
 
     @Override
     public String toString() {
-        return "Airline{" +
-                "id='" + id + '\'' +
-                ", companyName='" + companyName + '\'' +
-                ", numReg='" + numReg + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", ativo=" + ativo +
+        return "Airline{" +'\'' +
+                "id='" + getId() + '\'' +
+                "companyName='" + getCompanyName() + '\'' +
+                "numReg='" + getNumReg() + '\'' +
+                "phone='" + getPhone() + '\'' +
+                "email='" + getEmail() + '\'' +
+                "ativo=" + getAtivo() +
                 '}';
     }
 

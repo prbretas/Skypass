@@ -1,6 +1,5 @@
 package com.startech.skypass;
 
-import com.startech.skypass.Client;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -107,9 +106,9 @@ public class SkypassController {
         System.out.println("Aeronave Deletada com SUCESSO!");
         return aircrafts.remove(id);
     }
-    
+
     //--------------------------------------|FLIGHT|------------------------------------------------------
-   
+
     public HashMap<String, Flight> flights = new HashMap<String, Flight>();
 
     @PostMapping("/flights")
@@ -126,7 +125,7 @@ public class SkypassController {
         return flights.values();
     }
 
-    //@GetMapping ("/clients/{id}/compras{idCompra}")
+
     @GetMapping ("/flights/{id}")
     public Flight getFlightById(@PathVariable("id") String id){
         return flights.get(id);
@@ -143,13 +142,13 @@ public class SkypassController {
         return flights.remove(id);
     }
 
-        //--------------------------------------|AIRLINE|------------------------------------------------------
+    //--------------------------------------|AIRLINE|------------------------------------------------------
     public HashMap<String, Airline> airlines = new HashMap<String,Airline>();
 
     @PostMapping("/airlines")
     public Airline adicionarCiaAerea (@RequestBody Airline al ){
-        Airline.put(al.getId(),al);
-        String tamanhoLista = String.valueOf(Airline.size());
+        airlines.put(al.getId(),al);
+        String tamanhoLista = String.valueOf(airlines.size());
         System.out.println("Cia Aérea Cadastrada com SUCESSO!" + tamanhoLista);
         System.out.println( al.toString());
         return al;
@@ -158,22 +157,22 @@ public class SkypassController {
     @GetMapping("/airlines")
     public Collection<Airline> getCiaAerea(){
         HashMap<Object, Object> Airline;
-        return List.of(java.Airline.values());
+        return airlines.values();
     }
 
     @GetMapping ("/airlines/{id}")
-    public Airline getCiaAerea(@PathVariable("id") String id){
-        return Airline.get(id);
+    public Airline getAirlinesById(@PathVariable("id") String id){
+        return airlines.get(id);
     }
 
     @PutMapping ("/airlines/{id}")
-    public Airline Airline (@PathVariable("id") String id, @RequestBody Airline al){
-        System.out.println("Cia aérea Alterada com SUCESSO! "+ al.getId() + " " + al.getCompanyName());
+    public Airline atualizarAirline (@PathVariable("id") String id, @RequestBody Airline al){
+        System.out.println("Cia Aérea Alterada com SUCESSO! "+ al.getId() + " " + al.getCompanyName());
         return airlines.put(id,al);
     }
     @DeleteMapping ("/airlines/{id}")
     public Airline deletarAirlineById(@PathVariable("id") String id){
-        System.out.println("Cia aérea Deletada com SUCESSO!");
+        System.out.println("Cia Aérea Deletada com SUCESSO!");
         return airlines.remove(id);
     }
 
@@ -200,8 +199,8 @@ public class SkypassController {
     }
 
     @PutMapping ("/airports/{id}")
-    public Airport atualizaAirport(@PathVariable("id") String id, @RequestBody Airport ap){
-        System.out.println("Aeroporto alterado com SUCESSO! "+ ap.getId() + " " + ap.getStreet());
+    public Airport atualizarAirport(@PathVariable("id") String id, @RequestBody Airport ap){
+        System.out.println("Aeroporto alterado com SUCESSO! "+ ap.getId() + " " + ap.getName());
         return airports.put(id,ap);
     }
 

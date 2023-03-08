@@ -1,4 +1,4 @@
-import javax.print.DocFlavor;
+package com.startech.skypass;
 
 public class Airport {
     private String id;
@@ -69,7 +69,7 @@ public class Airport {
         this.iataCode = iataCode;
         this.phone = phone;
         this.email = email;
-        this.ativo = ativo;
+        this.ativo = true;
     }
 
 
@@ -78,14 +78,14 @@ public class Airport {
 
     @Override
     public String toString() {
-        return "Airport{" +
-                "id='" + id + '\'' +
-                ", idAdress='" + idAdress + '\'' +
-                ", name='" + name + '\'' +
-                ", iataCode='" + iataCode + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", ativo=" + ativo +
+        return "Airport{" + '\'' +
+                "id='" + getId() + '\'' +
+                "idAdress='" + getIdAdress() + '\'' +
+                "name='" + getName() + '\'' +
+                "iataCode='" + getIataCode() + '\'' +
+                "phone='" + getPhone() + '\'' +
+                "email='" + getEmail() + '\'' +
+                "ativo=" + getAtivo() +
                 '}';
     }
 

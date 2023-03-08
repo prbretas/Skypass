@@ -91,6 +91,7 @@ public class Ticket {
         WeightLuggage = weightLuggage;
         this.date = date;
         this.ticketPrice = ticketPrice;
+        this.ativo = true;
     }
 
     public Ticket() {
