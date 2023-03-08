@@ -3,17 +3,13 @@ package com.startech.skypass;
 import lombok.Builder;
 import java.util.Date;
 
-public class Aircraft {
+public class Flight {
+
     private String id;
-    private String model;
-    private String numSerie;
-    private String infoSystem;
-    private String latitude;
-    private String longitude;
-    private double altitude;
-    private double cargoWeight;
-    private double velocity;
-    private double fuel;
+    private String location;
+    private String departureTime;
+    private String arrivalTime;
+    private int volumePassengers;
     private boolean ativo;
 
     public String getId() {
@@ -22,59 +18,29 @@ public class Aircraft {
     public void setId(String id) {
         this.id = id;
     }
-    public String getModel() {
-        return model;
+    public String getLocation() {
+        return location;
     }
-    public void setModel(String model) {
-        this.model = model;
+    public void setLocation(String location) {
+        this.location = location;
     }
-    public String getNumSerie() {
-        return numSerie;
+    public String getDepartureTime() {
+        return departureTime;
     }
-    public void setNumSerie(String numSerie) {
-        this.numSerie = numSerie;
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
     }
-    public String getInfoSystem() {
-        return infoSystem;
+    public String getArrivalTime() {
+        return arrivalTime;
     }
-    public void setInfoSystem(String infoSystem) {
-        this.infoSystem = infoSystem;
+    public void setArrivalTime(String arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
-    public String getLatitude() {
-        return latitude;
+    public int getVolumePassengers() {
+        return volumePassengers;
     }
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-    public String getLongitude() {
-        return longitude;
-    }
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-    public double getAltitude() {
-        return altitude;
-    }
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
-    }
-    public double getCargoWeight() {
-        return cargoWeight;
-    }
-    public void setCargoWeight(double cargoWeight) {
-        this.cargoWeight = cargoWeight;
-    }
-    public double getVelocity() {
-        return velocity;
-    }
-    public void setVelocity(double velocity) {
-        this.velocity = velocity;
-    }
-    public double getFuel() {
-        return fuel;
-    }
-    public void setFuel(double fuel) {
-        this.fuel = fuel;
+    public void setVolumePassengers(int volumePassengers) {
+        this.volumePassengers = volumePassengers;
     }
     public boolean isAtivo() {
         return ativo;
@@ -87,48 +53,28 @@ public class Aircraft {
     }
 
     @Builder
-    public Aircraft(String id,
-                    String model,
-                    String numSerie,
-                    String infoSystem,
-                    String latitude,
-                    String longitude,
-                    double altitude,
-                    double cargoWeight,
-                    double velocity,
-                    double fuel) {
+    public Flight(String id, String location, String departureTime, String arrivalTime, int volumePassengers) {
         this.id = id;
-        this.model = model;
-        this.numSerie = numSerie;
-        this.infoSystem = infoSystem;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.altitude = altitude;
-        this.cargoWeight = cargoWeight;
-        this.velocity = velocity;
-        this.fuel = fuel;
+        this.location = location;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.volumePassengers = volumePassengers;
         this.ativo = true;
     }
 
     @Builder
-    public Aircraft() {
+    public Flight() {
 
     }
 
     @Override
     public String toString() {
-        return "Aircraft{" +
+        return "Flight{" +
                 "id='" + id + '\'' +
-                ", model='" + model + '\'' +
-                ", numSerie='" + numSerie + '\'' +
-                ", infoSystem='" + infoSystem + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
-                ", altitude=" + altitude +
-                ", cargoWeight=" + cargoWeight +
-                ", velocity=" + velocity +
-                ", fuel=" + fuel +
-                ", ativo=" + ativo +
+                ", location='" + location + '\'' +
+                ", departureTime='" + departureTime + '\'' +
+                ", arrivalTime='" + arrivalTime + '\'' +
+                ", volumePassengers=" + volumePassengers +
                 '}';
     }
 
@@ -138,4 +84,5 @@ public class Aircraft {
     public boolean inativar(){
         return this.ativo = false;
     }
+
 }
