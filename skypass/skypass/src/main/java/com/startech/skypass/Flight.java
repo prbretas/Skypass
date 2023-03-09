@@ -12,7 +12,7 @@ public class Flight {
     private String location;
     private String departureTime;
     private String arrivalTime;
-    private int volumePassengers;
+    private int volumePassengers; // quantidade de assentos true do aviao
     private boolean ativo;
 
     public String getId() {
@@ -21,6 +21,23 @@ public class Flight {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getIdAircraft() {
+        return idAircraft;
+    }
+
+    public void setIdAircraft(String idAircraft) {
+        this.idAircraft = idAircraft;
+    }
+
+    public String getIdAirline() {
+        return idAirline;
+    }
+
+    public void setIdAirline(String idAirline) {
+        this.idAirline = idAirline;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -51,8 +68,10 @@ public class Flight {
     }
 
     @Builder
-    public Flight(String id, String location, String departureTime, String arrivalTime, int volumePassengers) {
+    public Flight(String id, String idAirline, String idAircraft, String location, String departureTime, String arrivalTime, int volumePassengers) {
         this.id = id;
+        this.idAirline =idAirline;
+        this.idAircraft = idAircraft;
         this.location = location;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
@@ -67,13 +86,13 @@ public class Flight {
 
     @Override
     public String toString() {
-        return "Flight{" +'\'' +
-                "id=" + getId() + '\'' +
-                "location=" + getLocation() + '\'' +
-                "departureTime=" + getDepartureTime() + '\'' +
-                "arrivalTime=" + getArrivalTime() + '\'' +
-                "volumePassengers=" + getVolumePassengers() +
-                '}';
+        return "\nFlight{" +
+                "\nid=" + getId() +
+                "\nlocation=" + getLocation() +
+                "\ndepartureTime=" + getDepartureTime() +
+                "\narrivalTime=" + getArrivalTime() +
+                "\nvolumePassengers=" + getVolumePassengers() +
+                "\n}";
     }
 
     public boolean ativar(){

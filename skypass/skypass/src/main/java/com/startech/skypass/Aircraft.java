@@ -5,17 +5,22 @@ import java.util.Date;
 
 public class Aircraft {
     private String id;
-
     private String idAirline;//(fk_Airline_Aircraft)
     private String model;
     private String numSerie;
     private String infoSystem;
     private String latitude;
     private String longitude;
+    private int numSeats;
+    private int numEconomicSeats;
+    private int numExecutiveSeats;
+    private int numFirstClassSeats;
     private double altitude;
     private double cargoWeight;
     private double velocity;
     private double fuel;
+
+    private double range;
     private boolean ativo;
 
     public String getId() {
@@ -63,6 +68,24 @@ public class Aircraft {
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
+
+    public int getNumSeats() {
+        return numSeats;
+    }
+    public void setNumSeats(int numSeats) {
+        this.numSeats = calcularSeatsClass(numSeats);
+    }
+
+    public int getNumEconomicSeats() {
+        return numEconomicSeats;
+    }
+    public int getNumExecutiveSeats() {
+        return numExecutiveSeats;
+    }
+    public int getNumFirstClassSeats() {
+        return numFirstClassSeats;
+    }
+
     public double getAltitude() {
         return altitude;
     }
@@ -88,6 +111,14 @@ public class Aircraft {
         this.fuel = fuel;
     }
 
+    public double getRange() {
+        return range;
+    }
+
+    public void setRange(double range) {
+        this.range = range;
+    }
+
     public boolean getAtivo() {
         return ativo;
     }
@@ -100,21 +131,25 @@ public class Aircraft {
                     String infoSystem,
                     String latitude,
                     String longitude,
+                    int numSeats,
                     double altitude,
                     double cargoWeight,
                     double velocity,
-                    double fuel) {
+                    double fuel,
+                    double range) {
         this.id = id;
         this.idAirline = idAirline;
         this.model = model;
         this.numSerie = numSerie;
         this.infoSystem = infoSystem;
+        this.numSeats = numSeats;
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
         this.cargoWeight = cargoWeight;
         this.velocity = velocity;
         this.fuel = fuel;
+        this.range = range;
         this.ativo = true;
     }
 
@@ -125,20 +160,22 @@ public class Aircraft {
 
     @Override
     public String toString() {
-        return "Aircraft{" + '\'' +
-                "id=" + getId() + '\'' +
-                "idAirline=" + getIdAirline() + '\'' +
-                "model='" + getModel() + '\'' +
-                "numSerie='" + getNumSerie() + '\'' +
-                "infoSystem='" + getInfoSystem() + '\'' +
-                "latitude='" + getLatitude() + '\'' +
-                "longitude='" + getLongitude() + '\'' +
-                "altitude=" + getAltitude() +
-                "cargoWeight=" + getCargoWeight() +
-                "velocity=" + getVelocity() +
-                "fuel=" + getFuel() +
-                "ativo=" + getAtivo() +
-                '}';
+        return "\nAircraft{" +
+                "\nid=" + getId() +
+                "\nidAirline=" + getIdAirline() +
+                "\nmodel='" + getModel() +
+                "\nnumSerie='" + getNumSerie() +
+                "\ninfoSystem='" + getInfoSystem() +
+                "\nlatitude='" + getLatitude() +
+                "\nlongitude='" + getLongitude() +
+                "\nnumSeats=" + getNumSeats() +
+                "\naltitude=" + getAltitude() +
+                "\ncargoWeight=" + getCargoWeight() +
+                "\nvelocity=" + getVelocity() +
+                "\nfuel=" + getFuel() +
+                "\nrange=" + getRange() +
+                "\nativo=" + getAtivo() +
+                "\n}";
     }
 
     public boolean ativar(){
@@ -147,4 +184,22 @@ public class Aircraft {
     public boolean inativar(){
         return this.ativo = false;
     }
+
+
+    public int calcularSeatsClass(int numSeats){
+        this.numSeats = numSeats;
+        this.numEconomicSeats = (int) (numSeats * 0.7);
+        this.numExecutiveSeats = (int) (numSeats * 0.2);
+        this.numFirstClassSeats = (int) (numSeats * 0.1);
+        return  numSeats;
+    }
+
+    public void mostrarSeatsClass(){
+        System.out.println("\nA quantidade de poltranas são:"
+                + "\n- Economica: " + getNumEconomicSeats()
+                + "\n- Executiva: " + getNumExecutiveSeats()
+                + "\n- Primeira Classe: " + getNumFirstClassSeats()
+                + "\n- Total de Poltronas: " + getNumSeats());
+    }
+
 }

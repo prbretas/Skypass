@@ -113,18 +113,18 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" + '\'' +
-                "id=" + getId() + '\'' +
-                "userName=" + getUserName() + '\'' +
-                "name=" + getName() + '\'' +
-                "lastName=" + getLastName() + '\'' +
-                "numReg=" + getNumReg() + '\'' +
-                "phone=" + getPhone() + '\'' +
-                "email=" + getEmail() + '\'' +
-                "adress=" + getAdress() + '\'' +
-                "birthday=" + getBirthday() + '\''+
-                "ativo=" + getAtivo() +
-                '}';
+        return "\nClient{" +
+                "\nid=" + getId() +
+                "\nuserName=" + getUserName() +
+                "\nname=" + getName() +
+                "\nlastName=" + getLastName() +
+                "\nnumReg=" + getNumReg() +
+                "\nphone=" + getPhone() +
+                "\nemail=" + getEmail() +
+                "\nadress=" + getAdress() +
+                "\nbirthday=" + getBirthday() +
+                "\nativo=" + getAtivo() +
+                "\n}";
     }
 
     public boolean ativar(){

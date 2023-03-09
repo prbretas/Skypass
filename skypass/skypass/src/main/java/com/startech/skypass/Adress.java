@@ -1,7 +1,5 @@
 package com.startech.skypass;
 
-import lombok.Builder;
-
 public class Adress {
      private String id;
     private String street;
@@ -73,12 +71,6 @@ public class Adress {
     }
 
 
-    public String getFullAdress(){
-        String fullAdress = getStreet() + " " + getNumber() + " " + getCity() + " " +  getState()+ " " + getStateCode() + " " + getCountry();
-        return fullAdress;
-    }
-
-    @Builder
     public Adress(String id, String street, int number, String city, String state, String stateCode, String country) {
         this.id = id;
         this.street = street;
@@ -89,22 +81,22 @@ public class Adress {
         this.country = country;
         this.ativo = true;
     }
-    @Builder
+
     public Adress() {
 
     }
 
     @Override
     public String toString() {
-        return "Adress{" +'\'' +
-                "id=" + getId() + '\'' +
-                "adress=" + getStreet() + '\'' +
-                "number=" + getNumber() +
-                "city=" + getCity() + '\'' +
-                "state=" + getState() + '\'' +
-                "stateCode=" + getStateCode() + '\'' +
-                "country=" + getCountry() + '\'' +
-                '}';
+        return "\nAdress{" +
+                "\nid=" + getId() +
+                "\nadress=" + getStreet() +
+                "\nnumber=" + getNumber() +
+                "\ncity=" + getCity() +
+                "\nstate=" + getState() +
+                "\nstateCode=" + getStateCode() +
+                "\ncountry=" + getCountry() +
+                "\n}";
     }
 
     public boolean ativar(){
@@ -113,6 +105,16 @@ public class Adress {
 
     public boolean inativar(){
         return this.ativo = false;
+    }
+
+    public void getFullAdress(){
+        System.out.println("\nO endereço completo é:"
+                + "\n- Rua: " + getStreet()
+                + "\n- Número: " + getNumber()
+                + "\n- Cidade: " + getCity()
+                + "\n- Estado: " + getState()
+                + "\n- UF: " + getStateCode()
+                + "\n- País: " + getCountry());
     }
 
 }

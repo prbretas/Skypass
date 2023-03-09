@@ -3,9 +3,11 @@ package com.startech.skypass;
 public class Ticket {
 
     private String id;
-    private String idFlight; //(fk_Flight_Ticket)
     private String idClient; //(fk_Client_Ticket)
-    private Category category; //( ECONOMICA/ ECONOMICA PREMIUM/ EXECUTIVA/ 1ª CLASSE)
+    private String idFlight; //(fk_Flight_Ticket)
+    private String idSeat;
+
+    private Category category; //( ECONOMICA/ EXECUTIVA/ PRIMEIRA_CLASSE)
     private int amoutLuggage;
     private double WeightLuggage;
     private String date;
@@ -20,6 +22,13 @@ public class Ticket {
         this.id = id;
     }
 
+    public String getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(String idClient) {
+        this.idClient = idClient;
+    }
     public String getIdFlight() {
         return idFlight;
     }
@@ -28,12 +37,12 @@ public class Ticket {
         this.idFlight = idFlight;
     }
 
-    public String getIdClient() {
-        return idClient;
+    public String getIdSeat() {
+        return idSeat;
     }
 
-    public void setIdClient(String idClient) {
-        this.idClient = idClient;
+    public void setIdSeat(String idSeat) {
+        this.idSeat = idSeat;
     }
 
     public Category getCategory() {
@@ -81,11 +90,12 @@ public class Ticket {
     }
 
 
-    public Ticket(String id, String idFlight, String idClient, Category category, int amoutLuggage,
+    public Ticket(String id,  String idClient, String idFlight, String idSeat, Category category, int amoutLuggage,
                   double weightLuggage, String date, double ticketPrice) {
         this.id = id;
-        this.idFlight = idFlight;
         this.idClient = idClient;
+        this.idFlight = idFlight;
+        this.idSeat = idSeat;
         this.category = category;
         this.amoutLuggage = amoutLuggage;
         WeightLuggage = weightLuggage;
@@ -100,17 +110,18 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" + '\'' +
-                "id=" + getId() + '\'' +
-                "idFlight=" + getIdFlight() + '\'' +
-                "idClient=" + getIdClient() + '\'' +
-                "category=" + getCategory() +
-                "amoutLuggage=" + getAmoutLuggage() +
-                "WeightLuggage=" + getWeightLuggage() +
-                "date=" + getDate() + '\'' +
-                "ticketPrice=" + getTicketPrice() +
-                "ativo=" + getAtivo() +
-                '}';
+        return "\nTicket{" +
+                "\nid=" + getId() +
+                "\nidClient=" + getIdClient() +
+                "\nidFlight=" + getIdFlight() +
+                "\nidSeat=" + getIdSeat() +
+                "\ncategory=" + getCategory() +
+                "\namoutLuggage=" + getAmoutLuggage() +
+                "\nWeightLuggage=" + getWeightLuggage() +
+                "\ndate=" + getDate() +
+                "\nticketPrice=" + getTicketPrice() +
+                "\nativo=" + getAtivo() +
+                "\n}";
     }
 
     public boolean ativar(){
@@ -119,4 +130,6 @@ public class Ticket {
     public boolean inativar(){
         return this.ativo = false;
     }
+
+
 }

@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SkypassApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SkypassApplication.class, args);
+			SpringApplication.run(SkypassApplication.class, args);
 	}
 
 }

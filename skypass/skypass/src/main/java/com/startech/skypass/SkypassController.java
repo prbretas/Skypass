@@ -33,7 +33,7 @@ public class SkypassController {
 
     @PutMapping ("/clients/{id}")
     public Client atualizaCliente(@PathVariable("id") String id, @RequestBody Client c){
-        System.out.println("Cliente Alterado com SUCESSO! "+ c.getId() + " " + c.getUserName());
+        System.out.println("Cliente Alterado com SUCESSO!\n Id:"+ c.getId() + " userName:" + c.getUserName());
         return clients.put(id,c);
     }
     @DeleteMapping ("/clients/{id}")
@@ -49,7 +49,8 @@ public class SkypassController {
         adresses.put(a.getId(),a);
         String tamanhoLista = String.valueOf(adresses.size());
         System.out.println("Endereço Cadastrado com SUCESSO!"+ " - Quantidade de Endereços: " + tamanhoLista);
-        System.out.println( a.toString());
+        System.out.println(a.toString());
+        a.getFullAdress();
         return a;
     }
 
@@ -65,7 +66,7 @@ public class SkypassController {
 
     @PutMapping ("/adresses/{id}")
     public Adress atualizaAdress(@PathVariable("id") String id, @RequestBody Adress a){
-        System.out.println("Endereço Alterado com SUCESSO! "+ a.getId() + " " + a.getStreet());
+        System.out.println("Endereço Alterado com SUCESSO!\n Id:"+ a.getId() + " Endereço:" + a.getStreet() +", "+ a.getNumber());
         return adresses.put(id,a);
     }
 
@@ -83,6 +84,7 @@ public class SkypassController {
         String tamanhoLista = String.valueOf(aircrafts.size());
         System.out.println("Aeronave Cadastrada com SUCESSO!"+ " - Quantidade de Aeronaves: " + tamanhoLista);
         System.out.println(at.toString());
+        at.mostrarSeatsClass();
         return at;
     }
 
@@ -98,7 +100,7 @@ public class SkypassController {
 
     @PutMapping ("/aircrafts/{id}")
     public Aircraft atualizaAircraft(@PathVariable("id") String id, @RequestBody Aircraft at){
-        System.out.println("Aeronave Alterada com SUCESSO! "+ at.getId() + " " + at.getModel());
+        System.out.println("Aeronave Alterada com SUCESSO!\n Id:"+ at.getId() + " - Modelo:" + at.getModel());
         return aircrafts.put(id,at);
     }
     @DeleteMapping ("/aircrafts/{id}")
@@ -133,7 +135,7 @@ public class SkypassController {
 
     @PutMapping ("/flights/{id}")
     public Flight atualizaFlight(@PathVariable("id") String id, @RequestBody Flight ft){
-        System.out.println("Vôo Alterado com SUCESSO! "+ ft.getId() + " " + ft.getLocation());
+        System.out.println("Vôo Alterado com SUCESSO!\n Id:"+ ft.getId() + " Localização" + ft.getLocation());
         return flights.put(id, ft);
     }
     @DeleteMapping ("/flights/{id}")
@@ -150,7 +152,7 @@ public class SkypassController {
         airlines.put(al.getId(),al);
         String tamanhoLista = String.valueOf(airlines.size());
         System.out.println("Cia Aérea Cadastrada com SUCESSO!" + tamanhoLista);
-        System.out.println( al.toString());
+        System.out.println(al.toString());
         return al;
     }
 
@@ -167,7 +169,7 @@ public class SkypassController {
 
     @PutMapping ("/airlines/{id}")
     public Airline atualizarAirline (@PathVariable("id") String id, @RequestBody Airline al){
-        System.out.println("Cia Aérea Alterada com SUCESSO! "+ al.getId() + " " + al.getCompanyName());
+        System.out.println("Cia Aérea Alterada com SUCESSO!\n Id:"+ al.getId() + " Compania:" + al.getCompanyName());
         return airlines.put(id,al);
     }
     @DeleteMapping ("/airlines/{id}")
@@ -184,7 +186,7 @@ public class SkypassController {
         airports.put(ap.getId(),ap);
         String tamanhoLista = String.valueOf(airports.size());
         System.out.println("Aeroporto Cadastrado com SUCESSO!"+ " - Quantidade de Aeroportos: " + tamanhoLista);
-        System.out.println( ap.toString());
+        System.out.println(ap.toString());
         return ap;
     }
 
@@ -200,7 +202,7 @@ public class SkypassController {
 
     @PutMapping ("/airports/{id}")
     public Airport atualizarAirport(@PathVariable("id") String id, @RequestBody Airport ap){
-        System.out.println("Aeroporto alterado com SUCESSO! "+ ap.getId() + " " + ap.getName());
+        System.out.println("Aeroporto alterado com SUCESSO!\n Id:"+ ap.getId() + " Nome:" + ap.getName());
         return airports.put(id,ap);
     }
 
@@ -219,7 +221,7 @@ public class SkypassController {
         tickets.put(tk.getId(),tk);
         String tamanhoLista = String.valueOf(tickets.size());
         System.out.println("Passagem Cadastrada com SUCESSO!"+ " - Quantidade de Passagens: " + tamanhoLista);
-        System.out.println( tk.toString());
+        System.out.println(tk.toString());
         return tk;
     }
 
@@ -235,7 +237,7 @@ public class SkypassController {
 
     @PutMapping ("/tickets/{id}")
     public Ticket atualizarTicket(@PathVariable("id") String id, @RequestBody Ticket tk){
-        System.out.println("Passagem alterada com SUCESSO! "+ tk.getId() + " " + tk.getIdFlight());
+        System.out.println("Passagem alterada com SUCESSO!\n Id:"+ tk.getId() + " Nª do Vôo:" + tk.getIdFlight());
         return tickets.put(id,tk);
     }
 
