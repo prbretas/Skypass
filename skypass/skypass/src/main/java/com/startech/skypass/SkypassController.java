@@ -16,7 +16,7 @@ public class SkypassController {
         clients.put(c.getId(),c);
         String tamanhoLista = String.valueOf(clients.size());
         System.out.println("Cliente Cadastrado com SUCESSO!"+ " - Quantidade de Clientes: " + tamanhoLista);
-        System.out.println( c.toString());
+        System.out.println(c.toString());
         return c;
     }
 
@@ -74,7 +74,7 @@ public class SkypassController {
         System.out.println("Endereço Deletado com SUCESSO!");
         return adresses.remove(id);
     }
-    //------------------------------------------------|AIRCRAFT|-------------------------------------------
+    //----------------------------------|AIRCRAFT|-------------------------------------------
     public HashMap<String, Aircraft> aircrafts = new HashMap<String,Aircraft>();
 
     @PostMapping("/aircrafts")
@@ -107,7 +107,7 @@ public class SkypassController {
         return aircrafts.remove(id);
     }
 
-    //--------------------------------------|FLIGHT|------------------------------------------------------
+    //-------------------------------------|FLIGHT|------------------------------------------------------
 
     public HashMap<String, Flight> flights = new HashMap<String, Flight>();
 
@@ -133,12 +133,12 @@ public class SkypassController {
 
     @PutMapping ("/flights/{id}")
     public Flight atualizaFlight(@PathVariable("id") String id, @RequestBody Flight ft){
-        System.out.println("Voo Alterado com SUCESSO! "+ ft.getId() + " " + ft.getLocation());
+        System.out.println("Vôo Alterado com SUCESSO! "+ ft.getId() + " " + ft.getLocation());
         return flights.put(id, ft);
     }
     @DeleteMapping ("/flights/{id}")
     public Flight deletarFlightById(@PathVariable("id") String id){
-        System.out.println("Voo Deletado com SUCESSO!");
+        System.out.println("Vôo Deletado com SUCESSO!");
         return flights.remove(id);
     }
 
@@ -176,7 +176,7 @@ public class SkypassController {
         return airlines.remove(id);
     }
 
-    //--------------------------------------- |ADRESS| -----------------------------------------------------
+    //--------------------------------------- |AIRPORT| -----------------------------------------------------
     public HashMap<String, Airport> airports = new HashMap<String,Airport>();
 
     @PostMapping("/airports")
@@ -209,4 +209,43 @@ public class SkypassController {
         System.out.println("Aeroporto deletado com SUCESSO!");
         return airports.remove(id);
     }
+
+
+    //--------------------------------------- |TICKETS| -----------------------------------------------------
+    public HashMap<String, Ticket> tickets = new HashMap<String,Ticket>();
+
+    @PostMapping("/tickets")
+    public Ticket adicionarTicket (@RequestBody Ticket tk){
+        tickets.put(tk.getId(),tk);
+        String tamanhoLista = String.valueOf(tickets.size());
+        System.out.println("Passagem Cadastrada com SUCESSO!"+ " - Quantidade de Passagens: " + tamanhoLista);
+        System.out.println( tk.toString());
+        return tk;
+    }
+
+    @GetMapping ("/tickets/{id}")
+    public Ticket getTicketById(@PathVariable("id") String id){
+        return tickets.get(id);
+    }
+
+    @GetMapping("/tickets")
+    public Collection<Ticket> getAllTickets(){
+        return tickets.values();
+    }
+
+    @PutMapping ("/tickets/{id}")
+    public Ticket atualizarTicket(@PathVariable("id") String id, @RequestBody Ticket tk){
+        System.out.println("Passagem alterada com SUCESSO! "+ tk.getId() + " " + tk.getIdFlight());
+        return tickets.put(id,tk);
+    }
+
+    @DeleteMapping ("/tickets/{id}")
+    public Ticket deletarTicketById(@PathVariable("id") String id){
+        System.out.println("Passagem deletado com SUCESSO!");
+        return tickets.remove(id);
+    }
+
+
+
+
 }
