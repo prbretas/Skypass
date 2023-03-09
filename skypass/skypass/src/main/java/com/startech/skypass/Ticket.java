@@ -9,7 +9,7 @@ public class Ticket {
 
     private Category category; //( ECONOMICA/ EXECUTIVA/ PRIMEIRA_CLASSE)
     private int amoutLuggage;
-    private double WeightLuggage;
+    private double weightLuggage;
     private String date;
     private double ticketPrice;
     private boolean ativo;
@@ -62,11 +62,11 @@ public class Ticket {
     }
 
     public double getWeightLuggage() {
-        return WeightLuggage;
+        return weightLuggage;
     }
 
     public void setWeightLuggage(double weightLuggage) {
-        WeightLuggage = weightLuggage;
+        this.weightLuggage = weightLuggage;
     }
 
     public String getDate() {
@@ -98,7 +98,7 @@ public class Ticket {
         this.idSeat = idSeat;
         this.category = category;
         this.amoutLuggage = amoutLuggage;
-        WeightLuggage = weightLuggage;
+        this.weightLuggage = weightLuggage;
         this.date = date;
         this.ticketPrice = ticketPrice;
         this.ativo = true;
@@ -117,9 +117,9 @@ public class Ticket {
                 "\nidSeat=" + getIdSeat() +
                 "\ncategory=" + getCategory() +
                 "\namoutLuggage=" + getAmoutLuggage() +
-                "\nWeightLuggage=" + getWeightLuggage() +
+                "\nweightLuggage=" + getWeightLuggage() + "kg"+
                 "\ndate=" + getDate() +
-                "\nticketPrice=" + getTicketPrice() +
+                "\nticketPrice=R$" + getTicketPrice() +
                 "\nativo=" + getAtivo() +
                 "\n}";
     }

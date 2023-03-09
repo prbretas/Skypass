@@ -4,6 +4,8 @@ public class Adress {
      private String id;
     private String street;
     private int number;
+
+    private String addInfo;
     private String city;
     private String state;
     private String stateCode;
@@ -32,6 +34,14 @@ public class Adress {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public String getAddInfo() {
+        return addInfo;
+    }
+
+    public void setAddInfo(String addInfo) {
+        this.addInfo = addInfo;
     }
 
     public String getCity() {
@@ -71,9 +81,10 @@ public class Adress {
     }
 
 
-    public Adress(String id, String street, int number, String city, String state, String stateCode, String country) {
+    public Adress(String id, String street, int number, String addInfo, String city, String state, String stateCode, String country) {
         this.id = id;
         this.street = street;
+        this.addInfo = addInfo;
         this.number = number;
         this.city = city;
         this.state = state;
@@ -90,8 +101,9 @@ public class Adress {
     public String toString() {
         return "\nAdress{" +
                 "\nid=" + getId() +
-                "\nadress=" + getStreet() +
+                "\nstreet=" + getStreet() +
                 "\nnumber=" + getNumber() +
+                "\naddInfo=" + getAddInfo() +
                 "\ncity=" + getCity() +
                 "\nstate=" + getState() +
                 "\nstateCode=" + getStateCode() +
@@ -109,12 +121,13 @@ public class Adress {
 
     public void getFullAdress(){
         System.out.println("\nO endereço completo é:"
-                + "\n- Rua: " + getStreet()
-                + "\n- Número: " + getNumber()
-                + "\n- Cidade: " + getCity()
-                + "\n- Estado: " + getState()
-                + "\n- UF: " + getStateCode()
-                + "\n- País: " + getCountry());
+                + "\n- Logradouro: " + getStreet()
+                + " Nº" + getNumber()
+                + " - " + getAddInfo()
+                + ", " + getCity()
+                + ", " + getState()
+                + "-" + getStateCode()
+                + ", " + getCountry());
     }
 
 }
