@@ -1,80 +1,116 @@
 package com.startech.skypass;
 
+import com.startech.skypass.dao.AdressDAO;
+import com.startech.skypass.dao.ClientDAO;
+import com.startech.skypass.repository.AdressRepository;
+import com.startech.skypass.repository.ClientRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class SkypassController {
 
     //--------------------------------------|CLIENT|------------------------------------------------------
-    public HashMap<String, Client> clients = new HashMap<String,Client>();
+    @Autowired
+    private ClientRepository clientRepository;
+    public List<ClientDTO> ClientsList = new ArrayList<ClientDTO>();
+    public HashMap<Integer, ClientDTO> clients = new HashMap<Integer, ClientDTO>();
 
     @PostMapping("/clients")
-    public Client adicionarCliente (@RequestBody Client c){
-        clients.put(c.getId(),c);
+    public ResponseEntity<ClientDTO> addClient (@RequestBody @Valid ClientDTO c){
+        ClientDAO clientePersisted = clientRepository.save(c.toDAO());
         String tamanhoLista = String.valueOf(clients.size());
         System.out.println("Cliente Cadastrado com SUCESSO!"+ " - Quantidade de Clientes: " + tamanhoLista);
-        System.out.println(c.toString());
-        return c;
+        System.out.println( c.toString());
+        return new ResponseEntity<ClientDTO>(clientePersisted.toDTO(), HttpStatus.CREATED);
+    }
+
+    @PutMapping ("/clients/{id}/update")
+    public ResponseEntity<ClientDTO> updateClient(@PathVariable("id") Long id, @RequestBody ClientDTO c){
+        c.setId(id);
+        ClientDAO clientUpdated = clientRepository.save(c.toDAO());
+        return new ResponseEntity<ClientDTO>(clientUpdated.toDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/clients")
-    public Collection<Client> getAllClientes(){
-        return clients.values();
+    public ResponseEntity<List<ClientDTO>> getAllClients(){
+        return ResponseEntity.ok().body(clientRepository.findAll()
+                .stream()
+                .map(clientDAO -> clientDAO.toDTO())
+                .collect(Collectors.toList()));
     }
 
-    //@GetMapping ("/clients/{id}/compras{idCompra}")
     @GetMapping ("/clients/{id}")
-    public Client getClientById(@PathVariable("id") String id){
-        return clients.get(id);
+    public ResponseEntity<ClientDTO> getClientById(@PathVariable("id") Long id){
+        Optional<ClientDAO> client = clientRepository.findById(id);
+        if (client.isPresent()){
+            return new ResponseEntity<ClientDTO>(client.get().toDTO(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PutMapping ("/clients/{id}")
-    public Client atualizaCliente(@PathVariable("id") String id, @RequestBody Client c){
-        System.out.println("Cliente Alterado com SUCESSO! "+ c.getId() + " " + c.getUserName());
-        return clients.put(id,c);
-    }
-    @DeleteMapping ("/clients/{id}")
-    public Client deletarClienteById(@PathVariable("id") String id){
-        System.out.println("Cliente Deletado com SUCESSO!");
-        return clients.remove(id);
+    @DeleteMapping ("/clients/{id}/delete")
+    public ResponseEntity<ClientDTO> deleteClientById(@PathVariable("id") Long id){
+        ClientDAO client = new ClientDAO();
+        client.setId(id);
+        clientRepository.delete(client);
+        return ResponseEntity.noContent().build();
     }
     //--------------------------------------- |ADRESS| -----------------------------------------------------
-    public HashMap<String, Adress> adresses = new HashMap<String,Adress>();
+    @Autowired
+    private AdressRepository adressRepository;
+    public List<AdressDTO> AdressList = new ArrayList<AdressDTO>();
+    public HashMap<Integer, AdressDTO> adresses = new HashMap<Integer, AdressDTO>();
 
     @PostMapping("/adresses")
-    public Adress adicionarAdress (@RequestBody Adress a){
-        adresses.put(a.getId(),a);
+    public ResponseEntity<AdressDTO> addAdress (@RequestBody @Valid AdressDTO ad){
+        AdressDAO adressPersisted = adressRepository.save(ad.toDAO());
         String tamanhoLista = String.valueOf(adresses.size());
         System.out.println("Endereço Cadastrado com SUCESSO!"+ " - Quantidade de Endereços: " + tamanhoLista);
-        System.out.println( a.toString());
-        return a;
+        System.out.println(ad.toString());
+        return new ResponseEntity<AdressDTO>(adressPersisted.toDTO(), HttpStatus.CREATED);
+    }
+
+    @PutMapping ("/adresses/{id}/update")
+    public ResponseEntity<AdressDTO> updateAdress(@PathVariable("id") Long id, @RequestBody AdressDTO ad){
+        ad.setId(id);
+        AdressDAO adressUpdated = adressRepository.save(ad.toDAO());
+        return new ResponseEntity<AdressDTO>(adressUpdated.toDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/adresses")
-    public Collection<Adress> getAllEndereços(){
-        return adresses.values();
+    public ResponseEntity<List<AdressDTO>> getAllAdresses(){
+        return ResponseEntity.ok().body(adressRepository.findAll()
+                .stream()
+                .map(adressDAO -> adressDAO.toDTO())
+                .collect(Collectors.toList()));
     }
 
     @GetMapping ("/adresses/{id}")
-    public Adress getAdressById(@PathVariable("id") String id){
-        return adresses.get(id);
+    public ResponseEntity<AdressDTO> getAdressById(@PathVariable("id") Long id){
+        Optional<AdressDAO> adress = adressRepository.findById(id);
+        if (adress.isPresent()){
+            return new ResponseEntity<AdressDTO>(adress.get().toDTO(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PutMapping ("/adresses/{id}")
-    public Adress atualizaAdress(@PathVariable("id") String id, @RequestBody Adress a){
-        System.out.println("Endereço Alterado com SUCESSO! "+ a.getId() + " " + a.getStreet());
-        return adresses.put(id,a);
+    @DeleteMapping ("/adresses/{id}/delete")
+    public ResponseEntity<AdressDTO> deleteAdressById(@PathVariable("id") Long id){
+        AdressDAO adress = new AdressDAO();
+        adress.setId(id);
+        adressRepository.delete(adress);
+        return ResponseEntity.noContent().build();
     }
-
-    @DeleteMapping ("/adresses/{id}")
-    public Adress deletarAdressById(@PathVariable("id") String id){
-        System.out.println("Endereço Deletado com SUCESSO!");
-        return adresses.remove(id);
-    }
-    //----------------------------------|AIRCRAFT|-------------------------------------------
+    //------------------------------------------------|AIRCRAFT|-------------------------------------------
     public HashMap<String, Aircraft> aircrafts = new HashMap<String,Aircraft>();
 
     @PostMapping("/aircrafts")
@@ -96,18 +132,18 @@ public class SkypassController {
         return aircrafts.get(id);
     }
 
-    @PutMapping ("/aircrafts/{id}")
+    @PutMapping ("/aircrafts/{id}/alterar")
     public Aircraft atualizaAircraft(@PathVariable("id") String id, @RequestBody Aircraft at){
         System.out.println("Aeronave Alterada com SUCESSO! "+ at.getId() + " " + at.getModel());
         return aircrafts.put(id,at);
     }
-    @DeleteMapping ("/aircrafts/{id}")
+    @DeleteMapping ("/aircrafts/{id}/excluir")
     public Aircraft deletarAircraftById(@PathVariable("id") String id){
         System.out.println("Aeronave Deletada com SUCESSO!");
         return aircrafts.remove(id);
     }
 
-    //-------------------------------------|FLIGHT|------------------------------------------------------
+    //--------------------------------------|FLIGHT|------------------------------------------------------
 
     public HashMap<String, Flight> flights = new HashMap<String, Flight>();
 
@@ -131,14 +167,14 @@ public class SkypassController {
         return flights.get(id);
     }
 
-    @PutMapping ("/flights/{id}")
+    @PutMapping ("/flights/{id}/alterar")
     public Flight atualizaFlight(@PathVariable("id") String id, @RequestBody Flight ft){
-        System.out.println("Vôo Alterado com SUCESSO! "+ ft.getId() + " " + ft.getLocation());
+        System.out.println("Voo Alterado com SUCESSO! "+ ft.getId() + " " + ft.getLocation());
         return flights.put(id, ft);
     }
-    @DeleteMapping ("/flights/{id}")
+    @DeleteMapping ("/flights/{id}/excluir")
     public Flight deletarFlightById(@PathVariable("id") String id){
-        System.out.println("Vôo Deletado com SUCESSO!");
+        System.out.println("Voo Deletado com SUCESSO!");
         return flights.remove(id);
     }
 
@@ -165,12 +201,12 @@ public class SkypassController {
         return airlines.get(id);
     }
 
-    @PutMapping ("/airlines/{id}")
+    @PutMapping ("/airlines/{id}/alterar")
     public Airline atualizarAirline (@PathVariable("id") String id, @RequestBody Airline al){
         System.out.println("Cia Aérea Alterada com SUCESSO! "+ al.getId() + " " + al.getCompanyName());
         return airlines.put(id,al);
     }
-    @DeleteMapping ("/airlines/{id}")
+    @DeleteMapping ("/airlines/{id}/excluir")
     public Airline deletarAirlineById(@PathVariable("id") String id){
         System.out.println("Cia Aérea Deletada com SUCESSO!");
         return airlines.remove(id);
@@ -198,18 +234,17 @@ public class SkypassController {
         return airports.get(id);
     }
 
-    @PutMapping ("/airports/{id}")
+    @PutMapping ("/airports/{id}/alterar")
     public Airport atualizarAirport(@PathVariable("id") String id, @RequestBody Airport ap){
         System.out.println("Aeroporto alterado com SUCESSO! "+ ap.getId() + " " + ap.getName());
         return airports.put(id,ap);
     }
 
-    @DeleteMapping ("/airports/{id}")
+    @DeleteMapping ("/airports/{id}/excluir")
     public Airport deletarAirportById(@PathVariable("id") String id){
         System.out.println("Aeroporto deletado com SUCESSO!");
         return airports.remove(id);
     }
-
 
     //--------------------------------------- |TICKETS| -----------------------------------------------------
     public HashMap<String, Ticket> tickets = new HashMap<String,Ticket>();
@@ -218,8 +253,8 @@ public class SkypassController {
     public Ticket adicionarTicket (@RequestBody Ticket tk){
         tickets.put(tk.getId(),tk);
         String tamanhoLista = String.valueOf(tickets.size());
-        System.out.println("Passagem Cadastrada com SUCESSO!"+ " - Quantidade de Passagens: " + tamanhoLista);
-        System.out.println( tk.toString());
+        System.out.println("\nPassagem Cadastrada com SUCESSO!"+ " - Quantidade de Passagens: " + tamanhoLista);
+        System.out.println(tk.toString());
         return tk;
     }
 
@@ -233,19 +268,15 @@ public class SkypassController {
         return tickets.values();
     }
 
-    @PutMapping ("/tickets/{id}")
+    @PutMapping ("/tickets/{id}/alterar")
     public Ticket atualizarTicket(@PathVariable("id") String id, @RequestBody Ticket tk){
-        System.out.println("Passagem alterada com SUCESSO! "+ tk.getId() + " " + tk.getIdFlight());
+        System.out.println("\nPassagem alterada com SUCESSO!\n Id:"+ tk.getId() + " Nª do Vôo:" + tk.getIdFlight());
         return tickets.put(id,tk);
     }
 
-    @DeleteMapping ("/tickets/{id}")
+    @DeleteMapping ("/tickets/{id}/excluir")
     public Ticket deletarTicketById(@PathVariable("id") String id){
-        System.out.println("Passagem deletado com SUCESSO!");
+        System.out.println("\nPassagem deletado com SUCESSO!");
         return tickets.remove(id);
     }
-
-
-
-
 }

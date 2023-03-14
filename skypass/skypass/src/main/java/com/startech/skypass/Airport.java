@@ -78,15 +78,15 @@ public class Airport {
 
     @Override
     public String toString() {
-        return "Airport{" + '\'' +
-                "id='" + getId() + '\'' +
-                "idAdress='" + getIdAdress() + '\'' +
-                "name='" + getName() + '\'' +
-                "iataCode='" + getIataCode() + '\'' +
-                "phone='" + getPhone() + '\'' +
-                "email='" + getEmail() + '\'' +
-                "ativo=" + getAtivo() +
-                '}';
+        return "\nAirport{" +
+                "\nid='" + getId() +
+                "\nidAdress='" + getIdAdress() +
+                "\nname='" + getName() +
+                "\niataCode='" + getIataCode() +
+                "\nphone='" + getPhone() +
+                "\nemail='" + getEmail() +
+                "\nativo=" + getAtivo() +
+                "\n}";
     }
 
     public boolean ativar() {

@@ -75,18 +75,17 @@ public class Airline {
     public Airline() {
     }
 
-    ;
 
     @Override
     public String toString() {
-        return "Airline{" +'\'' +
-                "id='" + getId() + '\'' +
-                "companyName='" + getCompanyName() + '\'' +
-                "numReg='" + getNumReg() + '\'' +
-                "phone='" + getPhone() + '\'' +
-                "email='" + getEmail() + '\'' +
-                "ativo=" + getAtivo() +
-                '}';
+        return "\nAirline{" +
+                "\nid='" + getId() +
+                "\ncompanyName='" + getCompanyName() +
+                "\nnumReg='" + getNumReg() +
+                "\nphone='" + getPhone() +
+                "\nemail='" + getEmail() +
+                "\nativo=" + getAtivo() +
+                "\n}";
     }
 
     public boolean ativar() {
