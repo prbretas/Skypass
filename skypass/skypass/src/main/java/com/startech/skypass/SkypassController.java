@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 @RestController
 public class SkypassController {
 
+   
     //--------------------------------------|CLIENT|------------------------------------------------------
     @Autowired
     private ClientRepository clientRepository;
@@ -70,7 +71,6 @@ public class SkypassController {
     @DeleteMapping("/clients/{id}/delete")
     public ResponseEntity<ClientDTO> deleteClientById(@PathVariable("id") Long id) {
         ClientDAO client = new ClientDAO();
-        client.inativar(); //--------------------- INATIVAR
         client.setId(id);
         clientRepository.delete(client);
         return ResponseEntity.noContent().build();
@@ -102,6 +102,7 @@ public class SkypassController {
     public ResponseEntity<AdressDTO> addAdress(@RequestBody @Valid AdressDTO ad) {
         AdressDAO adressPersisted = adressRepository.save(ad.toDAO());
         String tamanhoLista = String.valueOf(adressRepository.findAll().size());
+        ad.ativar();//------------------------ ATIVAR
         System.out.println("Endereço Cadastrado com SUCESSO!" + " - Quantidade de Endereços: " + tamanhoLista);
         System.out.println(ad.toString());
         return new ResponseEntity<AdressDTO>(adressPersisted.toDTO(), HttpStatus.CREATED);
@@ -141,25 +142,27 @@ public class SkypassController {
     }
 
     //------------------------------------------------|AIRCRAFT|-------------------------------------------
+
     @Autowired
     private AircraftRepository aircraftRepository;
     public List<AircraftDTO> AircraftsList = new ArrayList<AircraftDTO>();
     public HashMap<Integer, AircraftDTO> aircrafts = new HashMap<Integer, AircraftDTO>();
 
     @PostMapping("/aircrafts")
-    public ResponseEntity<AircraftDTO> addAircraft(@RequestBody @Valid AircraftDTO af) {
-        AircraftDAO aircraftPersisted = aircraftRepository.save(af.toDAO());
-        af.ativar();//------------------------ ATIVAR
+    public ResponseEntity<AircraftDTO> addAircraft(@RequestBody @Valid AircraftDTO ac) {
+        AircraftDAO aircraftPersisted = aircraftRepository.save(ac.toDAO());
+        ac.calcularSeatsClass(ac.getNumSeats());
+        ac.ativar();//------------------------ ATIVAR
         String tamanhoLista = String.valueOf(aircraftRepository.findAll().size());
         System.out.println("Aeronave Cadastrada com SUCESSO!" + " - Quantidade de Aeronaves: " + tamanhoLista);
-        System.out.println(af.toString());
+        System.out.println(ac.toString());
         return new ResponseEntity<AircraftDTO>(aircraftPersisted.toDTO(), HttpStatus.CREATED);
     }
 
     @PutMapping("/aircrafts/{id}/update")
-    public ResponseEntity<AircraftDTO> updateAircraft(@PathVariable("id") Long id, @RequestBody AircraftDTO af) {
-        af.setId(id);
-        AircraftDAO aircraftUpdated = aircraftRepository.save(af.toDAO());
+    public ResponseEntity<AircraftDTO> updateAircraft(@PathVariable("id") Long id, @RequestBody AircraftDTO ac) {
+        ac.setId(id);
+        AircraftDAO aircraftUpdated = aircraftRepository.save(ac.toDAO());
         return new ResponseEntity<AircraftDTO>(aircraftUpdated.toDTO(), HttpStatus.OK);
     }
 
@@ -184,7 +187,6 @@ public class SkypassController {
     @DeleteMapping("/aircrafts/{id}/delete")
     public ResponseEntity<AircraftDTO> deleteAircraftById(@PathVariable("id") Long id) {
         AircraftDAO aircraft = new AircraftDAO();
-        aircraft.inativar(); //--------------------- INATIVAR
         aircraft.setId(id);
         aircraftRepository.delete(aircraft);
         return ResponseEntity.noContent().build();
@@ -214,24 +216,24 @@ public class SkypassController {
     public HashMap<Integer, FlightDTO> flights = new HashMap<Integer, FlightDTO>();
 
     @PostMapping("/flights")
-    public ResponseEntity<FlightDTO> addFlight(@RequestBody @Valid FlightDTO fl) {
-        FlightDAO flightPersisted = flightRepository.save(fl.toDAO());
-        fl.ativar();//------------------------ ATIVAR
+    public ResponseEntity<FlightDTO> addFlight(@RequestBody @Valid FlightDTO ft) {
+        FlightDAO flightPersisted = flightRepository.save(ft.toDAO());
+        ft.ativar();//------------------------ ATIVAR
         String tamanhoLista = String.valueOf(flightRepository.findAll().size());
-        System.out.println("Voo Cadastrada com SUCESSO!" + " - Quantidade de voos: " + tamanhoLista);
-        System.out.println(fl.toString());
+        System.out.println("Vôo cadastrado com SUCESSO!" + " - Quantidade de Vôo: " + tamanhoLista);
+        System.out.println(ft.toString());
         return new ResponseEntity<FlightDTO>(flightPersisted.toDTO(), HttpStatus.CREATED);
     }
 
     @PutMapping("/flights/{id}/update")
-    public ResponseEntity<FlightDTO> updateFlight(@PathVariable("id") Long id, @RequestBody FlightDTO fl) {
-        fl.setId(id);
-        FlightDAO flightUpdated = flightRepository.save(fl.toDAO());
+    public ResponseEntity<FlightDTO> updateFlight(@PathVariable("id") Long id, @RequestBody FlightDTO ft) {
+        ft.setId(id);
+        FlightDAO flightUpdated = flightRepository.save(ft.toDAO());
         return new ResponseEntity<FlightDTO>(flightUpdated.toDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/flights")
-    public ResponseEntity<List<FlightDTO>> getAllFligths() {
+    public ResponseEntity<List<FlightDTO>> getAllFlights() {
         return ResponseEntity.ok().body(flightRepository.findAll()
                 .stream()
                 .map(flightDAO -> flightDAO.toDTO())
@@ -251,7 +253,6 @@ public class SkypassController {
     @DeleteMapping("/flights/{id}/delete")
     public ResponseEntity<FlightDTO> deleteFlightById(@PathVariable("id") Long id) {
         FlightDAO flight = new FlightDAO();
-        flight.inativar(); //--------------------- INATIVAR
         flight.setId(id);
         flightRepository.delete(flight);
         return ResponseEntity.noContent().build();
@@ -267,13 +268,15 @@ public class SkypassController {
 
     @PostMapping("/flights/{id}/inativar")
     public void inativarFlight(Long id) {
-        airlineRepository.findById(id).ifPresent(flight -> {
+        flightRepository.findById(id).ifPresent(flight -> {
             flight.inativar();
-            airlineRepository.save(flight);
+            flightRepository.save(flight);
         });
     }
 
+
     //--------------------------------------|AIRLINE|------------------------------------------------------
+
     @Autowired
     private AirlineRepository airlineRepository;
     public List<AirlineDTO> AirlinesList = new ArrayList<AirlineDTO>();
@@ -284,7 +287,7 @@ public class SkypassController {
         AirlineDAO airlinePersisted = airlineRepository.save(al.toDAO());
         al.ativar();//------------------------ ATIVAR
         String tamanhoLista = String.valueOf(airlineRepository.findAll().size());
-        System.out.println("Linha aerea Cadastrada com SUCESSO!" + " - Quantidade de Linhas: " + tamanhoLista);
+        System.out.println("Cia Aérea cadastrada com SUCESSO!" + " - Quantidade de Cia Aéreas: " + tamanhoLista);
         System.out.println(al.toString());
         return new ResponseEntity<AirlineDTO>(airlinePersisted.toDTO(), HttpStatus.CREATED);
     }
@@ -297,7 +300,7 @@ public class SkypassController {
     }
 
     @GetMapping("/airlines")
-    public ResponseEntity<List<AirlineDTO>> getAllAirlines() {
+    public ResponseEntity<List<AirlineDTO>> getAllAirline() {
         return ResponseEntity.ok().body(airlineRepository.findAll()
                 .stream()
                 .map(airlineDAO -> airlineDAO.toDTO())
@@ -317,7 +320,6 @@ public class SkypassController {
     @DeleteMapping("/airlines/{id}/delete")
     public ResponseEntity<AirlineDTO> deleteAirlineById(@PathVariable("id") Long id) {
         AirlineDAO airline = new AirlineDAO();
-        airline.inativar(); //--------------------- INATIVAR
         airline.setId(id);
         airlineRepository.delete(airline);
         return ResponseEntity.noContent().build();
@@ -340,6 +342,7 @@ public class SkypassController {
     }
 
     //--------------------------------------- |AIRPORT| -----------------------------------------------------
+
     @Autowired
     private AirportRepository airportRepository;
     public List<AirportDTO> AirportsList = new ArrayList<AirportDTO>();
@@ -350,7 +353,7 @@ public class SkypassController {
         AirportDAO airportPersisted = airportRepository.save(ap.toDAO());
         ap.ativar();//------------------------ ATIVAR
         String tamanhoLista = String.valueOf(airportRepository.findAll().size());
-        System.out.println("Linha aerea Cadastrada com SUCESSO!" + " - Quantidade de Linhas: " + tamanhoLista);
+        System.out.println("Aeroporto Cadastrado com SUCESSO!" + " - Quantidade de Aeroportos: " + tamanhoLista);
         System.out.println(ap.toString());
         return new ResponseEntity<AirportDTO>(airportPersisted.toDTO(), HttpStatus.CREATED);
     }
@@ -383,7 +386,6 @@ public class SkypassController {
     @DeleteMapping("/airports/{id}/delete")
     public ResponseEntity<AirportDTO> deleteAirportById(@PathVariable("id") Long id) {
         AirportDAO airport = new AirportDAO();
-        airport.inativar(); //--------------------- INATIVAR
         airport.setId(id);
         airportRepository.delete(airport);
         return ResponseEntity.noContent().build();
@@ -404,9 +406,7 @@ public class SkypassController {
             airportRepository.save(airport);
         });
     }
-
     //--------------------------------------- |TICKETS| -----------------------------------------------------
-
     @Autowired
     private TicketRepository ticketRepository;
     public List<TicketDTO> TicketsList = new ArrayList<TicketDTO>();
