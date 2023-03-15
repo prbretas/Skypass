@@ -1,246 +1,474 @@
 package com.startech.skypass;
 
+import com.startech.skypass.dao.AdressDAO;
+import com.startech.skypass.dao.ClientDAO;
+import com.startech.skypass.dao.TicketDAO;
+import com.startech.skypass.dao.AirlineDAO;
+import com.startech.skypass.dao.AircraftDAO;
+import com.startech.skypass.dao.FlightDAO;
+import com.startech.skypass.dao.AirportDAO;
+import com.startech.skypass.repository.AdressRepository;
+import com.startech.skypass.repository.AirlineRepository;
+import com.startech.skypass.repository.ClientRepository;
+import com.startech.skypass.repository.TicketRepository;
+import com.startech.skypass.repository.AirportRepository;
+import com.startech.skypass.repository.FlightRepository;
+import com.startech.skypass.repository.AircraftRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class SkypassController {
 
     //--------------------------------------|CLIENT|------------------------------------------------------
-    public HashMap<String, Client> clients = new HashMap<String,Client>();
+    @Autowired
+    private ClientRepository clientRepository;
+    public List<ClientDTO> ClientsList = new ArrayList<ClientDTO>();
+    public HashMap<Integer, ClientDTO> clients = new HashMap<Integer, ClientDTO>();
 
     @PostMapping("/clients")
-    public Client adicionarCliente (@RequestBody Client c){
-        clients.put(c.getId(),c);
-        String tamanhoLista = String.valueOf(clients.size());
-        System.out.println("Cliente Cadastrado com SUCESSO!"+ " - Quantidade de Clientes: " + tamanhoLista);
-        System.out.println( c.toString());
-        return c;
+    public ResponseEntity<ClientDTO> addClient(@RequestBody @Valid ClientDTO c) {
+        ClientDAO clientePersisted = clientRepository.save(c.toDAO());
+        c.ativar();//------------------------ ATIVAR
+        String tamanhoLista = String.valueOf(clientRepository.findAll().size());
+        System.out.println("Cliente Cadastrado com SUCESSO!" + " - Quantidade de Clientes: " + tamanhoLista);
+        System.out.println(c.toString());
+        return new ResponseEntity<ClientDTO>(clientePersisted.toDTO(), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/clients/{id}/update")
+    public ResponseEntity<ClientDTO> updateClient(@PathVariable("id") Long id, @RequestBody ClientDTO c) {
+        c.setId(id);
+        ClientDAO clientUpdated = clientRepository.save(c.toDAO());
+        return new ResponseEntity<ClientDTO>(clientUpdated.toDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/clients")
-    public Collection<Client> getAllClientes(){
-        return clients.values();
+    public ResponseEntity<List<ClientDTO>> getAllClients() {
+        return ResponseEntity.ok().body(clientRepository.findAll()
+                .stream()
+                .map(clientDAO -> clientDAO.toDTO())
+                .collect(Collectors.toList()));
     }
 
-    //@GetMapping ("/clients/{id}/compras{idCompra}")
-    @GetMapping ("/clients/{id}")
-    public Client getClientById(@PathVariable("id") String id){
-        return clients.get(id);
+    @GetMapping("/clients/{id}")
+    public ResponseEntity<ClientDTO> getClientById(@PathVariable("id") Long id) {
+        Optional<ClientDAO> client = clientRepository.findById(id);
+        if (client.isPresent()) {
+            return new ResponseEntity<ClientDTO>(client.get().toDTO(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PutMapping ("/clients/{id}/alterar")
-    public Client atualizaCliente(@PathVariable("id") String id, @RequestBody Client c){
-        System.out.println("Cliente Alterado com SUCESSO! "+ c.getId() + " " + c.getUserName());
-        return clients.put(id,c);
+    @DeleteMapping("/clients/{id}/delete")
+    public ResponseEntity<ClientDTO> deleteClientById(@PathVariable("id") Long id) {
+        ClientDAO client = new ClientDAO();
+        client.inativar(); //--------------------- INATIVAR
+        client.setId(id);
+        clientRepository.delete(client);
+        return ResponseEntity.noContent().build();
     }
-    @DeleteMapping ("/clients/{id}/excluir")
-    public Client deletarClienteById(@PathVariable("id") String id){
-        System.out.println("Cliente Deletado com SUCESSO!");
-        return clients.remove(id);
+
+    @PostMapping("/clients/{id}/ativar")
+    public void ativarClient(Long id) {
+        clientRepository.findById(id).ifPresent(client -> {
+            client.ativar();
+            clientRepository.save(client);
+        });
     }
+
+    @PostMapping("/clients/{id}/inativar")
+    public void inativarClient(Long id) {
+        clientRepository.findById(id).ifPresent(client -> {
+            client.inativar();
+            clientRepository.save(client);
+        });
+    }
+
     //--------------------------------------- |ADRESS| -----------------------------------------------------
-    public HashMap<String, Adress> adresses = new HashMap<String,Adress>();
+    @Autowired
+    private AdressRepository adressRepository;
+    public List<AdressDTO> AdressList = new ArrayList<AdressDTO>();
+    public HashMap<Integer, AdressDTO> adresses = new HashMap<Integer, AdressDTO>();
 
     @PostMapping("/adresses")
-    public Adress adicionarAdress (@RequestBody Adress a){
-        adresses.put(a.getId(),a);
-        String tamanhoLista = String.valueOf(adresses.size());
-        System.out.println("Endereço Cadastrado com SUCESSO!"+ " - Quantidade de Endereços: " + tamanhoLista);
-        System.out.println( a.toString());
-        return a;
+    public ResponseEntity<AdressDTO> addAdress(@RequestBody @Valid AdressDTO ad) {
+        AdressDAO adressPersisted = adressRepository.save(ad.toDAO());
+        String tamanhoLista = String.valueOf(adressRepository.findAll().size());
+        System.out.println("Endereço Cadastrado com SUCESSO!" + " - Quantidade de Endereços: " + tamanhoLista);
+        System.out.println(ad.toString());
+        return new ResponseEntity<AdressDTO>(adressPersisted.toDTO(), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/adresses/{id}/update")
+    public ResponseEntity<AdressDTO> updateAdress(@PathVariable("id") Long id, @RequestBody AdressDTO ad) {
+        ad.setId(id);
+        AdressDAO adressUpdated = adressRepository.save(ad.toDAO());
+        return new ResponseEntity<AdressDTO>(adressUpdated.toDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/adresses")
-    public Collection<Adress> getAllEndereços(){
-        return adresses.values();
+    public ResponseEntity<List<AdressDTO>> getAllAdresses() {
+        return ResponseEntity.ok().body(adressRepository.findAll()
+                .stream()
+                .map(adressDAO -> adressDAO.toDTO())
+                .collect(Collectors.toList()));
     }
 
-    @GetMapping ("/adresses/{id}")
-    public Adress getAdressById(@PathVariable("id") String id){
-        return adresses.get(id);
+    @GetMapping("/adresses/{id}")
+    public ResponseEntity<AdressDTO> getAdressById(@PathVariable("id") Long id) {
+        Optional<AdressDAO> adress = adressRepository.findById(id);
+        if (adress.isPresent()) {
+            return new ResponseEntity<AdressDTO>(adress.get().toDTO(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PutMapping ("/adresses/{id}/alterar")
-    public Adress atualizaAdress(@PathVariable("id") String id, @RequestBody Adress a){
-        System.out.println("Endereço Alterado com SUCESSO! "+ a.getId() + " " + a.getStreet());
-        return adresses.put(id,a);
+    @DeleteMapping("/adresses/{id}/delete")
+    public ResponseEntity<AdressDTO> deleteAdressById(@PathVariable("id") Long id) {
+        AdressDAO adress = new AdressDAO();
+        adress.setId(id);
+        adressRepository.delete(adress);
+        return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping ("/adresses/{id}/excluir")
-    public Adress deletarAdressById(@PathVariable("id") String id){
-        System.out.println("Endereço Deletado com SUCESSO!");
-        return adresses.remove(id);
-    }
     //------------------------------------------------|AIRCRAFT|-------------------------------------------
-    public HashMap<String, Aircraft> aircrafts = new HashMap<String,Aircraft>();
+    @Autowired
+    private AircraftRepository aircraftRepository;
+    public List<AircraftDTO> AircraftsList = new ArrayList<AircraftDTO>();
+    public HashMap<Integer, AircraftDTO> aircrafts = new HashMap<Integer, AircraftDTO>();
 
     @PostMapping("/aircrafts")
-    public Aircraft adicionarAircraft (@RequestBody Aircraft at){
-        aircrafts.put(at.getId(), at);
-        String tamanhoLista = String.valueOf(aircrafts.size());
-        System.out.println("Aeronave Cadastrada com SUCESSO!"+ " - Quantidade de Aeronaves: " + tamanhoLista);
-        System.out.println(at.toString());
-        return at;
+    public ResponseEntity<AircraftDTO> addAircraft(@RequestBody @Valid AircraftDTO af) {
+        AircraftDAO aircraftPersisted = aircraftRepository.save(af.toDAO());
+        af.ativar();//------------------------ ATIVAR
+        String tamanhoLista = String.valueOf(aircraftRepository.findAll().size());
+        System.out.println("Aeronave Cadastrada com SUCESSO!" + " - Quantidade de Aeronaves: " + tamanhoLista);
+        System.out.println(af.toString());
+        return new ResponseEntity<AircraftDTO>(aircraftPersisted.toDTO(), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/aircrafts/{id}/update")
+    public ResponseEntity<AircraftDTO> updateAircraft(@PathVariable("id") Long id, @RequestBody AircraftDTO af) {
+        af.setId(id);
+        AircraftDAO aircraftUpdated = aircraftRepository.save(af.toDAO());
+        return new ResponseEntity<AircraftDTO>(aircraftUpdated.toDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/aircrafts")
-    public Collection<Aircraft> getAllAircrafts(){
-        return aircrafts.values();
+    public ResponseEntity<List<AircraftDTO>> getAllAircrafts() {
+        return ResponseEntity.ok().body(aircraftRepository.findAll()
+                .stream()
+                .map(aircraftDAO -> aircraftDAO.toDTO())
+                .collect(Collectors.toList()));
     }
 
-    @GetMapping ("/aircrafts/{id}")
-    public Aircraft getAircraftById(@PathVariable("id") String id){
-        return aircrafts.get(id);
+    @GetMapping("/aircrafts/{id}")
+    public ResponseEntity<AircraftDTO> getAircraftById(@PathVariable("id") Long id) {
+        Optional<AircraftDAO> aircraft = aircraftRepository.findById(id);
+        if (aircraft.isPresent()) {
+            return new ResponseEntity<AircraftDTO>(aircraft.get().toDTO(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PutMapping ("/aircrafts/{id}/alterar")
-    public Aircraft atualizaAircraft(@PathVariable("id") String id, @RequestBody Aircraft at){
-        System.out.println("Aeronave Alterada com SUCESSO! "+ at.getId() + " " + at.getModel());
-        return aircrafts.put(id,at);
+    @DeleteMapping("/aircrafts/{id}/delete")
+    public ResponseEntity<AircraftDTO> deleteAircraftById(@PathVariable("id") Long id) {
+        AircraftDAO aircraft = new AircraftDAO();
+        aircraft.inativar(); //--------------------- INATIVAR
+        aircraft.setId(id);
+        aircraftRepository.delete(aircraft);
+        return ResponseEntity.noContent().build();
     }
-    @DeleteMapping ("/aircrafts/{id}/excluir")
-    public Aircraft deletarAircraftById(@PathVariable("id") String id){
-        System.out.println("Aeronave Deletada com SUCESSO!");
-        return aircrafts.remove(id);
+
+    @PostMapping("/aircrafts/{id}/ativar")
+    public void ativarAircraft(Long id) {
+        aircraftRepository.findById(id).ifPresent(aircraft -> {
+            aircraft.ativar();
+            aircraftRepository.save(aircraft);
+        });
+    }
+
+    @PostMapping("/aircrafts/{id}/inativar")
+    public void inativarAircraft(Long id) {
+        aircraftRepository.findById(id).ifPresent(aircraft -> {
+            aircraft.inativar();
+            aircraftRepository.save(aircraft);
+        });
     }
 
     //--------------------------------------|FLIGHT|------------------------------------------------------
 
-    public HashMap<String, Flight> flights = new HashMap<String, Flight>();
+    @Autowired
+    private FlightRepository flightRepository;
+    public List<FlightDTO> FlightsList = new ArrayList<FlightDTO>();
+    public HashMap<Integer, FlightDTO> flights = new HashMap<Integer, FlightDTO>();
 
     @PostMapping("/flights")
-    public Flight adicionarFlight (@RequestBody Flight ft){
-        flights.put(ft.getId(), ft);
-        String tamanhoLista = String.valueOf(flights.size());
-        System.out.println("Voo Cadastrado com SUCESSO!"+ " - Quantidade de Voos: " + tamanhoLista);
-        System.out.println(ft.toString());
-        return ft;
+    public ResponseEntity<FlightDTO> addFlight(@RequestBody @Valid FlightDTO fl) {
+        FlightDAO flightPersisted = flightRepository.save(fl.toDAO());
+        fl.ativar();//------------------------ ATIVAR
+        String tamanhoLista = String.valueOf(flightRepository.findAll().size());
+        System.out.println("Voo Cadastrada com SUCESSO!" + " - Quantidade de voos: " + tamanhoLista);
+        System.out.println(fl.toString());
+        return new ResponseEntity<FlightDTO>(flightPersisted.toDTO(), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/flights/{id}/update")
+    public ResponseEntity<FlightDTO> updateFlight(@PathVariable("id") Long id, @RequestBody FlightDTO fl) {
+        fl.setId(id);
+        FlightDAO flightUpdated = flightRepository.save(fl.toDAO());
+        return new ResponseEntity<FlightDTO>(flightUpdated.toDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/flights")
-    public Collection<Flight> getAllFlight(){
-        return flights.values();
+    public ResponseEntity<List<FlightDTO>> getAllFligths() {
+        return ResponseEntity.ok().body(flightRepository.findAll()
+                .stream()
+                .map(flightDAO -> flightDAO.toDTO())
+                .collect(Collectors.toList()));
     }
 
-
-    @GetMapping ("/flights/{id}")
-    public Flight getFlightById(@PathVariable("id") String id){
-        return flights.get(id);
+    @GetMapping("/flights/{id}")
+    public ResponseEntity<FlightDTO> getFlightById(@PathVariable("id") Long id) {
+        Optional<FlightDAO> flight = flightRepository.findById(id);
+        if (flight.isPresent()) {
+            return new ResponseEntity<FlightDTO>(flight.get().toDTO(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PutMapping ("/flights/{id}/alterar")
-    public Flight atualizaFlight(@PathVariable("id") String id, @RequestBody Flight ft){
-        System.out.println("Voo Alterado com SUCESSO! "+ ft.getId() + " " + ft.getLocation());
-        return flights.put(id, ft);
+    @DeleteMapping("/flights/{id}/delete")
+    public ResponseEntity<FlightDTO> deleteFlightById(@PathVariable("id") Long id) {
+        FlightDAO flight = new FlightDAO();
+        flight.inativar(); //--------------------- INATIVAR
+        flight.setId(id);
+        flightRepository.delete(flight);
+        return ResponseEntity.noContent().build();
     }
-    @DeleteMapping ("/flights/{id}/excluir")
-    public Flight deletarFlightById(@PathVariable("id") String id){
-        System.out.println("Voo Deletado com SUCESSO!");
-        return flights.remove(id);
+
+    @PostMapping("/flights/{id}/ativar")
+    public void ativarFlight(Long id) {
+        flightRepository.findById(id).ifPresent(flight -> {
+            flight.ativar();
+            flightRepository.save(flight);
+        });
+    }
+
+    @PostMapping("/flights/{id}/inativar")
+    public void inativarFlight(Long id) {
+        airlineRepository.findById(id).ifPresent(flight -> {
+            flight.inativar();
+            airlineRepository.save(flight);
+        });
     }
 
     //--------------------------------------|AIRLINE|------------------------------------------------------
-    public HashMap<String, Airline> airlines = new HashMap<String,Airline>();
+    @Autowired
+    private AirlineRepository airlineRepository;
+    public List<AirlineDTO> AirlinesList = new ArrayList<AirlineDTO>();
+    public HashMap<Integer, AirlineDTO> airlines = new HashMap<Integer, AirlineDTO>();
 
     @PostMapping("/airlines")
-    public Airline adicionarCiaAerea (@RequestBody Airline al ){
-        airlines.put(al.getId(),al);
-        String tamanhoLista = String.valueOf(airlines.size());
-        System.out.println("Cia Aérea Cadastrada com SUCESSO!" + tamanhoLista);
-        System.out.println( al.toString());
-        return al;
+    public ResponseEntity<AirlineDTO> addAirline(@RequestBody @Valid AirlineDTO al) {
+        AirlineDAO airlinePersisted = airlineRepository.save(al.toDAO());
+        al.ativar();//------------------------ ATIVAR
+        String tamanhoLista = String.valueOf(airlineRepository.findAll().size());
+        System.out.println("Linha aerea Cadastrada com SUCESSO!" + " - Quantidade de Linhas: " + tamanhoLista);
+        System.out.println(al.toString());
+        return new ResponseEntity<AirlineDTO>(airlinePersisted.toDTO(), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/airlines/{id}/update")
+    public ResponseEntity<AirlineDTO> updateAirline(@PathVariable("id") Long id, @RequestBody AirlineDTO al) {
+        al.setId(id);
+        AirlineDAO airlineUpdated = airlineRepository.save(al.toDAO());
+        return new ResponseEntity<AirlineDTO>(airlineUpdated.toDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/airlines")
-    public Collection<Airline> getCiaAerea(){
-        HashMap<Object, Object> Airline;
-        return airlines.values();
+    public ResponseEntity<List<AirlineDTO>> getAllAirlines() {
+        return ResponseEntity.ok().body(airlineRepository.findAll()
+                .stream()
+                .map(airlineDAO -> airlineDAO.toDTO())
+                .collect(Collectors.toList()));
     }
 
-    @GetMapping ("/airlines/{id}")
-    public Airline getAirlinesById(@PathVariable("id") String id){
-        return airlines.get(id);
+    @GetMapping("/airlines/{id}")
+    public ResponseEntity<AirlineDTO> getAirlineById(@PathVariable("id") Long id) {
+        Optional<AirlineDAO> airline = airlineRepository.findById(id);
+        if (airline.isPresent()) {
+            return new ResponseEntity<AirlineDTO>(airline.get().toDTO(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PutMapping ("/airlines/{id}/alterar")
-    public Airline atualizarAirline (@PathVariable("id") String id, @RequestBody Airline al){
-        System.out.println("Cia Aérea Alterada com SUCESSO! "+ al.getId() + " " + al.getCompanyName());
-        return airlines.put(id,al);
+    @DeleteMapping("/airlines/{id}/delete")
+    public ResponseEntity<AirlineDTO> deleteAirlineById(@PathVariable("id") Long id) {
+        AirlineDAO airline = new AirlineDAO();
+        airline.inativar(); //--------------------- INATIVAR
+        airline.setId(id);
+        airlineRepository.delete(airline);
+        return ResponseEntity.noContent().build();
     }
-    @DeleteMapping ("/airlines/{id}/excluir")
-    public Airline deletarAirlineById(@PathVariable("id") String id){
-        System.out.println("Cia Aérea Deletada com SUCESSO!");
-        return airlines.remove(id);
+
+    @PostMapping("/airlines/{id}/ativar")
+    public void ativarAirline(Long id) {
+        airlineRepository.findById(id).ifPresent(airline -> {
+            airline.ativar();
+            airlineRepository.save(airline);
+        });
+    }
+
+    @PostMapping("/airlines/{id}/inativar")
+    public void inativarAirline(Long id) {
+        airlineRepository.findById(id).ifPresent(airline -> {
+            airline.inativar();
+            airlineRepository.save(airline);
+        });
     }
 
     //--------------------------------------- |AIRPORT| -----------------------------------------------------
-    public HashMap<String, Airport> airports = new HashMap<String,Airport>();
+    @Autowired
+    private AirportRepository airportRepository;
+    public List<AirportDTO> AirportsList = new ArrayList<AirportDTO>();
+    public HashMap<Integer, AirportDTO> airports = new HashMap<Integer, AirportDTO>();
 
     @PostMapping("/airports")
-    public Airport adicionarAirport (@RequestBody Airport ap){
-        airports.put(ap.getId(),ap);
-        String tamanhoLista = String.valueOf(airports.size());
-        System.out.println("Aeroporto Cadastrado com SUCESSO!"+ " - Quantidade de Aeroportos: " + tamanhoLista);
-        System.out.println( ap.toString());
-        return ap;
+    public ResponseEntity<AirportDTO> addAirport(@RequestBody @Valid AirportDTO ap) {
+        AirportDAO airportPersisted = airportRepository.save(ap.toDAO());
+        ap.ativar();//------------------------ ATIVAR
+        String tamanhoLista = String.valueOf(airportRepository.findAll().size());
+        System.out.println("Linha aerea Cadastrada com SUCESSO!" + " - Quantidade de Linhas: " + tamanhoLista);
+        System.out.println(ap.toString());
+        return new ResponseEntity<AirportDTO>(airportPersisted.toDTO(), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/airports/{id}/update")
+    public ResponseEntity<AirportDTO> updateAirport(@PathVariable("id") Long id, @RequestBody AirportDTO ap) {
+        ap.setId(id);
+        AirportDAO airportUpdated = airportRepository.save(ap.toDAO());
+        return new ResponseEntity<AirportDTO>(airportUpdated.toDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/airports")
-    public Collection<Airport> getAllAirports(){
-        return airports.values();
+    public ResponseEntity<List<AirportDTO>> getAllAirports() {
+        return ResponseEntity.ok().body(airportRepository.findAll()
+                .stream()
+                .map(airportDAO -> airportDAO.toDTO())
+                .collect(Collectors.toList()));
     }
 
-    @GetMapping ("/airports/{id}")
-    public Airport getAirportById(@PathVariable("id") String id){
-        return airports.get(id);
+    @GetMapping("/airports/{id}")
+    public ResponseEntity<AirportDTO> getAirportById(@PathVariable("id") Long id) {
+        Optional<AirportDAO> airport = airportRepository.findById(id);
+        if (airport.isPresent()) {
+            return new ResponseEntity<AirportDTO>(airport.get().toDTO(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PutMapping ("/airports/{id}/alterar")
-    public Airport atualizarAirport(@PathVariable("id") String id, @RequestBody Airport ap){
-        System.out.println("Aeroporto alterado com SUCESSO! "+ ap.getId() + " " + ap.getName());
-        return airports.put(id,ap);
+    @DeleteMapping("/airports/{id}/delete")
+    public ResponseEntity<AirportDTO> deleteAirportById(@PathVariable("id") Long id) {
+        AirportDAO airport = new AirportDAO();
+        airport.inativar(); //--------------------- INATIVAR
+        airport.setId(id);
+        airportRepository.delete(airport);
+        return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping ("/airports/{id}/excluir")
-    public Airport deletarAirportById(@PathVariable("id") String id){
-        System.out.println("Aeroporto deletado com SUCESSO!");
-        return airports.remove(id);
+    @PostMapping("/airports/{id}/ativar")
+    public void ativarAirport(Long id) {
+        airportRepository.findById(id).ifPresent(airport -> {
+            airport.ativar();
+            airportRepository.save(airport);
+        });
+    }
+
+    @PostMapping("/airports/{id}/inativar")
+    public void inativarAirport(Long id) {
+        airportRepository.findById(id).ifPresent(airport -> {
+            airport.inativar();
+            airportRepository.save(airport);
+        });
     }
 
     //--------------------------------------- |TICKETS| -----------------------------------------------------
-    public HashMap<String, Ticket> tickets = new HashMap<String,Ticket>();
+
+    @Autowired
+    private TicketRepository ticketRepository;
+    public List<TicketDTO> TicketsList = new ArrayList<TicketDTO>();
+    public HashMap<Integer, TicketDTO> tickets = new HashMap<Integer, TicketDTO>();
 
     @PostMapping("/tickets")
-    public Ticket adicionarTicket (@RequestBody Ticket tk){
-        tickets.put(tk.getId(),tk);
-        String tamanhoLista = String.valueOf(tickets.size());
-        System.out.println("\nPassagem Cadastrada com SUCESSO!"+ " - Quantidade de Passagens: " + tamanhoLista);
+    public ResponseEntity<TicketDTO> addTicket(@RequestBody @Valid TicketDTO tk) {
+        TicketDAO ticketPersisted = ticketRepository.save(tk.toDAO());
+        tk.ativar();//------------------------ ATIVAR
+        String tamanhoLista = String.valueOf(ticketRepository.findAll().size());
+        System.out.println("Passagem cadastrada com SUCESSO!" + " - Quantidade de Passagens: " + tamanhoLista);
         System.out.println(tk.toString());
-        return tk;
+        return new ResponseEntity<TicketDTO>(ticketPersisted.toDTO(), HttpStatus.CREATED);
     }
 
-    @GetMapping ("/tickets/{id}")
-    public Ticket getTicketById(@PathVariable("id") String id){
-        return tickets.get(id);
+    @PutMapping("/tickets/{id}/update")
+    public ResponseEntity<TicketDTO> updateTicket(@PathVariable("id") Long id, @RequestBody TicketDTO tk) {
+        tk.setId(id);
+        TicketDAO ticketUpdated = ticketRepository.save(tk.toDAO());
+        return new ResponseEntity<TicketDTO>(ticketUpdated.toDTO(), HttpStatus.OK);
     }
 
     @GetMapping("/tickets")
-    public Collection<Ticket> getAllTickets(){
-        return tickets.values();
+    public ResponseEntity<List<TicketDTO>> getAllTickets() {
+        return ResponseEntity.ok().body(ticketRepository.findAll()
+                .stream()
+                .map(ticketDAO -> ticketDAO.toDTO())
+                .collect(Collectors.toList()));
     }
 
-    @PutMapping ("/tickets/{id}/alterar")
-    public Ticket atualizarTicket(@PathVariable("id") String id, @RequestBody Ticket tk){
-        System.out.println("\nPassagem alterada com SUCESSO!\n Id:"+ tk.getId() + " Nª do Vôo:" + tk.getIdFlight());
-        return tickets.put(id,tk);
+    @GetMapping("/tickets/{id}")
+    public ResponseEntity<TicketDTO> getTicketById(@PathVariable("id") Long id) {
+        Optional<TicketDAO> ticket = ticketRepository.findById(id);
+        if (ticket.isPresent()) {
+            return new ResponseEntity<TicketDTO>(ticket.get().toDTO(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @DeleteMapping ("/tickets/{id}/excluir")
-    public Ticket deletarTicketById(@PathVariable("id") String id){
-        System.out.println("\nPassagem deletado com SUCESSO!");
-        return tickets.remove(id);
+    @DeleteMapping("/tickets/{id}/delete")
+    public ResponseEntity<TicketDTO> deleteTicketById(@PathVariable("id") Long id) {
+        TicketDAO ticket = new TicketDAO();
+        ticket.inativar(); //--------------------- INATIVAR
+        ticket.setId(id);
+        ticketRepository.delete(ticket);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/tickets/{id}/ativar")
+    public void ativarTicket(Long id) {
+        ticketRepository.findById(id).ifPresent(ticket -> {
+            ticket.ativar();
+            ticketRepository.save(ticket);
+        });
+    }
+
+    @PostMapping("/tickets/{id}/inativar")
+    public void inativarTicket(Long id) {
+        ticketRepository.findById(id).ifPresent(ticket -> {
+            ticket.inativar();
+            ticketRepository.save(ticket);
+        });
     }
 }
