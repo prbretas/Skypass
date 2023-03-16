@@ -9,6 +9,11 @@ Sistema JAVA sobre passagens aéreas
 
 <a href="https://docs.google.com/document/d/1nfFfXf5ALRQP5Y97zNybf7_1YFQM3KTI1khI3msPeog/edit?usp=sharing">ALGUNS EXEMPLOS DE DADOS JSON</a>
 
+<a href="https://miro.com/welcomeonboard/REl6MnhVcmVKTDBERzVpVDRPWEJqSkM5WUh5UVRMU2VxM3UwYXZTbnYxT1lFb1BsT0xrWVI4ekM4OEREUGxvMHwzNDU4NzY0NTQ0MTc2MDgyOTcxfDI=?share_link_id=810734589044">FLUXOGRAMA - MIRO</a>
+
+
+
+
 <img style="width: 400px; height:300px" src="Fluxograma_Skypass_Flights.jpg"/>
 
 
