@@ -1,39 +1,51 @@
-package com.startech.skypass.dao;
+package com.startech.skypass.dto;
 
 import com.startech.skypass.enums.Category;
-import com.startech.skypass.dto.TicketDTO;
-import jakarta.persistence.*;
+import com.startech.skypass.dao.TicketDAO;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 
-@Entity(name = "ticket")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Setter
 @Getter
-public class TicketDAO {
+@Setter
+public class TicketDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private Long idClient; //(fk_Client_Ticket)
     private Long idFlight; //(fk_Flight_Ticket)
     private String idSeat;
-
     private Category category; //( ECONOMICA/ EXECUTIVA/ PRIMEIRA_CLASSE)
-
-    @Column(name = "lug_amount")
     private int luggageAmount;
-    @Column(name = "lug_wt_KG")
+
     private double luggageWeight;
     private String date;
-
     private double ticketPrice;
     private boolean ativo;
 
+    @Override
+    public String toString() {
+        return "\nTicket{" +
+                "\nid=" + getId() +
+                "\nidClient=" + getIdClient() +
+                "\nidFlight=" + getIdFlight() +
+                "\nidSeat=" + getIdSeat() +
+                "\ncategory=" + getCategory() +
+                "\namountLuggage=" + getLuggageAmount() +
+                "\nweightLuggage=" + getLuggageWeight() + "kg"+
+                "\ndate=" + getDate() +
+                "\nticketPrice=R$" + getTicketPrice() +
+                "\nativo=" + ativo +
+                "\n}";
+    }
 
-    public TicketDTO toDTO (){
-        return TicketDTO.builder()
+    public TicketDAO toDAO(){
+        return TicketDAO.
+                builder()
                 .id(id)
                 .idClient(idClient)
                 .idFlight(idFlight)
@@ -44,7 +56,6 @@ public class TicketDAO {
                 .date(date)
                 .ticketPrice(ticketPrice)
                 .ativo(ativar())
-                .ativo(ativo)
                 .build();
     }
 
@@ -54,8 +65,6 @@ public class TicketDAO {
     public boolean inativar(){
         return this.ativo = false;
     }
-
-
 
 
 }

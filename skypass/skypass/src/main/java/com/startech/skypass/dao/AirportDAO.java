@@ -1,16 +1,17 @@
 package com.startech.skypass.dao;
 
-import com.startech.skypass.AirportDTO;
+import com.startech.skypass.dto.AirportDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity(name = "airport")
-@Builder // PARA CONSTRUIR O OBJETO DA CLASSE
-@AllArgsConstructor // CONSTRUTOR CHEIO
-@NoArgsConstructor //CONSTRUTOR VAZIO
-@Getter // CRIAR OS GET DOS ATRIBUTOS
-@Setter // CRIAR OS SET DOS ATRIBUTOS
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Setter
 public class AirportDAO {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -21,24 +22,23 @@ public class AirportDAO {
     private String email;
     private boolean ativo;
 
-    public AirportDTO toDTO(){
-        return AirportDTO.
-                builder()
+    public AirportDTO toDTO (){
+        return AirportDTO.builder()
                 .id(id)
                 .idAdress(idAdress)
                 .name(name)
                 .iataCode(iataCode)
                 .phone(phone)
                 .email(email)
-                .ativo(ativar())
+                .ativo(ativo)
                 .build();
     }
 
-    public boolean ativar() {
+    public boolean ativar(){
         return this.ativo = true;
     }
-
-    public boolean inativar() {
+    public boolean inativar(){
         return this.ativo = false;
     }
+
 }

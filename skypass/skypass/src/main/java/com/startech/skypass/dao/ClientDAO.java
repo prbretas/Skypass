@@ -1,6 +1,6 @@
 package com.startech.skypass.dao;
 
-import com.startech.skypass.ClientDTO;
+import com.startech.skypass.dto.ClientDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +21,10 @@ public class ClientDAO {
     private String numReg;
     private String phone;
     private String email;
-    private String adress ;
+
+    private String password;
+
+    private Long idAdress ;
     private String birthdate;
     private boolean ativo;
 
@@ -34,7 +37,8 @@ public class ClientDAO {
                 .numReg(numReg)
                 .phone(phone)
                 .email(email)
-                .adress(adress)
+                .password(password)
+                .idAdress(idAdress)
                 .birthdate(birthdate)
                 .ativo(ativo)
                 .build();
@@ -46,4 +50,6 @@ public class ClientDAO {
     public boolean inativar(){
         return this.ativo = false;
     }
+
+
 }
