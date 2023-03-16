@@ -1,17 +1,16 @@
 package com.startech.skypass.dto;
 
 import com.startech.skypass.dao.ClientDAO;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
-@Builder // PARA CONSTRUIR O OBJETO DA CLASSE
-@AllArgsConstructor // CONSTRUTOR CHEIO
-@NoArgsConstructor //CONSTRUTOR VAZIO
-@Getter // CRIAR OS GET DOS ATRIBUTOS
-@Setter // CRIAR OS SET DOS ATRIBUTOS
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class ClientDTO {
 
 

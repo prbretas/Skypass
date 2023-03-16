@@ -21,7 +21,6 @@ public class TicketDTO {
     private String idSeat;
     private Category category; //( ECONOMICA/ EXECUTIVA/ PRIMEIRA_CLASSE)
     private int luggageAmount;
-
     private double luggageWeight;
     private String date;
     private double ticketPrice;

@@ -28,7 +28,21 @@ public class AddressDAO {
     private String country;
     private boolean ativo;
 
-
+    @Override
+    public String toString() {
+        return "\nAdress{" +
+                "\nid=" + getId() +
+                "\nstreet=" + getStreet() +
+                "\nnumber=" + getNumber() +
+                "\naddInfo=" + getAddInfo() +
+                "\ncity=" + getCity() +
+                "\nstate=" + getState() +
+                "\nstateCode=" + getStateCode() +
+                "\ncep=" + getZipCode() +
+                "\ncountry=" + getCountry() +
+                "\nativo=" + ativo +
+                "\n}";
+    }
     public AddressDTO toDTO (){
         return AddressDTO.builder()
                 .street(street)

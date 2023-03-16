@@ -25,6 +25,19 @@ public class AirlineDAO {
 
     private boolean ativo;
 
+    @Override
+    public String toString() {
+        return "\nAirline{" +
+                "\nid='" + getId() +
+                "\ncompanyName='" + getCompanyName() +
+                "\nnumReg='" + getNumReg() +
+                "\nphone='" + getPhone() +
+                "\nemail='" + getEmail() +
+                "\nativo=" + ativo +
+                "\n}";
+    }
+
+
     public AirlineDTO toDTO (){
         return AirlineDTO.builder()
                 .id(id)

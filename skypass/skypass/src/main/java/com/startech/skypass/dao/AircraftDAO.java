@@ -31,6 +31,25 @@ public class AircraftDAO {
     private double cargoWeight;
     private boolean ativo;
 
+    @Override
+    public String toString() {
+        return "\nAircraft{" +
+                "\nid=" + getId() +
+                "\nidAirline=" + getIdAirline() +
+                "\nmodel='" + getModel() +
+                "\nnumSerie='" + getNumSerie() +
+                "\ninfoSystem='" + getInfoSystem() +
+                "\nlatitude='" + getLatitude() +
+                "\nlongitude='" + getLongitude() +
+                "\nnumSeats=" + getNumSeats() +
+                "\nnumEconomicSeats=" + getNumEconomicSeats() +
+                "\nnumExecutiveSeats=" + getNumExecutiveSeats() +
+                "\nnumFirstClassSeats=" + getNumFirstClassSeats() +
+                "\ncargoWeight=" + getCargoWeight() +
+                "\nativo=" + ativo +
+                "\n}";
+    }
+
     public int calcularSeatsClass(int numSeats){
         this.numSeats = numSeats;
         this.numEconomicSeats = (int) (numSeats * 0.7);

@@ -5,11 +5,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity(name = "client")
-@AllArgsConstructor // CONSTRUCTOR CHEIO
-@NoArgsConstructor // CONSTRUCTOR VAZIO
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@Setter // CRIAR OS SET DOS ATRIBUTOS
-@Getter // CRIAR OS GET DOS ATRIBUTOS
+@Setter
+@Getter
 public class ClientDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -21,12 +21,27 @@ public class ClientDAO {
     private String numReg;
     private String phone;
     private String email;
-
     private String password;
-
     private Long idAdress ;
     private String birthdate;
     private boolean ativo;
+
+    @Override
+    public String toString() {
+        return "\nClient{" +
+                "\nid=" + getId() +
+                "\nuserName=" + getUserName() +
+                "\nname=" + getName() +
+                "\nlastName=" + getLastName() +
+                "\nnumReg=" + getNumReg() +
+                "\nphone=" + getPhone() +
+                "\nemail=" + getEmail() +
+                "\npassword=" + getPassword() +
+                "\nidAdress=" + getIdAdress() +
+                "\nbirthday=" + getBirthdate() +
+                "\nativo=" + ativo +
+                "\n}";
+    }
 
     public ClientDTO toDTO (){
         return ClientDTO.builder()
@@ -50,6 +65,4 @@ public class ClientDAO {
     public boolean inativar(){
         return this.ativo = false;
     }
-
-
 }

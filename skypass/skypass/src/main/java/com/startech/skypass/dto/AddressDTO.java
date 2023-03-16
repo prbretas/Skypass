@@ -2,6 +2,7 @@ package com.startech.skypass.dto;
 
 
 import com.startech.skypass.dao.AddressDAO;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -26,6 +27,9 @@ public class AddressDTO {
     private String zipCode;
     private String country;
 
+
+    @OneToOne(mappedBy = "address")
+    private ClientDTO clientDTO;
     private boolean ativo;
 
 

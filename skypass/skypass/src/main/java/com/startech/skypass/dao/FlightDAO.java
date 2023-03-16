@@ -22,8 +22,24 @@ public class FlightDAO {
     private String departureTime;
     private String arrivalTime;
     private String date;
-    private int numPassengers; // é quantidade de assentos TRUE do aviao
+    private int numPassengers; // é quantidade de TICKETS TRUE DO FLIGHT
     private boolean ativo;
+
+    @Override
+    public String toString() {
+        return "\nFlight{" +
+                "\nid=" + getId() +
+                "\nidAircraft=" + getIdAircraft() +
+                "\nidAirline=" + getIdAirline() +
+                "\ndeparturePlace=" + getDeparturePlace()+
+                "\narrivalPlace=" + getArrivalPlace()+
+                "\ndepartureTime=" + getDepartureTime() +
+                "\narrivalTime=" + getArrivalTime() +
+                "\ndate=" + getDate() +
+                "\nvolumePassengers=" + getNumPassengers() +
+                "\nativo=" + ativo +
+                "\n}";
+    }
 
 
     public FlightDTO toDTO (){

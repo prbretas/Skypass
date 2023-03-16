@@ -22,6 +22,20 @@ public class AirportDAO {
     private String email;
     private boolean ativo;
 
+    @Override
+    public String toString() {
+        return "\nAirport{" +
+                "\nid='" + getId() +
+                "\nidAdress='" + getIdAdress() +
+                "\nname='" + getName() +
+                "\niataCode='" + getIataCode() +
+                "\nphone='" + getPhone() +
+                "\nemail='" + getEmail() +
+                "\nativo=" + ativo +
+                "\n}";
+    }
+
+
     public AirportDTO toDTO (){
         return AirportDTO.builder()
                 .id(id)

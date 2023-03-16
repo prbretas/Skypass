@@ -18,7 +18,7 @@ public class FlightDTO {
     private String departureTime;
     private String arrivalTime;
     private String date;
-    private int numPassengers; // quantidade de assentos true do aviao
+    private int numPassengers; // é quantidade de TICKETS TRUE DO FLIGHT
     private boolean ativo;
 
     @Override

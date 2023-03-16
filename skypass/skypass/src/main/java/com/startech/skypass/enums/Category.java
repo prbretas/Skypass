@@ -1,5 +1,5 @@
 package com.startech.skypass.enums;
 
 public enum Category {
-    ECONOMICA, EXECUTIVA, PRIMEIRA_CLASSE;
+    ECONOMIC_CLASS, BUSINESS_CLASS, FIRST_CLASS;
 }
