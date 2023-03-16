@@ -68,7 +68,7 @@ public class FlightController {
     }
 
     @PostMapping("/flights/{id}/ativar")
-    public void ativarFlight(Long id) {
+    public void ativar(Long id) {
         flightRepository.findById(id).ifPresent(flight -> {
             flight.ativar();
             flightRepository.save(flight);
@@ -76,7 +76,7 @@ public class FlightController {
     }
 
     @PostMapping("/flights/{id}/inativar")
-    public void inativarFlight(Long id) {
+    public void inativar(Long id) {
         flightRepository.findById(id).ifPresent(flight -> {
             flight.inativar();
             flightRepository.save(flight);

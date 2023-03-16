@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
-    public List<ClientDTO> ClientsList = new ArrayList<ClientDTO>();
+    public List<ClientDTO> clientsList = new ArrayList<ClientDTO>();
     public HashMap<Integer, ClientDTO> clients = new HashMap<Integer, ClientDTO>();
 
     @PostMapping("/clients")
@@ -66,15 +66,16 @@ public class ClientController {
     }
 
     @PostMapping("/clients/{id}/ativar")
-    public void ativarClient(Long id) {
+    public void ativar(Long id) {
         clientRepository.findById(id).ifPresent(client -> {
             client.ativar();
             clientRepository.save(client);
         });
     }
 
+
     @PostMapping("/clients/{id}/inativar")
-    public void inativarClient(Long id) {
+    public void inativar(Long id) {
         clientRepository.findById(id).ifPresent(client -> {
             client.inativar();
             clientRepository.save(client);

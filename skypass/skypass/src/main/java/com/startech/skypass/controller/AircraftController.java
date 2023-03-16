@@ -66,7 +66,7 @@ public class AircraftController {
     }
 
     @PostMapping("/aircrafts/{id}/ativar")
-    public void ativarAircraft(Long id) {
+    public void ativar(Long id) {
         aircraftRepository.findById(id).ifPresent(aircraft -> {
             aircraft.ativar();
             aircraftRepository.save(aircraft);
@@ -74,7 +74,7 @@ public class AircraftController {
     }
 
     @PostMapping("/aircrafts/{id}/inativar")
-    public void inativarAircraft(Long id) {
+    public void inativar(Long id) {
         aircraftRepository.findById(id).ifPresent(aircraft -> {
             aircraft.inativar();
             aircraftRepository.save(aircraft);

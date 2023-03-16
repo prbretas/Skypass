@@ -20,6 +20,7 @@ public class AircraftDAO {
     private String numSerie;
     private String infoSystem;
     private String latitude;
+
     private String longitude;
     private int numSeats;
     @Column(name = "Eco_Seats")
@@ -55,7 +56,15 @@ public class AircraftDAO {
         this.numEconomicSeats = (int) (numSeats * 0.7);
         this.numExecutiveSeats = (int) (numSeats * 0.2);
         this.numFirstClassSeats = (int) (numSeats * 0.1);
+        int soma = numEconomicSeats+ numExecutiveSeats+numFirstClassSeats;
+
+        if(soma>numSeats)
+            numEconomicSeats-=1;
+        else if(soma<numSeats)
+            numEconomicSeats+=1;
+
         return  numSeats;
+
     }
 
     public void mostrarSeatsClass(){

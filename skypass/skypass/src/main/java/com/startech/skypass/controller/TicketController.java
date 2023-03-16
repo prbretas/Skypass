@@ -68,7 +68,7 @@ public class TicketController {
     }
 
     @PostMapping("/tickets/{id}/ativar")
-    public void ativarTicket(Long id) {
+    public void ativar(Long id) {
         ticketRepository.findById(id).ifPresent(ticket -> {
             ticket.ativar();
             ticketRepository.save(ticket);
@@ -76,7 +76,7 @@ public class TicketController {
     }
 
     @PostMapping("/tickets/{id}/inativar")
-    public void inativarTicket(Long id) {
+    public void inativar(Long id) {
         ticketRepository.findById(id).ifPresent(ticket -> {
             ticket.inativar();
             ticketRepository.save(ticket);

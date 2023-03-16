@@ -22,7 +22,7 @@ public class ClientDAO {
     private String phone;
     private String email;
     private String password;
-    private Long idAdress ;
+    private Long idAddress ;
     private String birthdate;
     private boolean ativo;
 
@@ -37,7 +37,7 @@ public class ClientDAO {
                 "\nphone=" + getPhone() +
                 "\nemail=" + getEmail() +
                 "\npassword=" + getPassword() +
-                "\nidAdress=" + getIdAdress() +
+                "\nidAddress=" + getIdAddress() +
                 "\nbirthday=" + getBirthdate() +
                 "\nativo=" + ativo +
                 "\n}";
@@ -53,7 +53,7 @@ public class ClientDAO {
                 .phone(phone)
                 .email(email)
                 .password(password)
-                .idAdress(idAdress)
+                .idAddress(idAddress)
                 .birthdate(birthdate)
                 .ativo(ativo)
                 .build();

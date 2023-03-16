@@ -66,4 +66,24 @@ public class AddressController {
         addressRepository.delete(address);
         return ResponseEntity.noContent().build();
     }
+
+
+    @PostMapping("/adresses/{id}/ativar")
+    public void ativar(Long id) {
+        addressRepository.findById(id).ifPresent(address -> {
+            address.ativar();
+            addressRepository.save(address);
+        });
+    }
+
+    @PostMapping("/adresses/{id}/inativar")
+    public void inativar(Long id) {
+        addressRepository.findById(id).ifPresent(address -> {
+            address.inativar();
+            addressRepository.save(address);
+        });
+    }
+
+
+
 }
