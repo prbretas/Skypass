@@ -9,7 +9,7 @@ Sistema JAVA sobre passagens aéreas
 
 <a href="https://docs.google.com/document/d/1nfFfXf5ALRQP5Y97zNybf7_1YFQM3KTI1khI3msPeog/edit?usp=sharing">ALGUNS EXEMPLOS DE DADOS JSON</a>
 
-<img style="width: 400px; height:300px" src="Fluxograma_Skypass_Flights.jpg">
+<img style="width: 400px; height:300px" src="Fluxograma_Skypass_Flights.jpg"/>
 
 
  # Autores
