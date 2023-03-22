@@ -35,8 +35,7 @@ public class AircraftDTO {
         this.numExecutiveSeats = (int) (numSeats * 0.2);
         this.numFirstClassSeats = (int) (numSeats * 0.1);
         int soma = numEconomicSeats+ numExecutiveSeats+numFirstClassSeats;
-
-
+        mostrarSeatsClass();
         if(soma>numSeats)
          numEconomicSeats-=1;
          else if(soma<numSeats)

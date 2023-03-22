@@ -16,13 +16,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/clients")
 public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
     public List<ClientDTO> clientsList = new ArrayList<ClientDTO>();
     public HashMap<Integer, ClientDTO> clients = new HashMap<Integer, ClientDTO>();
 
-    @PostMapping("/clients")
+    @PostMapping
     public ResponseEntity<ClientDTO> addClient(@RequestBody @Valid ClientDTO c) {
         ClientDAO clientPersisted = clientRepository.save(c.toDAO());
         String tamanhoLista = String.valueOf(clientRepository.findAll().size());
@@ -32,14 +33,14 @@ public class ClientController {
         return new ResponseEntity<ClientDTO>(clientPersisted.toDTO(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/clients/{id}/update")
+    @PutMapping("/{id}/update")
     public ResponseEntity<ClientDTO> updateClient(@PathVariable("id") Long id, @RequestBody ClientDTO c) {
         c.setId(id);
         ClientDAO clientUpdated = clientRepository.save(c.toDAO());
         return new ResponseEntity<ClientDTO>(clientUpdated.toDTO(), HttpStatus.OK);
     }
 
-    @GetMapping("/clients")
+    @GetMapping
     public ResponseEntity<List<ClientDTO>> getAllClients() {
         return ResponseEntity.ok().body(clientRepository.findAll()
                 .stream()
@@ -47,7 +48,7 @@ public class ClientController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/clients/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ClientDTO> getClientById(@PathVariable("id") Long id) {
         Optional<ClientDAO> client = clientRepository.findById(id);
 
@@ -57,7 +58,7 @@ public class ClientController {
             return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/clients/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<ClientDTO> deleteClientById(@PathVariable("id") Long id) {
         ClientDAO client = new ClientDAO();
         client.setId(id);
@@ -65,7 +66,7 @@ public class ClientController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/clients/{id}/ativar")
+    @PostMapping("/{id}/ativar")
     public void ativar(Long id) {
         clientRepository.findById(id).ifPresent(client -> {
             client.ativar();
@@ -74,7 +75,7 @@ public class ClientController {
     }
 
 
-    @PostMapping("/clients/{id}/inativar")
+    @PostMapping("/{id}/inativar")
     public void inativar(Long id) {
         clientRepository.findById(id).ifPresent(client -> {
             client.inativar();

@@ -1,6 +1,7 @@
-package com.test.skypassTests.repository;
+package com.startech.skypass.repository;
 
-import com.test.skypassTests.dao.SeatDAO;
+
+import com.startech.skypass.dao.SeatDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SeatRepository extends

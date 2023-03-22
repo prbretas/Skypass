@@ -12,17 +12,20 @@ import lombok.*;
 @Getter
 public class ClientDAO {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "user_Name") // SOMENTE PARA DAR NOME A COLUNA DA TABELA
+    //@Column(name = "user_Name") // SOMENTE PARA DAR NOME A COLUNA DA TABELA
+    @Column(nullable = false, unique = true)
     private String userName;
     private String name;
     private String lastName;
+    @Column(nullable = false, unique = true)
     private String numReg;
     private String phone;
+    @Column(nullable = false, unique = true)
     private String email;
     private String password;
-    private Long idAddress ;
+    private Long idAddress;
     private String birthdate;
     private boolean ativo;
 

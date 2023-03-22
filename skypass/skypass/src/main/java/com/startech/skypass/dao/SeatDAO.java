@@ -1,9 +1,13 @@
-package com.test.skypassTests.dao;
+package com.startech.skypass.dao;
 
-import com.test.skypassTests.dto.SeatDTO;
-import com.test.skypassTests.enums.Category;
+
+import com.startech.skypass.dto.SeatDTO;
+import com.startech.skypass.enums.Category;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Builder
@@ -20,6 +24,7 @@ public class SeatDAO {
     private Long id;
     @Column(nullable = false, unique = true)
     private String seatName;
+    @Enumerated(EnumType.STRING)
     private Category category;
     private boolean ativo;
 
@@ -35,7 +40,7 @@ public class SeatDAO {
     public SeatDTO toDTO (){
         return SeatDTO.builder()
                 .id(id)
-                .SeatName(seatName)
+                .seatName(seatName)
                 .category(category)
                 .ativo(ativar())
                 .build();

@@ -1,9 +1,11 @@
-package com.test.skypassTests.dto;
+package com.startech.skypass.dto;
 
-
-import com.test.skypassTests.dao.SeatDAO;
-import com.test.skypassTests.enums.Category;
-import lombok.*;
+import com.startech.skypass.dao.SeatDAO;
+import com.startech.skypass.enums.Category;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
@@ -12,7 +14,7 @@ import lombok.*;
 public class SeatDTO {
 
     private Long id;
-    private String SeatName;
+    private String seatName;
     private Category category;
     private boolean ativo;
 
@@ -21,7 +23,7 @@ public class SeatDTO {
     public String toString() {
         return "Seat{" +
                 "\nid=" + id +
-                "\n, name='" + SeatName + '\'' +
+                "\n, name='" + seatName + '\'' +
                 "\n, category=" + category +
                 "\n, ativo=" + ativo +
                 '}';
@@ -30,7 +32,7 @@ public class SeatDTO {
     public SeatDAO toDAO (){
         return SeatDAO.builder()
                 .id(id)
-                .seatName(SeatName)
+                .seatName(seatName)
                 .category(category)
                 .build();
     }

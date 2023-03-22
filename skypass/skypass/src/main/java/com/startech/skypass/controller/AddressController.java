@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/adresses")
 public class AddressController {
 
     //--------------------------------------- |ADDRESS| -----------------------------------------------------
@@ -24,7 +25,7 @@ public class AddressController {
     public List<AddressDTO> AddressList = new ArrayList<AddressDTO>();
     public HashMap<Integer, AddressDTO> adresses = new HashMap<Integer, AddressDTO>();
 
-    @PostMapping("/adresses")
+    @PostMapping
     public ResponseEntity<AddressDTO> addAddress(@RequestBody @Valid AddressDTO ad) {
         AddressDAO addressPersisted = addressRepository.save(ad.toDAO());
         String tamanhoLista = String.valueOf(addressRepository.findAll().size());
@@ -34,14 +35,14 @@ public class AddressController {
         return new ResponseEntity<AddressDTO>(addressPersisted.toDTO(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/adresses/{id}/update")
+    @PutMapping("/{id}/update")
     public ResponseEntity<AddressDTO> updateAddress(@PathVariable("id") Long id, @RequestBody AddressDTO ad) {
         ad.setId(id);
         AddressDAO addressUpdated = addressRepository.save(ad.toDAO());
         return new ResponseEntity<AddressDTO>(addressUpdated.toDTO(), HttpStatus.OK);
     }
 
-    @GetMapping("/adresses")
+    @GetMapping
     public ResponseEntity<List<AddressDTO>> getAllAdresses() {
         return ResponseEntity.ok().body(addressRepository.findAll()
                 .stream()
@@ -49,7 +50,7 @@ public class AddressController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/adresses/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<AddressDTO> getAddressById(@PathVariable("id") Long id) {
         Optional<AddressDAO> address = addressRepository.findById(id);
         if (address.isPresent()) {
@@ -59,7 +60,7 @@ public class AddressController {
         }
     }
 
-    @DeleteMapping("/adresses/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<AddressDTO> deleteAddressById(@PathVariable("id") Long id) {
         AddressDAO address = new AddressDAO();
         address.setId(id);
@@ -68,7 +69,7 @@ public class AddressController {
     }
 
 
-    @PostMapping("/adresses/{id}/ativar")
+    @PostMapping("/{id}/ativar")
     public void ativar(Long id) {
         addressRepository.findById(id).ifPresent(address -> {
             address.ativar();
@@ -76,7 +77,7 @@ public class AddressController {
         });
     }
 
-    @PostMapping("/adresses/{id}/inativar")
+    @PostMapping("/{id}/inativar")
     public void inativar(Long id) {
         addressRepository.findById(id).ifPresent(address -> {
             address.inativar();

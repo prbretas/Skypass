@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/flights")
 public class FlightController {
 
     //--------------------------------------|FLIGHT|------------------------------------------------------
@@ -25,7 +26,7 @@ public class FlightController {
     public List<FlightDTO> FlightsList = new ArrayList<FlightDTO>();
     public HashMap<Integer, FlightDTO> flights = new HashMap<Integer, FlightDTO>();
 
-    @PostMapping("/flights")
+    @PostMapping
     public ResponseEntity<FlightDTO> addFlight(@RequestBody @Valid FlightDTO ft) {
         FlightDAO flightPersisted = flightRepository.save(ft.toDAO());
         String tamanhoLista = String.valueOf(flightRepository.findAll().size());
@@ -34,14 +35,14 @@ public class FlightController {
         return new ResponseEntity<FlightDTO>(flightPersisted.toDTO(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/flights/{id}/update")
+    @PutMapping("/{id}/update")
     public ResponseEntity<FlightDTO> updateFlight(@PathVariable("id") Long id, @RequestBody FlightDTO ft) {
         ft.setId(id);
         FlightDAO flightUpdated = flightRepository.save(ft.toDAO());
         return new ResponseEntity<FlightDTO>(flightUpdated.toDTO(), HttpStatus.OK);
     }
 
-    @GetMapping("/flights")
+    @GetMapping
     public ResponseEntity<List<FlightDTO>> getAllFlights() {
         return ResponseEntity.ok().body(flightRepository.findAll()
                 .stream()
@@ -49,7 +50,7 @@ public class FlightController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/flights/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<FlightDTO> getFlightById(@PathVariable("id") Long id) {
         Optional<FlightDAO> flight = flightRepository.findById(id);
         if (flight.isPresent()) {
@@ -59,7 +60,7 @@ public class FlightController {
         }
     }
 
-    @DeleteMapping("/flights/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<FlightDTO> deleteFlightById(@PathVariable("id") Long id) {
         FlightDAO flight = new FlightDAO();
         flight.setId(id);
@@ -67,7 +68,7 @@ public class FlightController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/flights/{id}/ativar")
+    @PostMapping("/{id}/ativar")
     public void ativar(Long id) {
         flightRepository.findById(id).ifPresent(flight -> {
             flight.ativar();
@@ -75,7 +76,7 @@ public class FlightController {
         });
     }
 
-    @PostMapping("/flights/{id}/inativar")
+    @PostMapping("/{id}/inativar")
     public void inativar(Long id) {
         flightRepository.findById(id).ifPresent(flight -> {
             flight.inativar();

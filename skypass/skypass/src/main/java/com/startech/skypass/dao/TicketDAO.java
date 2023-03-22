@@ -18,7 +18,9 @@ public class TicketDAO {
     private Long id;
     private Long idClient; //(fk_Client_Ticket)
     private Long idFlight; //(fk_Flight_Ticket)
+    @Column(nullable = false, unique = true)
     private String idSeat;
+    @Enumerated(EnumType.STRING)
     private Category category;
     @Column(name = "lug_amount")
     private int luggageAmount;

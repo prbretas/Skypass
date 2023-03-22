@@ -16,7 +16,9 @@ public class AirportDAO {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private Long idAdress; // fk_Endereço_ Airport
+    @Column(nullable = false, unique = true)
     private String name;
+    @Column(nullable = false, unique = true)
     private String iataCode;
     private String phone;
     private String email;

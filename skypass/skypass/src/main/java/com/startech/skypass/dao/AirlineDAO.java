@@ -1,10 +1,7 @@
 package com.startech.skypass.dao;
 
 import com.startech.skypass.dto.AirlineDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity(name = "airline")
@@ -19,6 +16,7 @@ public class AirlineDAO {
     private Long id;
     private Long idAdress; // fk_Adress_Airline
     private String companyName;
+    @Column(nullable = false, unique = true)
     private String numReg;
     private String phone;
     private String email;

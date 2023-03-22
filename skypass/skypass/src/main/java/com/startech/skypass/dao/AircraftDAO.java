@@ -17,6 +17,7 @@ public class AircraftDAO {
     private Long id;
     private Long idAirline;//(fk_Airline_Aircraft)
     private String model;
+    @Column(nullable = false, unique = true)
     private String numSerie;
     private String infoSystem;
     private String latitude;

@@ -1,7 +1,6 @@
 package com.startech.skypass.dto;
 
 import com.startech.skypass.dao.ClientDAO;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -27,7 +26,7 @@ public class ClientDTO {
     @Email
     private String email;
     private String password;
-    private Long idAddress ; //fk_ADRESS_CLIENT
+    private Long idAddress; //fk_ADRESS_CLIENT
     private String birthdate;
     private boolean ativo;
 

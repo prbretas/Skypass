@@ -16,13 +16,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/aircrafts")
 public class AircraftController {
     @Autowired
     private AircraftRepository aircraftRepository;
     public List<AircraftDTO> AircraftsList = new ArrayList<AircraftDTO>();
     public HashMap<Integer, AircraftDTO> aircrafts = new HashMap<Integer, AircraftDTO>();
 
-    @PostMapping("/aircrafts")
+    @PostMapping
     public ResponseEntity<AircraftDTO> addAircraft(@RequestBody @Valid AircraftDTO ac) {
         AircraftDAO aircraftPersisted = aircraftRepository.save(ac.toDAO());
         ac.calcularSeatsClass(ac.getNumSeats());
@@ -32,14 +33,14 @@ public class AircraftController {
         return new ResponseEntity<AircraftDTO>(aircraftPersisted.toDTO(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/aircrafts/{id}/update")
+    @PutMapping("/{id}/update")
     public ResponseEntity<AircraftDTO> updateAircraft(@PathVariable("id") Long id, @RequestBody AircraftDTO ac) {
         ac.setId(id);
         AircraftDAO aircraftUpdated = aircraftRepository.save(ac.toDAO());
         return new ResponseEntity<AircraftDTO>(aircraftUpdated.toDTO(), HttpStatus.OK);
     }
 
-    @GetMapping("/aircrafts")
+    @GetMapping
     public ResponseEntity<List<AircraftDTO>> getAllAircrafts() {
         return ResponseEntity.ok().body(aircraftRepository.findAll()
                 .stream()
@@ -47,7 +48,7 @@ public class AircraftController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/aircrafts/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<AircraftDTO> getAircraftById(@PathVariable("id") Long id) {
         Optional<AircraftDAO> aircraft = aircraftRepository.findById(id);
         if (aircraft.isPresent()) {
@@ -57,7 +58,7 @@ public class AircraftController {
         }
     }
 
-    @DeleteMapping("/aircrafts/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<AircraftDTO> deleteAircraftById(@PathVariable("id") Long id) {
         AircraftDAO aircraft = new AircraftDAO();
         aircraft.setId(id);
@@ -65,7 +66,7 @@ public class AircraftController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/aircrafts/{id}/ativar")
+    @PostMapping("/{id}/ativar")
     public void ativar(Long id) {
         aircraftRepository.findById(id).ifPresent(aircraft -> {
             aircraft.ativar();
@@ -73,7 +74,7 @@ public class AircraftController {
         });
     }
 
-    @PostMapping("/aircrafts/{id}/inativar")
+    @PostMapping("/{id}/inativar")
     public void inativar(Long id) {
         aircraftRepository.findById(id).ifPresent(aircraft -> {
             aircraft.inativar();

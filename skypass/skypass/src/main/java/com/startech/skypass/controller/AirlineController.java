@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/airlines")
 public class AirlineController {
     //--------------------------------------|AIRLINE|------------------------------------------------------
     @Autowired
@@ -23,7 +24,7 @@ public class AirlineController {
     public List<AirlineDTO> AirlinesList = new ArrayList<AirlineDTO>();
     public HashMap<Integer, AirlineDTO> airlines = new HashMap<Integer, AirlineDTO>();
 
-    @PostMapping("/airlines")
+    @PostMapping
     public ResponseEntity<AirlineDTO> addAirline(@RequestBody @Valid AirlineDTO al) {
         AirlineDAO airlinePersisted = airlineRepository.save(al.toDAO());
         String tamanhoLista = String.valueOf(airlineRepository.findAll().size());
@@ -32,14 +33,14 @@ public class AirlineController {
         return new ResponseEntity<AirlineDTO>(airlinePersisted.toDTO(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/airlines/{id}/update")
+    @PutMapping("/{id}/update")
     public ResponseEntity<AirlineDTO> updateAirline(@PathVariable("id") Long id, @RequestBody AirlineDTO al) {
         al.setId(id);
         AirlineDAO airlineUpdated = airlineRepository.save(al.toDAO());
         return new ResponseEntity<AirlineDTO>(airlineUpdated.toDTO(), HttpStatus.OK);
     }
 
-    @GetMapping("/airlines")
+    @GetMapping
     public ResponseEntity<List<AirlineDTO>> getAllAirline() {
         return ResponseEntity.ok().body(airlineRepository.findAll()
                 .stream()
@@ -47,7 +48,7 @@ public class AirlineController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/airlines/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<AirlineDTO> getAirlineById(@PathVariable("id") Long id) {
         Optional<AirlineDAO> airline = airlineRepository.findById(id);
         if (airline.isPresent()) {
@@ -57,7 +58,7 @@ public class AirlineController {
         }
     }
 
-    @DeleteMapping("/airlines/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<AirlineDTO> deleteAirlineById(@PathVariable("id") Long id) {
         AirlineDAO airline = new AirlineDAO();
         airline.setId(id);
@@ -65,7 +66,7 @@ public class AirlineController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/airlines/{id}/ativar")
+    @PostMapping("/{id}/ativar")
     public void ativar(Long id) {
         airlineRepository.findById(id).ifPresent(airline -> {
             airline.ativar();
@@ -73,7 +74,7 @@ public class AirlineController {
         });
     }
 
-    @PostMapping("/airlines/{id}/inativar")
+    @PostMapping("/{id}/inativar")
     public void inativar(Long id) {
         airlineRepository.findById(id).ifPresent(airline -> {
             airline.inativar();

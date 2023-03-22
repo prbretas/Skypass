@@ -1,8 +1,8 @@
-package com.test.skypassTests.controller;
+package com.startech.skypass.controller;
 
-import com.test.skypassTests.dao.SeatDAO;
-import com.test.skypassTests.dto.SeatDTO;
-import com.test.skypassTests.repository.SeatRepository;
+import com.startech.skypass.dao.SeatDAO;
+import com.startech.skypass.dto.SeatDTO;
+import com.startech.skypass.repository.SeatRepository;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
@@ -18,13 +18,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/seats")
 public class SeatController {
     @Autowired
     private SeatRepository seatRepository;
     public List<SeatDTO> seatsList = new ArrayList<SeatDTO>();
     public HashMap<Integer, SeatDTO> seats = new HashMap<Integer, SeatDTO>();
 
-    @PostMapping("/seats")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<SeatDTO> addSeat(@RequestBody @Valid SeatDTO st) {
         SeatDAO seatPersisted = seatRepository.save(st.toDAO());
@@ -35,7 +36,7 @@ public class SeatController {
         return new ResponseEntity<SeatDTO>(seatPersisted.toDTO(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/seats/{id}/update")
+    @PutMapping("/{id}/update")
     public ResponseEntity<SeatDTO> updateSeat(@PathVariable("id") Long id, @RequestBody SeatDTO st) {
         st.setId(id);
         SeatDAO seatUpdated = seatRepository.save(st.toDAO());
@@ -43,7 +44,7 @@ public class SeatController {
         return new ResponseEntity<SeatDTO>(seatUpdated.toDTO(), HttpStatus.OK);
     }
 
-    @GetMapping("/seats")
+    @GetMapping
     public ResponseEntity<List<SeatDTO>> getAllSeats() {
         return ResponseEntity.ok().body(seatRepository.findAll()
                 .stream()
@@ -51,7 +52,7 @@ public class SeatController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/seats/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<SeatDTO> getSeatById(@PathVariable("id") Long id) {
         Optional<SeatDAO> seat = seatRepository.findById(id);
 
@@ -61,7 +62,7 @@ public class SeatController {
             return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/seats/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<SeatDTO> deleteSeatById(@PathVariable("id") Long id) {
         SeatDAO seat = new SeatDAO();
         seat.setId(id);
@@ -80,10 +81,8 @@ public class SeatController {
                     violation.getPropertyPath().toString(),
                     violation.getMessage()
             );
-
             erros.add(erro);
         }
-
         return erros;
     }
 }

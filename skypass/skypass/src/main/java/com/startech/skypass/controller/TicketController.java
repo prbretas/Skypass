@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/tickets")
 public class TicketController {
 
     //--------------------------------------- |TICKETS| -----------------------------------------------------
@@ -24,7 +25,7 @@ public class TicketController {
     public List<TicketDTO> TicketsList = new ArrayList<TicketDTO>();
     public HashMap<Integer, TicketDTO> tickets = new HashMap<Integer, TicketDTO>();
 
-    @PostMapping("/tickets")
+    @PostMapping
     public ResponseEntity<TicketDTO> addTicket(@RequestBody @Valid TicketDTO tk) {
         TicketDAO ticketPersisted = ticketRepository.save(tk.toDAO());
         String tamanhoLista = String.valueOf(ticketRepository.findAll().size());
@@ -33,14 +34,14 @@ public class TicketController {
         return new ResponseEntity<TicketDTO>(ticketPersisted.toDTO(), HttpStatus.CREATED);
     }
 
-    @PutMapping("/tickets/{id}/update")
+    @PutMapping("/{id}/update")
     public ResponseEntity<TicketDTO> updateTicket(@PathVariable("id") Long id, @RequestBody TicketDTO tk) {
         tk.setId(id);
         TicketDAO ticketUpdated = ticketRepository.save(tk.toDAO());
         return new ResponseEntity<TicketDTO>(ticketUpdated.toDTO(), HttpStatus.OK);
     }
 
-    @GetMapping("/tickets")
+    @GetMapping
     public ResponseEntity<List<TicketDTO>> getAllTickets() {
         return ResponseEntity.ok().body(ticketRepository.findAll()
                 .stream()
@@ -48,7 +49,7 @@ public class TicketController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/tickets/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<TicketDTO> getTicketById(@PathVariable("id") Long id) {
         Optional<TicketDAO> ticket = ticketRepository.findById(id);
         if (ticket.isPresent()) {
@@ -58,7 +59,7 @@ public class TicketController {
         }
     }
 
-    @DeleteMapping("/tickets/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<TicketDTO> deleteTicketById(@PathVariable("id") Long id) {
         TicketDAO ticket = new TicketDAO();
         ticket.inativar(); //--------------------- INATIVAR
@@ -67,7 +68,7 @@ public class TicketController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/tickets/{id}/ativar")
+    @PostMapping("/{id}/ativar")
     public void ativar(Long id) {
         ticketRepository.findById(id).ifPresent(ticket -> {
             ticket.ativar();
@@ -75,7 +76,7 @@ public class TicketController {
         });
     }
 
-    @PostMapping("/tickets/{id}/inativar")
+    @PostMapping("/{id}/inativar")
     public void inativar(Long id) {
         ticketRepository.findById(id).ifPresent(ticket -> {
             ticket.inativar();
