@@ -13,7 +13,6 @@ import lombok.*;
 @Getter
 @Setter
 public class AddressDTO {
-
     private Long id;
     @NotBlank
     private String street;
@@ -26,10 +25,6 @@ public class AddressDTO {
     @NotEmpty(message = "Por favor, insira um CEP")
     private String zipCode;
     private String country;
-
-
-    @OneToOne(mappedBy = "address")
-    private ClientDTO clientDTO;
     private boolean ativo;
 
 
