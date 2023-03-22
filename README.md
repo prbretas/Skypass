@@ -5,7 +5,7 @@ Projeto Final START&lt;tech&gt;
 <br>
 Sistema JAVA sobre passagens aéreas
 <br>
-<a href="https://docs.google.com/document/d/1ElRBBApK8j2OIPLHJ2G7ijFpY8Qq2nvwOsQtGmz6KdQ/edit?usp=sharing">DOCUMENTAÇÃO DA APLICAÇÃO APP</a>
+<a href="https://docs.google.com/document/d/1ElRBBApK8j2OIPLHJ2G7ijFpY8Qq2nvwOsQtGmz6KdQ/edit?usp=sharing">SKYPASS DOCUMENTAÇÃO</a>
 
 <a href="https://docs.google.com/document/d/1nfFfXf5ALRQP5Y97zNybf7_1YFQM3KTI1khI3msPeog/edit?usp=sharing">ALGUNS EXEMPLOS DE DADOS JSON</a>
 
