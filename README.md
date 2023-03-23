@@ -5,11 +5,11 @@ Projeto Final START&lt;tech&gt;
 
 SKYPASS Flights® - Aplicação utilizando como modelo um sistema de passagens aéreas
 <br>
-Descrição:
+<strong>Descrição:</strong>
 <br>
 Projeto de conclusão do Módulo Programação WEB II do programa START<tech> Universidade TOTVS & Ada Tech.
 <br>
-Conceito:
+<strong>Conceito:</strong>
 <br>
 Uma API para gerenciar um sistema de passagens aéreas, onde o objetivo é a venda das passagens. O cenário ideal seria onde um cliente busca uma passagem aérea para viajar, realiza um breve cadastro e já pode comprar a passagem.
 <br>
