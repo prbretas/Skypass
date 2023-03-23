@@ -25,7 +25,10 @@ public class ClientDAO {
     @Column(nullable = false, unique = true)
     private String email;
     private String password;
-    private Long idAddress;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "clientId", nullable = false, insertable = false)
+    private ClientAddressDAO address;
     private String birthdate;
     private boolean ativo;
 
@@ -40,7 +43,6 @@ public class ClientDAO {
                 "\nphone=" + getPhone() +
                 "\nemail=" + getEmail() +
                 "\npassword=" + getPassword() +
-                "\nidAddress=" + getIdAddress() +
                 "\nbirthday=" + getBirthdate() +
                 "\nativo=" + ativo +
                 "\n}";
@@ -56,7 +58,6 @@ public class ClientDAO {
                 .phone(phone)
                 .email(email)
                 .password(password)
-                .idAddress(idAddress)
                 .birthdate(birthdate)
                 .ativo(ativo)
                 .build();

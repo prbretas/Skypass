@@ -26,7 +26,8 @@ public class ClientDTO {
     @Email
     private String email;
     private String password;
-    private Long idAddress; //fk_ADRESS_CLIENT
+
+    private ; //fk_ADRESS_CLIENT
     private String birthdate;
     private boolean ativo;
 
@@ -58,7 +59,6 @@ public class ClientDTO {
                 .phone(phone)
                 .email(email)
                 .password(password)
-                .idAddress(idAddress)
                 .birthdate(birthdate)
                 .ativo(ativar())
                 .build();
