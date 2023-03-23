@@ -1,9 +1,21 @@
 # Skypass Flights
 Projeto Final START&lt;tech&gt;
 <br>
-| JAVA | MSSQLSERVER | SPRING BOOT | API |
+
+
+SKYPASS Flights® - Aplicação utilizando como modelo um sistema de passagens aéreas
 <br>
-Sistema JAVA sobre passagens aéreas
+Descrição:
+<br>
+Projeto de conclusão do Módulo Programação WEB II do programa START<tech> Universidade TOTVS & Ada Tech.
+<br>
+Conceito:
+<br>
+Uma API para gerenciar um sistema de passagens aéreas, onde o objetivo é a venda das passagens. O cenário ideal seria onde um cliente busca uma passagem aérea para viajar, realiza um breve cadastro e já pode comprar a passagem.
+<br>
+
+| JAVA | MSSQLSERVER | SPRING BOOT | API |
+
 <hr>
 
 <a href="https://docs.google.com/document/d/1ElRBBApK8j2OIPLHJ2G7ijFpY8Qq2nvwOsQtGmz6KdQ/edit?usp=sharing">SKYPASS DOCUMENTAÇÃO</a>
