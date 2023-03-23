@@ -7,7 +7,7 @@ SKYPASS Flights® - Aplicação utilizando como modelo um sistema de passagens a
 <br><br>
 Descrição:
 <br>
-Projeto de conclusão do Módulo Programação WEB II do programa START<tech> Universidade TOTVS & Ada Tech.
+Projeto de conclusão do Módulo Programação WEB II do programa START tech, Universidade TOTVS & Ada Tech.
 <br>
  <br>
 Conceito:
