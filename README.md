@@ -5,7 +5,7 @@ Projeto Final START&lt;tech&gt;
 
 SKYPASS Flights® - Aplicação utilizando como modelo um sistema de passagens aéreas
 <br>
-<strong>Descrição:</strong>
+<span style="font-width:bold">Descrição:</span>
 <br>
 Projeto de conclusão do Módulo Programação WEB II do programa START<tech> Universidade TOTVS & Ada Tech.
 <br>
