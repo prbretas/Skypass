@@ -42,7 +42,7 @@ public class SeatDAO {
                 .id(id)
                 .seatName(seatName)
                 .category(category)
-                .ativo(ativar())
+                .ativo(ativo)
                 .build();
     }
     public boolean ativar() {

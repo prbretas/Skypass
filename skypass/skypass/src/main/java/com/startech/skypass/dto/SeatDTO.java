@@ -34,6 +34,7 @@ public class SeatDTO {
                 .id(id)
                 .seatName(seatName)
                 .category(category)
+                .ativo(ativar())
                 .build();
     }
 
