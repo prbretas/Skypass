@@ -1,5 +1,6 @@
 package com.startech.skypass.dto;
 
+import com.startech.skypass.dao.AddressDAO;
 import com.startech.skypass.dao.ClientDAO;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +15,7 @@ import lombok.*;
 public class ClientDTO {
 
 
-    private Long id;
+    private Long idClient;
     @NotBlank
     private String userName;
     @NotEmpty(message = "Por favor, insira um nome")
@@ -26,14 +27,14 @@ public class ClientDTO {
     @Email
     private String email;
     private String password;
-    private Long idAddress; //fk_ADRESS_CLIENT
+    private AddressDAO idAddress; //fk_ADRESS_CLIENT
     private String birthdate;
     private boolean ativo;
 
     @Override
     public String toString() { // UTILIZAMOS ESSA FUNÇÃO PARA RETORNAR NO CONSOLE QUANDO OBJ FOR CRIADO
         return "\nClient{" +
-                "\nid=" + getId() +
+                "\nid=" + getIdClient() +
                 "\nuserName=" + getUserName() +
                 "\nname=" + getName() +
                 "\nlastName=" + getLastName() +
@@ -50,7 +51,7 @@ public class ClientDTO {
     public ClientDAO toDAO(){
         return ClientDAO.
                 builder()
-                .id(id)
+                .idClient(idClient)
                 .name(name)
                 .lastName(lastName)
                 .userName(userName)

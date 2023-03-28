@@ -1,58 +1,67 @@
 package com.startech.skypass.dao;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.startech.skypass.dto.AircraftDTO;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity(name = "aircraft")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Setter
-@Getter
+@Data
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "idAircraft")
 public class AircraftDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private Long idAircraft;
     private Long idAirline;//(fk_Airline_Aircraft)
     private String model;
     @Column(nullable = false, unique = true)
     private String numSerie;
     private String infoSystem;
     private String latitude;
-
     private String longitude;
-    private int numSeats;
-    @Column(name = "Eco_Seats")
-    private int numEconomicSeats;
-    @Column(name = "Exe_Seats")
+
+    @OneToMany(mappedBy = "idAircraft", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<SeatDAO> seats;
+
+  /*  @Column(name = "Exe_Seats")
     private int numExecutiveSeats;
     @Column(name = "FC_Seats")
-    private int numFirstClassSeats;
+    private int numFirstClassSeats;*/
     private double cargoWeight;
     private boolean ativo;
 
     @Override
     public String toString() {
         return "\nAircraft{" +
-                "\nid=" + getId() +
+                "\nid=" + getIdAircraft() +
                 "\nidAirline=" + getIdAirline() +
                 "\nmodel='" + getModel() +
                 "\nnumSerie='" + getNumSerie() +
                 "\ninfoSystem='" + getInfoSystem() +
                 "\nlatitude='" + getLatitude() +
                 "\nlongitude='" + getLongitude() +
-                "\nnumSeats=" + getNumSeats() +
-                "\nnumEconomicSeats=" + getNumEconomicSeats() +
+                "\nidSeats='" + getSeats() +
+          /*
+                "\nnumEconomicSeats=" + getEcoSeats() +
                 "\nnumExecutiveSeats=" + getNumExecutiveSeats() +
-                "\nnumFirstClassSeats=" + getNumFirstClassSeats() +
+                "\nnumFirstClassSeats=" + getNumFirstClassSeats() +*/
                 "\ncargoWeight=" + getCargoWeight() +
                 "\nativo=" + ativo +
                 "\n}";
     }
 
-    public int calcularSeatsClass(int numSeats){
+    /*public int calcularSeatsClass(int numSeats){
         this.numSeats = numSeats;
         this.numEconomicSeats = (int) (numSeats * 0.7);
         this.numExecutiveSeats = (int) (numSeats * 0.2);
@@ -63,9 +72,7 @@ public class AircraftDAO {
             numEconomicSeats-=1;
         else if(soma<numSeats)
             numEconomicSeats+=1;
-
         return  numSeats;
-
     }
 
     public void mostrarSeatsClass(){
@@ -75,24 +82,21 @@ public class AircraftDAO {
                 + "\n- Primeira Classe: " + getNumFirstClassSeats()
                 + "\n- Total de Poltronas: " + getNumSeats());
     }
-
+*/
 
 
     public AircraftDTO toDTO (){
         return AircraftDTO.builder()
-                .id(id)
+                .idAircraft(idAircraft)
                 .idAirline(idAirline)
                 .model(model)
                 .numSerie(numSerie)
                 .infoSystem(infoSystem)
                 .latitude(latitude)
                 .longitude(longitude)
-                .numSeats(calcularSeatsClass(numSeats))
-                .numEconomicSeats(numEconomicSeats)
-                .numExecutiveSeats(numExecutiveSeats)
-                .numFirstClassSeats(numFirstClassSeats)
+                .seats(seats)
                 .cargoWeight(cargoWeight)
-                .ativo(ativo)
+                .ativo(ativar())
                 .build();
     }
 

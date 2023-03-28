@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/adresses")
+@RequestMapping("/addresses")
 public class AddressController {
 
     //--------------------------------------- |ADDRESS| -----------------------------------------------------
@@ -37,7 +37,7 @@ public class AddressController {
 
     @PutMapping("/{id}/update")
     public ResponseEntity<AddressDTO> updateAddress(@PathVariable("id") Long id, @RequestBody AddressDTO ad) {
-        ad.setId(id);
+        ad.setIdAddress(id);
         AddressDAO addressUpdated = addressRepository.save(ad.toDAO());
         return new ResponseEntity<AddressDTO>(addressUpdated.toDTO(), HttpStatus.OK);
     }
@@ -63,7 +63,7 @@ public class AddressController {
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<AddressDTO> deleteAddressById(@PathVariable("id") Long id) {
         AddressDAO address = new AddressDAO();
-        address.setId(id);
+        address.setIdAddress(id);
         addressRepository.delete(address);
         return ResponseEntity.noContent().build();
     }

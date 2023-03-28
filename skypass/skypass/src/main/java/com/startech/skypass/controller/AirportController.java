@@ -36,7 +36,7 @@ public class AirportController {
 
     @PutMapping("/{id}/update")
     public ResponseEntity<AirportDTO> updateAirport(@PathVariable("id") Long id, @RequestBody AirportDTO ap) {
-        ap.setId(id);
+        ap.setIdAirport(id);
         AirportDAO airportUpdated = airportRepository.save(ap.toDAO());
         return new ResponseEntity<AirportDTO>(airportUpdated.toDTO(), HttpStatus.OK);
     }
@@ -62,7 +62,7 @@ public class AirportController {
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<AirportDTO> deleteAirportById(@PathVariable("id") Long id) {
         AirportDAO airport = new AirportDAO();
-        airport.setId(id);
+        airport.setIdAirport(id);
         airportRepository.delete(airport);
         return ResponseEntity.noContent().build();
     }

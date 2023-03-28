@@ -1,5 +1,6 @@
 package com.startech.skypass.dto;
 
+import com.startech.skypass.dao.AircraftDAO;
 import com.startech.skypass.dao.SeatDAO;
 import com.startech.skypass.enums.Category;
 import lombok.AllArgsConstructor;
@@ -13,27 +14,30 @@ import lombok.NoArgsConstructor;
 @Data
 public class SeatDTO {
 
-    private Long id;
+    private Long idSeat;
     private String seatName;
     private Category category;
+    private AircraftDAO idAircraft;
     private boolean ativo;
 
 
     @Override
     public String toString() {
         return "Seat{" +
-                "\nid=" + id +
-                "\n, name='" + seatName + '\'' +
-                "\n, category=" + category +
+                "\nid=" + getIdSeat() +
+                "\n, name='" + getSeatName() +
+                "\n, category=" + getCategory() +
+                "\n, aircraft=" + getIdAircraft() +
                 "\n, ativo=" + ativo +
                 '}';
     }
 
     public SeatDAO toDAO (){
         return SeatDAO.builder()
-                .id(id)
+                .idSeat(idSeat)
                 .seatName(seatName)
                 .category(category)
+                .idAircraft(idAircraft)
                 .ativo(ativar())
                 .build();
     }

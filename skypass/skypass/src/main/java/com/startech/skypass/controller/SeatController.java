@@ -38,9 +38,9 @@ public class SeatController {
 
     @PutMapping("/{id}/update")
     public ResponseEntity<SeatDTO> updateSeat(@PathVariable("id") Long id, @RequestBody SeatDTO st) {
-        st.setId(id);
+        st.setIdSeat(id);
         SeatDAO seatUpdated = seatRepository.save(st.toDAO());
-        System.out.println(st.getId() + " - Assento Alterado com SUCESSO!");
+        System.out.println(st.getIdSeat() + " - Assento Alterado com SUCESSO!");
         return new ResponseEntity<SeatDTO>(seatUpdated.toDTO(), HttpStatus.OK);
     }
 
@@ -65,7 +65,7 @@ public class SeatController {
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<SeatDTO> deleteSeatById(@PathVariable("id") Long id) {
         SeatDAO seat = new SeatDAO();
-        seat.setId(id);
+        seat.setIdSeat(id);
         seatRepository.delete(seat);
         return ResponseEntity.noContent().build();
     }

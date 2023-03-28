@@ -15,7 +15,7 @@ import lombok.*;
 @Setter
 public class TicketDTO {
 
-    private Long id;
+    private Long idTicket;
     private Long idClient; //(fk_Client_Ticket)
     private Long idFlight; //(fk_Flight_Ticket)
     private String idSeat;
@@ -29,7 +29,7 @@ public class TicketDTO {
     @Override
     public String toString() {
         return "\nTicket{" +
-                "\nid=" + getId() +
+                "\nid=" + getIdTicket() +
                 "\nidClient=" + getIdClient() +
                 "\nidFlight=" + getIdFlight() +
                 "\nidSeat=" + getIdSeat() +
@@ -45,7 +45,7 @@ public class TicketDTO {
     public TicketDAO toDAO(){
         return TicketDAO.
                 builder()
-                .id(id)
+                .idTicket(idTicket)
                 .idClient(idClient)
                 .idFlight(idFlight)
                 .idSeat(idSeat)

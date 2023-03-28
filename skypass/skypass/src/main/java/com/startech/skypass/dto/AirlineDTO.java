@@ -1,7 +1,7 @@
 package com.startech.skypass.dto;
 
+import com.startech.skypass.dao.AddressDAO;
 import com.startech.skypass.dao.AirlineDAO;
-import com.startech.skypass.dao.ClientDAO;
 import lombok.*;
 
 @Builder
@@ -10,8 +10,9 @@ import lombok.*;
 @Getter
 @Setter
 public class AirlineDTO {
-    private Long id;
-    private Long idAdress; // fk_Adress_Airline
+    private Long idAirline;
+
+    private AddressDAO idAddress; // fk_Adress_Airline
     private String companyName;
     private String numReg;
     private String phone;
@@ -21,7 +22,8 @@ public class AirlineDTO {
     @Override
     public String toString() {
         return "\nAirline{" +
-                "\nid='" + getId() +
+                "\nid='" + getIdAirline() +
+                "\nidAddress=" + getIdAddress() +
                 "\ncompanyName='" + getCompanyName() +
                 "\nnumReg='" + getNumReg() +
                 "\nphone='" + getPhone() +
@@ -34,8 +36,8 @@ public class AirlineDTO {
     public AirlineDAO toDAO(){
         return AirlineDAO.
                 builder()
-                .id(id)
-                .idAdress(idAdress)
+                .idAirline(idAirline)
+                .idAddress(idAddress)
                 .companyName(companyName)
                 .numReg(numReg)
                 .phone(phone)

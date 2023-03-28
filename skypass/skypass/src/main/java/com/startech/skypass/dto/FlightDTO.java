@@ -1,6 +1,10 @@
 package com.startech.skypass.dto;
 
+import com.startech.skypass.dao.AirportDAO;
 import com.startech.skypass.dao.FlightDAO;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 @Builder
@@ -10,11 +14,10 @@ import lombok.*;
 @Setter
 public class FlightDTO {
 
-    private Long id;
+    private Long idFlight;
     private Long idAircraft ;//(fk_Aeronave_flight)
-    private Long idAirline ; //(fk_Airline_Flight)
-    private Long departurePlace; //Fk_Airport_Flight
-    private Long arrivalPlace;  //Fk_Airport_Flight
+    private AirportDAO idAirportDeparture;
+    private AirportDAO idAirportArrival;  //Fk_Airport_Flight
     private String departureTime;
     private String arrivalTime;
     private String date;
@@ -24,11 +27,10 @@ public class FlightDTO {
     @Override
     public String toString() {
         return "\nFlight{" +
-                "\nid=" + getId() +
+                "\nid=" + getIdFlight() +
                 "\nidAircraft=" + getIdAircraft() +
-                "\nidAirline=" + getIdAirline() +
-                "\ndeparturePlace=" + getDeparturePlace()+
-                "\narrivalPlace=" + getArrivalPlace()+
+                "\ndeparturePlace=" + getIdAirportDeparture()+
+                "\narrivalPlace=" + getIdAirportArrival()+
                 "\ndepartureTime=" + getDepartureTime() +
                 "\narrivalTime=" + getArrivalTime() +
                 "\ndate=" + getDate() +
@@ -48,11 +50,10 @@ public class FlightDTO {
     public FlightDAO toDAO(){
         return FlightDAO.
                 builder()
-                .id(id)
+                .idFlight(idFlight)
                 .idAircraft(idAircraft)
-                .idAirline(idAirline)
-                .departurePlace(departurePlace)
-                .arrivalPlace(arrivalPlace)
+                .idAirportDeparture(idAirportDeparture)
+                .idAirportArrival(idAirportArrival)
                 .departureTime(departureTime)
                 .arrivalTime(arrivalTime)
                 .date(date)

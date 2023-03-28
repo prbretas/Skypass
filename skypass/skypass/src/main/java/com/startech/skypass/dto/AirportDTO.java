@@ -1,7 +1,7 @@
 package com.startech.skypass.dto;
 
+import com.startech.skypass.dao.AddressDAO;
 import com.startech.skypass.dao.AirportDAO;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
 
@@ -12,8 +12,9 @@ import lombok.*;
 @Setter
 public class AirportDTO {
 
-    private Long id;
-    private Long idAdress; // fk_Endereço_ Airport
+    private Long idAirport;
+
+    private AddressDAO idAddress; // fk_Endereço_ Airport
     private String name;
     private String iataCode;
     private String phone;
@@ -25,8 +26,8 @@ public class AirportDTO {
     @Override
     public String toString() {
         return "\nAirport{" +
-                "\nid='" + getId() +
-                "\nidAdress='" + getIdAdress() +
+                "\nid='" + getIdAirport() +
+                "\nidAdress='" + getIdAddress() +
                 "\nname='" + getName() +
                 "\niataCode='" + getIataCode() +
                 "\nphone='" + getPhone() +
@@ -38,8 +39,8 @@ public class AirportDTO {
     public AirportDAO toDAO(){
         return AirportDAO.
                 builder()
-                .id(id)
-                .idAdress(idAdress)
+                .idAirport(idAirport)
+                .idAddress(idAddress)
                 .name(name)
                 .iataCode(iataCode)
                 .phone(phone)

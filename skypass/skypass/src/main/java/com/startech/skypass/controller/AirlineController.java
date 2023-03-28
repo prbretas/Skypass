@@ -35,7 +35,7 @@ public class AirlineController {
 
     @PutMapping("/{id}/update")
     public ResponseEntity<AirlineDTO> updateAirline(@PathVariable("id") Long id, @RequestBody AirlineDTO al) {
-        al.setId(id);
+        al.setIdAirline(id);
         AirlineDAO airlineUpdated = airlineRepository.save(al.toDAO());
         return new ResponseEntity<AirlineDTO>(airlineUpdated.toDTO(), HttpStatus.OK);
     }
@@ -61,7 +61,7 @@ public class AirlineController {
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<AirlineDTO> deleteAirlineById(@PathVariable("id") Long id) {
         AirlineDAO airline = new AirlineDAO();
-        airline.setId(id);
+        airline.setIdAirline(id);
         airlineRepository.delete(airline);
         return ResponseEntity.noContent().build();
     }

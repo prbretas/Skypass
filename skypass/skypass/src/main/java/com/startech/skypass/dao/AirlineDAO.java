@@ -1,5 +1,7 @@
 package com.startech.skypass.dao;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.startech.skypass.dto.AirlineDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,13 +10,18 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Setter
-@Getter
+@Data
+
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "idAirline")
 public class AirlineDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    private Long idAdress; // fk_Adress_Airline
+    private Long idAirline;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idAddress")
+    private AddressDAO idAddress; // fk_Adress_Airline
     private String companyName;
     @Column(nullable = false, unique = true)
     private String numReg;
@@ -26,7 +33,8 @@ public class AirlineDAO {
     @Override
     public String toString() {
         return "\nAirline{" +
-                "\nid='" + getId() +
+                "\nid='" + getIdAirline() +
+                "\nidAddress=" + getIdAddress() +
                 "\ncompanyName='" + getCompanyName() +
                 "\nnumReg='" + getNumReg() +
                 "\nphone='" + getPhone() +
@@ -38,8 +46,8 @@ public class AirlineDAO {
 
     public AirlineDTO toDTO (){
         return AirlineDTO.builder()
-                .id(id)
-                .idAdress(idAdress)
+                .idAirline(idAirline)
+                .idAddress(idAddress)
                 .companyName(companyName)
                 .numReg(numReg)
                 .phone(phone)

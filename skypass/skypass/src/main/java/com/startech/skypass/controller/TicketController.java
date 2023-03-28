@@ -36,7 +36,7 @@ public class TicketController {
 
     @PutMapping("/{id}/update")
     public ResponseEntity<TicketDTO> updateTicket(@PathVariable("id") Long id, @RequestBody TicketDTO tk) {
-        tk.setId(id);
+        tk.setIdTicket(id);
         TicketDAO ticketUpdated = ticketRepository.save(tk.toDAO());
         return new ResponseEntity<TicketDTO>(ticketUpdated.toDTO(), HttpStatus.OK);
     }
@@ -63,7 +63,7 @@ public class TicketController {
     public ResponseEntity<TicketDTO> deleteTicketById(@PathVariable("id") Long id) {
         TicketDAO ticket = new TicketDAO();
         ticket.inativar(); //--------------------- INATIVAR
-        ticket.setId(id);
+        ticket.setIdTicket(id);
         ticketRepository.delete(ticket);
         return ResponseEntity.noContent().build();
     }

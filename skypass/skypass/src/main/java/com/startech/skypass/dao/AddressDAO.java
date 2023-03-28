@@ -1,24 +1,27 @@
 package com.startech.skypass.dao;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.startech.skypass.dto.AddressDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity(name = "address")
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Setter
+@Data
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "idAddress")
 public class AddressDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idAddress;
 
-    @Column(name = "street")
+    @Column(name = "street_Avenue") //somente para alterar o nome do atributo na tabela
     private String street;
-
     private int number;
     private String addInfo;
     private String city;
@@ -31,7 +34,7 @@ public class AddressDAO {
     @Override
     public String toString() {
         return "\nAdress{" +
-                "\nid=" + getId() +
+                "\nid=" + getIdAddress() +
                 "\nstreet=" + getStreet() +
                 "\nnumber=" + getNumber() +
                 "\naddInfo=" + getAddInfo() +
@@ -53,8 +56,8 @@ public class AddressDAO {
                 .stateCode(stateCode)
                 .zipCode(zipCode)
                 .country(country)
-                .id(id)
-                .ativo(ativo)
+                .idAddress(idAddress)
+                .ativo(ativar())
                 .build();
     }
 

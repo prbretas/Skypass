@@ -13,7 +13,7 @@ import lombok.*;
 @Getter
 @Setter
 public class AddressDTO {
-    private Long id;
+    private Long idAddress;
     @NotBlank
     private String street;
     @NotBlank
@@ -31,7 +31,7 @@ public class AddressDTO {
     @Override
     public String toString() {
         return "\nAdress{" +
-                "\nid=" + getId() +
+                "\nid=" + getIdAddress() +
                 "\nstreet=" + getStreet() +
                 "\nnumber=" + getNumber() +
                 "\naddInfo=" + getAddInfo() +
@@ -60,7 +60,7 @@ public class AddressDTO {
     public AddressDAO toDAO(){
         return AddressDAO.
                 builder()
-                .id(id)
+                .idAddress(idAddress)
                 .street(street)
                 .number(Integer.parseInt(number))
                 .addInfo(addInfo)

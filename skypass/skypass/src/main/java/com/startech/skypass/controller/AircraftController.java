@@ -1,6 +1,7 @@
 package com.startech.skypass.controller;
 
 import com.startech.skypass.dao.AircraftDAO;
+import com.startech.skypass.dao.SeatDAO;
 import com.startech.skypass.dto.AircraftDTO;
 import com.startech.skypass.repository.AircraftRepository;
 import jakarta.validation.Valid;
@@ -26,7 +27,6 @@ public class AircraftController {
     @PostMapping
     public ResponseEntity<AircraftDTO> addAircraft(@RequestBody @Valid AircraftDTO ac) {
         AircraftDAO aircraftPersisted = aircraftRepository.save(ac.toDAO());
-        ac.calcularSeatsClass(ac.getNumSeats());
         String tamanhoLista = String.valueOf(aircraftRepository.findAll().size());
         System.out.println("\nAeronave Cadastrada com SUCESSO!" + " - Quantidade de Aeronaves: " + tamanhoLista);
         System.out.println(aircraftPersisted.toString());
@@ -35,7 +35,7 @@ public class AircraftController {
 
     @PutMapping("/{id}/update")
     public ResponseEntity<AircraftDTO> updateAircraft(@PathVariable("id") Long id, @RequestBody AircraftDTO ac) {
-        ac.setId(id);
+        ac.setIdAircraft(id);
         AircraftDAO aircraftUpdated = aircraftRepository.save(ac.toDAO());
         return new ResponseEntity<AircraftDTO>(aircraftUpdated.toDTO(), HttpStatus.OK);
     }
@@ -61,7 +61,7 @@ public class AircraftController {
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<AircraftDTO> deleteAircraftById(@PathVariable("id") Long id) {
         AircraftDAO aircraft = new AircraftDAO();
-        aircraft.setId(id);
+        aircraft.setIdAircraft(id);
         aircraftRepository.delete(aircraft);
         return ResponseEntity.noContent().build();
     }

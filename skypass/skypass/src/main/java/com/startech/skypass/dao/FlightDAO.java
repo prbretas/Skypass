@@ -1,5 +1,7 @@
 package com.startech.skypass.dao;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.startech.skypass.dto.FlightDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,17 +10,24 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Setter
-@Getter
+@Data
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "idFlight")
 public class FlightDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private Long idFlight;
     private Long idAircraft ;//(fk_Aeronave_flight)
-    private Long idAirline ; //(fk_Airline_Flight)
-    private Long departurePlace; //Fk_Airport_Flight
-    private Long arrivalPlace;  //Fk_Airport_Flight
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Departure_Airport")
+    private AirportDAO idAirportDeparture;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Arrival_Airport")
+    private AirportDAO idAirportArrival;  //Fk_Airport_Flight
     private String departureTime;
     private String arrivalTime;
     private String date;
@@ -28,11 +37,10 @@ public class FlightDAO {
     @Override
     public String toString() {
         return "\nFlight{" +
-                "\nid=" + getId() +
+                "\nid=" + getIdFlight() +
                 "\nidAircraft=" + getIdAircraft() +
-                "\nidAirline=" + getIdAirline() +
-                "\ndeparturePlace=" + getDeparturePlace()+
-                "\narrivalPlace=" + getArrivalPlace()+
+                "\ndeparturePlace=" + getIdAirportDeparture()+
+                "\narrivalPlace=" + getIdAirportArrival()+
                 "\ndepartureTime=" + getDepartureTime() +
                 "\narrivalTime=" + getArrivalTime() +
                 "\ndate=" + getDate() +
@@ -44,11 +52,10 @@ public class FlightDAO {
 
     public FlightDTO toDTO (){
         return FlightDTO.builder()
-                .id(id)
+                .idFlight(idFlight)
                 .idAircraft(idAircraft)
-                .idAirline(idAirline)
-                .departurePlace(departurePlace)
-                .arrivalPlace(arrivalPlace)
+                .idAirportDeparture(idAirportDeparture)
+                .idAirportArrival(idAirportArrival)
                 .departureTime(departureTime)
                 .arrivalTime(arrivalTime)
                 .date(date)

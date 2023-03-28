@@ -37,7 +37,7 @@ public class FlightController {
 
     @PutMapping("/{id}/update")
     public ResponseEntity<FlightDTO> updateFlight(@PathVariable("id") Long id, @RequestBody FlightDTO ft) {
-        ft.setId(id);
+        ft.setIdFlight(id);
         FlightDAO flightUpdated = flightRepository.save(ft.toDAO());
         return new ResponseEntity<FlightDTO>(flightUpdated.toDTO(), HttpStatus.OK);
     }
@@ -63,7 +63,7 @@ public class FlightController {
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<FlightDTO> deleteFlightById(@PathVariable("id") Long id) {
         FlightDAO flight = new FlightDAO();
-        flight.setId(id);
+        flight.setIdFlight(id);
         flightRepository.delete(flight);
         return ResponseEntity.noContent().build();
     }

@@ -35,7 +35,7 @@ public class ClientController {
 
     @PutMapping("/{id}/update")
     public ResponseEntity<ClientDTO> updateClient(@PathVariable("id") Long id, @RequestBody ClientDTO c) {
-        c.setId(id);
+        c.setIdClient(id);
         ClientDAO clientUpdated = clientRepository.save(c.toDAO());
         return new ResponseEntity<ClientDTO>(clientUpdated.toDTO(), HttpStatus.OK);
     }
@@ -61,7 +61,7 @@ public class ClientController {
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<ClientDTO> deleteClientById(@PathVariable("id") Long id) {
         ClientDAO client = new ClientDAO();
-        client.setId(id);
+        client.setIdClient(id);
         clientRepository.delete(client);
         return ResponseEntity.noContent().build();
     }
