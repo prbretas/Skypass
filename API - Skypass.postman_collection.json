@@ -1,0 +1,1443 @@
+{
+	"info": {
+		"_postman_id": "0436f291-073c-47d6-ae8e-1902047324d7",
+		"name": "API - Skypass",
+		"description": "##### SKYPASS Flights® - Aplicação utilizando como modelo um sistema de passagens aéreas\n\nDescrição:  \nProjeto de conclusão do Módulo Programação WEB II do programa START Universidade TOTVS & Ada Tech.\n\nConceito: Uma API para gerenciar um sistema de passagens Aéreas.\n\nStartFragment\n\n#### Participantes:\n\n- [Dener Rodrigo Corrêa](https://www.linkedin.com/in/drc43/)\n- [Lucas Eduardo Ferreira](https://www.linkedin.com/in/lucas-eduardo-ferreira-pcd-688538239/)\n- [Philippe Rocca Bretas](https://www.linkedin.com/in/phrbretas/)[  \n    ](https://www.linkedin.com/in/phrbretas/)\n    \n\nLink GITHUB:\n\n[https://github.com/prbretas/Skypass](https://github.com/prbretas/Skypass)\n\nDOCUMENTAÇÃO:\n\n[https://docs.google.com/document/d/1ElRBBApK8j2OIPLHJ2G7ijFpY8Qq2nvwOsQtGmz6KdQ/edit?usp=sharing](https://docs.google.com/document/d/1ElRBBApK8j2OIPLHJ2G7ijFpY8Qq2nvwOsQtGmz6KdQ/edit?usp=sharing)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24839450"
+	},
+	"item": [
+		{
+			"name": "ADDRESS",
+			"item": [
+				{
+					"name": "GETALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/addresses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETBYID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/addresses/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"street\": \"Rua 123\",\r\n  \"number\": 623,\r\n  \"addInfo\": \"Glória\",\r\n  \"city\": \"Rio de Janeiro\",\r\n  \"state\": \"Rio de Janeiro\",\r\n  \"stateCode\": \"RJ\",\r\n  \"zipCode\": \"20825-410\",\r\n  \"country\": \"Brasil\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/addresses/2/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"2",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/addresses/1/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"1",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"street\": \"Av. Washington Luis\",\r\n  \"number\": 623,\r\n  \"addInfo\": \"Vila Congonhas\",\r\n  \"city\": \"São Paulo\",\r\n  \"state\": \"São Paulo\",\r\n  \"stateCode\": \"SP\",\r\n  \"zipCode\": \"04626-911\",\r\n  \"country\": \"Brasil\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/addresses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/addresses/1/ativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"1",
+								"ativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/addresses/1/inativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"1",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AIRCRAFT",
+			"item": [
+				{
+					"name": "GETALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/aircrafts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"aircrafts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETBYID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/aircrafts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"aircrafts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"12\",\r\n  \"idAirline\": 5125,\r\n  \"model\": \"6549546\",\r\n  \"numSerie\": \"6549546\",\r\n  \"infoSystem\": \"6549546\",\r\n  \"latitude\": \"6549546\",\r\n  \"longitude\": \"6549546\",\r\n  \"numSeats\": \"210\",\r\n  \"cargoWeight\": 0\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/aircrafts/1/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"aircrafts",
+								"1",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/aircrafts/1/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"aircrafts",
+								"1",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idAirline\": 5125,\r\n  \"model\": \"AIRBUS-737\",\r\n  \"numSerie\": \"01234\",\r\n  \"infoSystem\": \"AIRBUS-737\",\r\n  \"latitude\": \"01010101\",\r\n  \"longitude\": \"02020202\",\r\n  \"seats\": [{\r\n  \"seatName\": \"011-A\",\r\n  \"category\": 0,\r\n  \"idAircraft\": {\"idAircraft\": 1}\r\n\r\n},\r\n{\r\n  \"seatName\": \"042-A\",\r\n  \"category\": 1,\r\n  \"idAircraft\": {\"idAircraft\": 1}\r\n\r\n},\r\n{\r\n  \"seatName\": \"043-A\",\r\n  \"category\": 2,\r\n  \"idAircraft\": {\"idAircraft\": 1}\r\n\r\n}],\r\n  \"cargoWeight\": 200\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/aircrafts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"aircrafts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/aircrafts/1/ativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"aircrafts",
+								"1",
+								"ativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/aircrafts/1/inativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"aircrafts",
+								"1",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AIRLINE",
+			"item": [
+				{
+					"name": "GETALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airlines",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airlines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETBYID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airlines/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airlines",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idAdress\": 2389,\r\n  \"companyName\": \"American Airlines\",\r\n  \"numReg\": \"14567890321\",\r\n  \"phone\": \"2123456789\",\r\n  \"email\": \"info@aa.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airlines/1/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airlines",
+								"1",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airlines/1/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airlines",
+								"1",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n  \"companyName\": \"American Airli545nes\",\r\n  \"numReg\": \"14567854590321\",\r\n  \"phone\": \"2123456789\",\r\n  \"email\": \"info@aa.com\",\r\n\r\n  \"idAddress\": {\r\n        \"street\": \"Rua 123\",\r\n        \"number\": \"623\",\r\n        \"addInfo\": \"Glória\",\r\n        \"city\": \"Rio de Janeiro\",\r\n        \"state\": \"Rio de Janeiro\",\r\n        \"stateCode\": \"RJ\",\r\n        \"zipCode\": \"20825-410\",\r\n        \"country\": \"Brasil\",\r\n        \"ativo\": true\r\n        }\r\n        \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airlines",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airlines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airlines/1/ativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airlines",
+								"1",
+								"ativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airlines/1/inativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airlines",
+								"1",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AIRPORT",
+			"item": [
+				{
+					"name": "GETALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETBYID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airports/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airports",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"12\",\r\n  \"idAdress\": 674649,\r\n  \"name\": \"2hdfhdf\",\r\n  \"iataCode\": \"hdfhdfh\",\r\n  \"phone\": \"+55213004-6050\",\r\n  \"email\": \"galeao.aeroporto@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airports/1/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airports",
+								"1",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airports/12/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airports",
+								"12",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n  \"name\": \"SANTOS DUMMONT\",\r\n  \"iataCode\": \"SDU\",\r\n  \"phone\": \"+55213004-6050\",\r\n  \"email\": \"santosdummont.aeroporto@gmail.com\",\r\n\"idAddress\": {\r\n        \"street\": \"Rua 123\",\r\n        \"number\": \"623\",\r\n        \"addInfo\": \"Glória\",\r\n        \"city\": \"Rio de Janeiro\",\r\n        \"state\": \"Rio de Janeiro\",\r\n        \"stateCode\": \"RJ\",\r\n        \"zipCode\": \"20825-410\",\r\n        \"country\": \"Brasil\",\r\n        \"ativo\": true\r\n        }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airports/1/ativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airports",
+								"1",
+								"ativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/airports/1/inativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"airports",
+								"1",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CLIENT",
+			"item": [
+				{
+					"name": "GETALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETBYID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"12\",\r\n  \"userName\": \"carlos87489756\",\r\n  \"name\": \"Carlos\",\r\n  \"lastName\": \" Gomes da Silva\",\r\n  \"numReg\": \"142546854-7 SSP-SC\",\r\n  \"phone\": \"+5522978652616\",\r\n  \"email\": \"carlos123@gmail.com\",\r\n  \"adress\": \"Rua 123, centro Joinvile-SC\",\r\n  \"birthday\": \"1978-10-15\",\r\n  \"ativo\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients/1/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"clients",
+								"1",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients/1/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"clients",
+								"1",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"carlos14446\",\r\n  \"name\": \"Carlos\",\r\n  \"lastName\": \"da Silva\",\r\n  \"numReg\": \"146544447-7 SSP-SC\",\r\n  \"phone\": \"+5522978652616\",\r\n  \"email\": \"carlos41144@gmail.com\",\r\n  \"password\": \"65959\",\r\n  \"idAddress\": {  \r\n        \"street\": \"Av. Washington Luis\",\r\n        \"number\": 623,\r\n        \"addInfo\": \"Vila Congonhas\",\r\n        \"city\": \"São Paulo\",\r\n        \"state\": \"São Paulo\",\r\n        \"stateCode\": \"SP\",\r\n        \"zipCode\": \"04626-911\",\r\n        \"country\": \"Brasil\", \r\n        \"ativo\": true\r\n},\r\n  \"birthdate\": \"1978-10-15\"  \r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients/1/ativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"clients",
+								"1",
+								"ativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/clients/1/inativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"clients",
+								"1",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FLIGHT",
+			"item": [
+				{
+					"name": "GETALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETBYID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"12\",\r\n\"idAircraft\": 3125,\r\n\"idAirline\": 101,\r\n\"departurePlace\": 2, \r\n\"arrivalPlace\": 4,\r\n\"departureTime\": \"7:15\",\r\n\"arrivalTime\": \"14:50\",\r\n\"date\": \"17/03/2023\",\r\n\"numPassengers\": 10\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights/1/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights",
+								"1",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights/1/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights",
+								"1",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"idAircraft\": 3125,\r\n\"idAirline\": 101,\r\n\"departurePlace\": 2, \r\n\"arrivalPlace\": 4,\r\n\"departureTime\": \"7:15\",\r\n\"arrivalTime\": \"14:50\",\r\n\"date\": \"17/03/2023\",\r\n\"numPassengers\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights/1/ativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights",
+								"1",
+								"ativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/flights/1/inativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"flights",
+								"1",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SEAT",
+			"item": [
+				{
+					"name": "GETALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/seats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"seats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETBYID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/seats/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"seats",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"seatName\": \"401-A\",\r\n  \"category\": 2,\r\n  \"idAircraft\": {\r\n      \"idAircraft\": 1, \r\n      \"numSerie\": \"0102\"}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/seats/14/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"seats",
+								"14",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/seats/1/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"seats",
+								"1",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"seatName\": \"100-A\",\r\n  \"category\": 2\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/seats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"seats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/seats/2/ativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"seats",
+								"2",
+								"ativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/seats/1/inativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"seats",
+								"1",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TICKET",
+			"item": [
+				{
+					"name": "GETALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETBYID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tickets/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"12\",\r\n\"idClient\": 44456,\r\n\"idFlight\": 12345,\r\n\"idSeat\": \"079-B\",\r\n\"category\": 0,\r\n\"luggageAmount\": 2,\r\n\"luggageWeight\": 22,\r\n\"date\": \"07/07/2023\",\r\n\"ticketPrice\": 99.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tickets/1/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"1",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tickets/1/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"1",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"idClient\": 44456,\r\n\"idFlight\": 12345,\r\n\"idSeat\": \"079-B\",\r\n\"category\": 0,\r\n\"luggageAmount\": 2,\r\n\"luggageWeight\": 22,\r\n\"date\": \"07/07/2023\",\r\n\"ticketPrice\": 99.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tickets/1/ativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"1",
+								"ativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INATIVAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tickets/1/inativar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"1",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
