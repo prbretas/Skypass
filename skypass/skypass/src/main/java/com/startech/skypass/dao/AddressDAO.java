@@ -57,7 +57,7 @@ public class AddressDAO {
                 .zipCode(zipCode)
                 .country(country)
                 .idAddress(idAddress)
-                .ativo(ativar())
+                .ativo(ativo)
                 .build();
     }
 
@@ -67,6 +67,8 @@ public class AddressDAO {
     public boolean inativar(){
         return this.ativo = false;
     }
+
+
 
 
 }

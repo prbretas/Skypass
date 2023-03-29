@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/addresses")
+@RequestMapping("/api/v1/addresses")
 public class AddressController {
 
     //--------------------------------------- |ADDRESS| -----------------------------------------------------
@@ -29,6 +29,7 @@ public class AddressController {
     public ResponseEntity<AddressDTO> addAddress(@RequestBody @Valid AddressDTO ad) {
         AddressDAO addressPersisted = addressRepository.save(ad.toDAO());
         String tamanhoLista = String.valueOf(addressRepository.findAll().size());
+        ad.ativar();
         System.out.println("\nEndereço Cadastrado com SUCESSO!" + " - Quantidade de Endereços: " + tamanhoLista);
         System.out.println(addressPersisted.toString());
         ad.getFullAddress();
@@ -70,7 +71,7 @@ public class AddressController {
 
 
     @PostMapping("/{id}/ativar")
-    public void ativar(Long id) {
+    public void ativar(@PathVariable("id") Long id) {
         addressRepository.findById(id).ifPresent(address -> {
             address.ativar();
             addressRepository.save(address);
@@ -78,7 +79,7 @@ public class AddressController {
     }
 
     @PostMapping("/{id}/inativar")
-    public void inativar(Long id) {
+    public void inativar(@PathVariable("id") Long id) {
         addressRepository.findById(id).ifPresent(address -> {
             address.inativar();
             addressRepository.save(address);

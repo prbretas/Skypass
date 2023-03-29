@@ -17,14 +17,12 @@ import lombok.*;
 public class FlightDAO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFlight;
     private Long idAircraft ;//(fk_Aeronave_flight)
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Departure_Airport")
     private AirportDAO idAirportDeparture;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Arrival_Airport")
     private AirportDAO idAirportArrival;  //Fk_Airport_Flight
@@ -53,14 +51,14 @@ public class FlightDAO {
     public FlightDTO toDTO (){
         return FlightDTO.builder()
                 .idFlight(idFlight)
-                .idAircraft(idAircraft)
-                .idAirportDeparture(idAirportDeparture)
-                .idAirportArrival(idAirportArrival)
                 .departureTime(departureTime)
                 .arrivalTime(arrivalTime)
                 .date(date)
                 .numPassengers(numPassengers)
-                .ativo(ativar())
+                .idAircraft(idAircraft)
+                .idAirportDeparture(idAirportDeparture)
+                .idAirportArrival(idAirportArrival)
+                .ativo(ativo)
                 .build();
     }
 

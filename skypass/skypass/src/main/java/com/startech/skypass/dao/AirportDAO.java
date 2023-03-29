@@ -17,17 +17,18 @@ import lombok.*;
 public class AirportDAO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAirport;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idAddress")
-    private AddressDAO idAddress; // fk_Endereço_ Airport
     @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false, unique = true)
     private String iataCode;
     private String phone;
     private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idAddress")
+    private AddressDAO idAddress; // fk_Endereço_ Airport
     private boolean ativo;
 
     @Override
@@ -47,11 +48,11 @@ public class AirportDAO {
     public AirportDTO toDTO (){
         return AirportDTO.builder()
                 .idAirport(idAirport)
-                .idAddress(idAddress)
                 .name(name)
                 .iataCode(iataCode)
                 .phone(phone)
                 .email(email)
+                .idAddress(idAddress)
                 .ativo(ativo)
                 .build();
     }

@@ -14,13 +14,16 @@ public class AirportDTO {
 
     private Long idAirport;
 
-    private AddressDAO idAddress; // fk_Endereço_ Airport
     private String name;
     private String iataCode;
     private String phone;
     @Email
     private String email;
+
+    private AddressDAO idAddress; // fk_Endereço_ Airport
+
     private boolean ativo;
+
 
 
     @Override
@@ -40,11 +43,11 @@ public class AirportDTO {
         return AirportDAO.
                 builder()
                 .idAirport(idAirport)
-                .idAddress(idAddress)
                 .name(name)
                 .iataCode(iataCode)
                 .phone(phone)
                 .email(email)
+                .idAddress(idAddress)
                 .ativo(ativar())
                 .build();
     }

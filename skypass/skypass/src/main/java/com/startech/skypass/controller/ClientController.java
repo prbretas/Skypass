@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/api/v1/clients")
 public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
@@ -67,7 +67,7 @@ public class ClientController {
     }
 
     @PostMapping("/{id}/ativar")
-    public void ativar(Long id) {
+    public void ativar(@PathVariable("id") Long id) {
         clientRepository.findById(id).ifPresent(client -> {
             client.ativar();
             clientRepository.save(client);
@@ -76,7 +76,7 @@ public class ClientController {
 
 
     @PostMapping("/{id}/inativar")
-    public void inativar(Long id) {
+    public void inativar(@PathVariable("id") Long id) {
         clientRepository.findById(id).ifPresent(client -> {
             client.inativar();
             clientRepository.save(client);

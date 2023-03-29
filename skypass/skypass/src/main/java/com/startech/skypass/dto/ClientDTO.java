@@ -14,7 +14,6 @@ import lombok.*;
 @Setter
 public class ClientDTO {
 
-
     private Long idClient;
     @NotBlank
     private String userName;
@@ -27,8 +26,8 @@ public class ClientDTO {
     @Email
     private String email;
     private String password;
-    private AddressDAO idAddress; //fk_ADRESS_CLIENT
     private String birthdate;
+    private AddressDAO idAddress; //fk_ADRESS_CLIENT
     private boolean ativo;
 
     @Override
@@ -59,8 +58,8 @@ public class ClientDTO {
                 .phone(phone)
                 .email(email)
                 .password(password)
-                .idAddress(idAddress)
                 .birthdate(birthdate)
+                .idAddress(idAddress)
                 .ativo(ativar())
                 .build();
     }
@@ -71,5 +70,7 @@ public class ClientDTO {
     public boolean inativar(){
         return this.ativo = false;
     }
+
+
 
 }

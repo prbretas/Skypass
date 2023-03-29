@@ -2,6 +2,7 @@ package com.startech.skypass.dao;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.startech.skypass.dto.SeatDTO;
@@ -28,7 +29,7 @@ import java.util.List;
 public class SeatDAO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSeat;
     @Column(nullable = false, unique = true)
     private String seatName;
@@ -37,8 +38,8 @@ public class SeatDAO {
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "idAircraft")
+    @JsonIgnore
     private AircraftDAO idAircraft;
-
 
     private boolean ativo;
 
@@ -59,7 +60,7 @@ public class SeatDAO {
                 .seatName(seatName)
                 .category(category)
                 .idAircraft(idAircraft)
-                .ativo(ativar())
+                .ativo(ativo)
                 .build();
     }
     public boolean ativar() {

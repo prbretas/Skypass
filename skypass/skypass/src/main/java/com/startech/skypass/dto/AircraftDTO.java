@@ -14,14 +14,17 @@ import java.util.List;
 public class AircraftDTO {
 
     private Long idAircraft;
-    private Long idAirline;//(fk_Airline_Aircraft)
     private String model;
     private String numSerie;
     private String infoSystem;
     private String latitude;
     private String longitude;
-    private List<SeatDAO> seats;
+
     private double cargoWeight;
+
+    private Long idAirline;//(fk_Airline_Aircraft)
+    private List<SeatDAO> seats;
+
     private boolean ativo;
 
 
@@ -46,14 +49,14 @@ public class AircraftDTO {
         return AircraftDAO.
                 builder()
                 .idAircraft(idAircraft)
-                .idAirline(idAirline)
                 .model(model)
                 .numSerie(numSerie)
                 .infoSystem(infoSystem)
                 .latitude(latitude)
                 .longitude(longitude)
-                .seats(seats)
                 .cargoWeight(cargoWeight)
+                .idAirline(idAirline)
+                .seats(seats)
                 .ativo(ativar())
                 .build();
     }

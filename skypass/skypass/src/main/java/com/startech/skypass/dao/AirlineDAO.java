@@ -17,17 +17,16 @@ import lombok.*;
         property = "idAirline")
 public class AirlineDAO {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAirline;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idAddress")
-    private AddressDAO idAddress; // fk_Adress_Airline
     private String companyName;
     @Column(nullable = false, unique = true)
     private String numReg;
     private String phone;
     private String email;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idAddress")
+    private AddressDAO idAddress; // fk_Adress_Airline
     private boolean ativo;
 
     @Override

@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/tickets")
+@RequestMapping("/api/v1/tickets")
 public class TicketController {
 
     //--------------------------------------- |TICKETS| -----------------------------------------------------
@@ -62,14 +62,13 @@ public class TicketController {
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<TicketDTO> deleteTicketById(@PathVariable("id") Long id) {
         TicketDAO ticket = new TicketDAO();
-        ticket.inativar(); //--------------------- INATIVAR
         ticket.setIdTicket(id);
         ticketRepository.delete(ticket);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{id}/ativar")
-    public void ativar(Long id) {
+    public void ativar(@PathVariable("id") Long id) {
         ticketRepository.findById(id).ifPresent(ticket -> {
             ticket.ativar();
             ticketRepository.save(ticket);
@@ -77,7 +76,7 @@ public class TicketController {
     }
 
     @PostMapping("/{id}/inativar")
-    public void inativar(Long id) {
+    public void inativar(@PathVariable("id") Long id) {
         ticketRepository.findById(id).ifPresent(ticket -> {
             ticket.inativar();
             ticketRepository.save(ticket);

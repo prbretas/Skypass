@@ -15,13 +15,14 @@ import lombok.*;
 public class FlightDTO {
 
     private Long idFlight;
-    private Long idAircraft ;//(fk_Aeronave_flight)
-    private AirportDAO idAirportDeparture;
-    private AirportDAO idAirportArrival;  //Fk_Airport_Flight
     private String departureTime;
     private String arrivalTime;
     private String date;
     private int numPassengers; // é quantidade de TICKETS TRUE DO FLIGHT
+
+    private Long idAircraft ;//(fk_Aeronave_flight)
+    private AirportDAO idAirportDeparture;  //Fk_Airport_Flight
+    private AirportDAO idAirportArrival;  //Fk_Airport_Flight
     private boolean ativo;
 
     @Override
@@ -51,13 +52,13 @@ public class FlightDTO {
         return FlightDAO.
                 builder()
                 .idFlight(idFlight)
-                .idAircraft(idAircraft)
-                .idAirportDeparture(idAirportDeparture)
-                .idAirportArrival(idAirportArrival)
                 .departureTime(departureTime)
                 .arrivalTime(arrivalTime)
                 .date(date)
                 .numPassengers(numPassengers)
+                .idAircraft(idAircraft)
+                .idAirportDeparture(idAirportDeparture)
+                .idAirportArrival(idAirportArrival)
                 .ativo(ativar())
                 .build();
     }

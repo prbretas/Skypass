@@ -18,12 +18,8 @@ import lombok.*;
 public class TicketDAO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTicket;
-    private Long idClient; //(fk_Client_Ticket)
-    private Long idFlight; //(fk_Flight_Ticket)
-    @Column(nullable = false, unique = true)
-    private String idSeat;
     @Enumerated(EnumType.STRING)
     private Category category;
     @Column(name = "lug_amount")
@@ -33,6 +29,11 @@ public class TicketDAO {
     private String date;
 
     private double ticketPrice;
+
+    private Long idClient; //(fk_Client_Ticket)
+    private Long idFlight; //(fk_Flight_Ticket)
+    @Column(nullable = false, unique = true)
+    private String idSeat; //(fk_Seat_Ticket)
     private boolean ativo;
 
     @Override
@@ -53,15 +54,14 @@ public class TicketDAO {
     public TicketDTO toDTO (){
         return TicketDTO.builder()
                 .idTicket(idTicket)
-                .idClient(idClient)
-                .idFlight(idFlight)
-                .idSeat(idSeat)
                 .category(category)
                 .luggageAmount(luggageAmount)
                 .luggageWeight(luggageWeight)
                 .date(date)
                 .ticketPrice(ticketPrice)
-                .ativo(ativar())
+                .idClient(idClient)
+                .idFlight(idFlight)
+                .idSeat(idSeat)
                 .ativo(ativo)
                 .build();
     }

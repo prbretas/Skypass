@@ -31,10 +31,11 @@ public class ClientDAO {
     @Column(nullable = false, unique = true)
     private String email;
     private String password;
-    @OneToOne(cascade = CascadeType.ALL)
+    private String birthdate;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idAddress")
     private AddressDAO idAddress;
-    private String birthdate;
     private boolean ativo;
 
     @Override
@@ -64,8 +65,8 @@ public class ClientDAO {
                 .phone(phone)
                 .email(email)
                 .password(password)
-                .idAddress(idAddress)
                 .birthdate(birthdate)
+                .idAddress(idAddress)
                 .ativo(ativo)
                 .build();
     }

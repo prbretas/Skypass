@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/airlines")
+@RequestMapping("/api/v1/airlines")
 public class AirlineController {
     //--------------------------------------|AIRLINE|------------------------------------------------------
     @Autowired
@@ -67,7 +67,7 @@ public class AirlineController {
     }
 
     @PostMapping("/{id}/ativar")
-    public void ativar(Long id) {
+    public void ativar(@PathVariable("id") Long id) {
         airlineRepository.findById(id).ifPresent(airline -> {
             airline.ativar();
             airlineRepository.save(airline);
@@ -75,7 +75,7 @@ public class AirlineController {
     }
 
     @PostMapping("/{id}/inativar")
-    public void inativar(Long id) {
+    public void inativar(@PathVariable("id") Long id) {
         airlineRepository.findById(id).ifPresent(airline -> {
             airline.inativar();
             airlineRepository.save(airline);

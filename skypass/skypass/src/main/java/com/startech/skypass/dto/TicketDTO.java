@@ -16,14 +16,15 @@ import lombok.*;
 public class TicketDTO {
 
     private Long idTicket;
-    private Long idClient; //(fk_Client_Ticket)
-    private Long idFlight; //(fk_Flight_Ticket)
-    private String idSeat;
     private Category category; //( ECONOMICA/ EXECUTIVA/ PRIMEIRA_CLASSE)
     private int luggageAmount;
     private double luggageWeight;
     private String date;
     private double ticketPrice;
+
+    private Long idClient; //(fk_Client_Ticket)
+    private Long idFlight; //(fk_Flight_Ticket)
+    private String idSeat; // (fk_Seat_Ticket)
     private boolean ativo;
 
     @Override
@@ -46,14 +47,14 @@ public class TicketDTO {
         return TicketDAO.
                 builder()
                 .idTicket(idTicket)
-                .idClient(idClient)
-                .idFlight(idFlight)
-                .idSeat(idSeat)
                 .category(category)
                 .luggageAmount(luggageAmount)
                 .luggageWeight(luggageWeight)
                 .date(date)
                 .ticketPrice(ticketPrice)
+                .idClient(idClient)
+                .idFlight(idFlight)
+                .idSeat(idSeat)
                 .ativo(ativar())
                 .build();
     }

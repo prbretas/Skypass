@@ -11,12 +11,11 @@ import lombok.*;
 @Setter
 public class AirlineDTO {
     private Long idAirline;
-
-    private AddressDAO idAddress; // fk_Adress_Airline
     private String companyName;
     private String numReg;
     private String phone;
     private String email;
+    private AddressDAO idAddress; // fk_Adress_Airline
     private boolean ativo;
 
     @Override

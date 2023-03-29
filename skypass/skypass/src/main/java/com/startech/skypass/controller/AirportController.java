@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/airports")
+@RequestMapping("/api/v1/airports")
 public class AirportController {
 
     //--------------------------------------- |AIRPORT| -----------------------------------------------------
@@ -68,7 +68,7 @@ public class AirportController {
     }
 
     @PostMapping("/{id}/ativar")
-    public void ativarAirport(Long id) {
+    public void ativarAirport(@PathVariable("id") Long id) {
         airportRepository.findById(id).ifPresent(airport -> {
             airport.ativar();
             airportRepository.save(airport);
@@ -76,7 +76,7 @@ public class AirportController {
     }
 
     @PostMapping("/{id}/inativar")
-    public void inativarAirport(Long id) {
+    public void inativarAirport(@PathVariable("id") Long id) {
         airportRepository.findById(id).ifPresent(airport -> {
             airport.inativar();
             airportRepository.save(airport);

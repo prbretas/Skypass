@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/seats")
+@RequestMapping("/api/v1/seats")
 public class SeatController {
     @Autowired
     private SeatRepository seatRepository;
@@ -68,6 +68,23 @@ public class SeatController {
         seat.setIdSeat(id);
         seatRepository.delete(seat);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @PostMapping("/{id}/ativar")
+    public void ativar(@PathVariable("id") Long id) {
+        seatRepository.findById(id).ifPresent(seat -> {
+            seat.ativar();
+            seatRepository.save(seat);
+        });
+    }
+
+    @PostMapping("/{id}/inativar")
+    public void inativar(@PathVariable("id") Long id) {
+        seatRepository.findById(id).ifPresent(seat -> {
+            seat.inativar();
+            seatRepository.save(seat);
+        });
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

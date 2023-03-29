@@ -20,9 +20,8 @@ import java.util.List;
 public class AircraftDAO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAircraft;
-    private Long idAirline;//(fk_Airline_Aircraft)
     private String model;
     @Column(nullable = false, unique = true)
     private String numSerie;
@@ -30,33 +29,28 @@ public class AircraftDAO {
     private String latitude;
     private String longitude;
 
+    private double cargoWeight;
+
+    private Long idAirline;//(fk_Airline_Aircraft)
     @OneToMany(mappedBy = "idAircraft", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<SeatDAO> seats;
 
-  /*  @Column(name = "Exe_Seats")
-    private int numExecutiveSeats;
-    @Column(name = "FC_Seats")
-    private int numFirstClassSeats;*/
-    private double cargoWeight;
+
     private boolean ativo;
 
     @Override
     public String toString() {
         return "\nAircraft{" +
                 "\nid=" + getIdAircraft() +
-                "\nidAirline=" + getIdAirline() +
                 "\nmodel='" + getModel() +
                 "\nnumSerie='" + getNumSerie() +
                 "\ninfoSystem='" + getInfoSystem() +
                 "\nlatitude='" + getLatitude() +
                 "\nlongitude='" + getLongitude() +
-                "\nidSeats='" + getSeats() +
-          /*
-                "\nnumEconomicSeats=" + getEcoSeats() +
-                "\nnumExecutiveSeats=" + getNumExecutiveSeats() +
-                "\nnumFirstClassSeats=" + getNumFirstClassSeats() +*/
                 "\ncargoWeight=" + getCargoWeight() +
+                "\nidAirline=" + getIdAirline() +
+                "\nseats='" + getSeats() +
                 "\nativo=" + ativo +
                 "\n}";
     }
@@ -88,15 +82,15 @@ public class AircraftDAO {
     public AircraftDTO toDTO (){
         return AircraftDTO.builder()
                 .idAircraft(idAircraft)
-                .idAirline(idAirline)
                 .model(model)
                 .numSerie(numSerie)
                 .infoSystem(infoSystem)
                 .latitude(latitude)
                 .longitude(longitude)
-                .seats(seats)
                 .cargoWeight(cargoWeight)
-                .ativo(ativar())
+                .idAirline(idAirline)
+                .seats(seats)
+                .ativo(ativo)
                 .build();
     }
 
