@@ -2,7 +2,7 @@
 Projeto Final START&lt;tech&gt;
 <br>
 
-<img src="airport terminal.gif" width="300px" height="300px">
+<img src="airport terminal-pana.png" width="300px" height="300px">
 
 SKYPASS Flights® - Aplicação utilizando como modelo um sistema de passagens aéreas
 <br><br>
