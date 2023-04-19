@@ -2,11 +2,6 @@
 Projeto Final START&lt;tech&gt;
 <br>
 
-
-<a href="https://storyset.com/people">People illustrations by Storyset</a>
-
-
-
 SKYPASS Flights® - Aplicação utilizando como modelo um sistema de passagens aéreas
 <br><br>
 Descrição:
