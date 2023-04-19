@@ -1,6 +1,4 @@
-
 <img src="airport terminal-pana.png" width="300px" height="300px">
-
 # Skypass Flights
 Projeto Final START&lt;tech&gt;
 <br>
